@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Результаты — Школа продаж ДАМИР ГРУПП</title>
+  <link rel="stylesheet" href="assets/css/school.css" />
+</head>
+<body>
+
+  <header class="head">
+    <div class="container head__inner">
+      <a href="index.html" class="brand">
+        <img src="assets/logo-light.png" alt="ДАМИР ГРУПП" />
+        <span>Школа продаж</span>
+      </a>
+      <nav class="topnav">
+        <a href="index.html">База</a>
+        <a href="cold.html">Холодные</a>
+        <a href="warm.html">Тёплые</a>
+        <a href="hot.html">Горячие</a>
+        <a href="assortment.html">Ассортимент</a>
+        <a href="script-flow.html">Скрипт-дерево</a>
+        <a href="results.html" class="active">Результаты</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero__inner">
+        <div>
+          <div class="hero__kicker">Сводка обучения</div>
+          <h1>Результаты обучения</h1>
+          <p>Все тесты, пройденные в этой школе на этом устройстве, собираются в таблицу ниже. Экспортируйте в Excel (CSV) или JSON, чтобы передать руководителю.</p>
+        </div>
+        <div class="hero__badge">Тесты<br />собираются здесь</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div id="resultsHost"></div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="container foot__inner">
+      <div><img src="assets/logo-light.png" alt="ДАМИР ГРУПП" /></div>
+      <div>Школа продаж · результаты обучения</div>
+      <div><a href="mailto:damirgrupp@mail.ru">damirgrupp@mail.ru</a> · +7 (495) 363-71-60</div>
+    </div>
+  </footer>
+
+  <script src="assets/js/school.js"></script>
+  <script>DG.renderResultsTable("resultsHost");</script>
+
+</body>
+</html>
