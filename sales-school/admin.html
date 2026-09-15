@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Админ-панель — Школа продаж ДАМИР ГРУПП</title>
+  <link rel="stylesheet" href="assets/css/school.css" />
+  <style>
+    .admin-tools { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 18px; max-width: 1000px; margin-left: auto; margin-right: auto; }
+    .admin-tools input { padding: 10px 14px; border: 1.5px solid var(--border, #dfe5df); border-radius: 10px; font-size: 15px; min-width: 260px; }
+    .admin-tools input:focus { outline: none; border-color: var(--green); }
+    .admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; max-width: 1000px; margin: 0 auto 22px; }
+    .admin-stat { background: var(--white); border-radius: 14px; box-shadow: var(--shadow); padding: 16px 18px; text-align: center; }
+    .admin-stat b { display: block; font-size: 26px; color: var(--green-dark); }
+    .admin-stat span { font-size: 13px; color: var(--gray); }
+    .admin-status { text-align: center; max-width: 1000px; margin: 0 auto 18px; padding: 14px; border-radius: 12px; font-size: 14.5px; }
+    .admin-status.warn { background: #fdf3db; color: #926700; }
+    .admin-status.err { background: #fbeae8; color: #922b21; }
+    .admin-table { max-width: 1000px; margin: 0 auto; }
+    .admin-table table { width: 100%; }
+    .ad-verdict { font-weight: 800; }
+    .ad-verdict.ok { color: var(--green-dark); }
+    .ad-verdict.bad { color: #b03a2e; }
+    details.res__detail { max-width: 960px; }
+  </style>
+</head>
+<body>
+
+  <header class="head">
+    <div class="container head__inner">
+      <a href="index.html" class="brand">
+        <img src="assets/logo-light.png" alt="ДАМИР ГРУПП" />
+        <span>Школа продаж</span>
+      </a>
+      <nav class="topnav">
+        <a href="index.html">База</a>
+        <a href="cold.html">Холодные</a>
+        <a href="warm.html">Тёплые</a>
+        <a href="hot.html">Горячие</a>
+        <a href="assortment.html">Ассортимент</a>
+        <a href="script-flow.html">Скрипт-дерево</a>
+        <a href="admin.html" class="active">Админ</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero__inner">
+        <div>
+          <div class="hero__kicker">Для руководителя</div>
+          <h1>Онлайн-результаты тестирования</h1>
+          <p>Живая сводка со всех устройств, где проходили тесты школы продаж. Данные приходят напрямую с сервера (Google Таблицы + Apps Script). Открыта по ссылке — без логина и паролей.</p>
+        </div>
+        <div class="hero__badge">режим онлайн<br />обновление по кнопке</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="admin-tools">
+        <input type="text" id="adSearch" placeholder="Поиск: имя, телефон, email, тест…" />
+        <button class="btn" type="button" id="adRefresh">Обновить данные</button>
+        <button class="btn btn--light" type="button" id="adCsv">Экспорт CSV</button>
+      </div>
+      <div id="adStatus"></div>
+      <div id="adStats"></div>
+      <div id="adTable"></div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="container foot__inner">
+      <div><img src="assets/logo-light.png" alt="ДАМИР ГРУПП" /></div>
+      <div>Школа продаж · панель руководителя</div>
+      <div><a href="mailto:damirgrupp@mail.ru">damirgrupp@mail.ru</a> · +7 (495) 363-71-60</div>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="assets/js/school.js"></script>
+  <script>
+    DG.renderAdmin = function () {
+      var statusEl = document.getElementById("adStatus");
+      var statsEl = document.getElementById("adStats");
+      var tableEl = document.getElementById("adTable");
+      var data = [];
+
+      function showStatus(text, cls) {
+        statusEl.textContent = text;
+        statusEl.className = "admin-status " + (cls || "");
+      }
+
+      function renderStats() {
+        var byQuiz = {}, passed = 0, total = data.length;
+        data.forEach(function (r) {
+          byQuiz[r.quiz] = (byQuiz[r.quiz] || 0) + 1;
+          if (r.passed) passed++;
+        });
+        var html = '<div class="admin-stats">';
+        html += '<div class="admin-stat"><b>' + total + '</b><span>попыток</span></div>';
+        html += '<div class="admin-stat"><b>' + passed + '</b><span>сдано (≥70%)</span></div>';
+        html += '<div class="admin-stat"><b>' + (total - passed) + '</b><span>не сдано</span></div>';
+        for (var q in byQuiz) {
+          html += '<div class="admin-stat"><b>' + byQuiz[q] + '</b><span>' + DG.escapeHtml(q) + '</span></div>';
+        }
+        html += '</div>';
+        statsEl.innerHTML = html;
+      }
+
+      function renderTable() {
+        var q = (document.getElementById("adSearch").value || "").toLowerCase().trim();
+        var rows = data.filter(function (r) {
+          if (!q) return true;
+          var hay = [r.name, r.phone, r.email, r.quiz, r.date].join(" ").toLowerCase();
+          return hay.indexOf(q) >= 0;
+        });
+
+        if (!data.length) {
+          tableEl.innerHTML = '<div class="res__empty">Нет данных. Данные появятся после того, как кто-то пройдёт тест, а сервер настроен (см. config.js).</div>';
+          return;
+        }
+        if (!rows.length) {
+          tableEl.innerHTML = '<div class="res__empty">По запросу ничего не найдено.</div>';
+          return;
+        }
+
+        var html = '<div class="table-wrap admin-table"><table>';
+        html += '<thead><tr><th>Дата</th><th>Имя</th><th>Телефон</th><th>Пол</th><th>Email</th><th>Тест</th><th>Баллы</th><th>% верных</th><th>Вердикт</th></tr></thead><tbody>';
+
+        rows.forEach(function (r, i) {
+          html += "<tr>";
+          html += "<td>" + DG.escapeHtml(r.date) + "</td>";
+          html += "<td>" + DG.escapeHtml(r.name) + "</td>";
+          html += "<td>" + DG.escapeHtml(r.phone) + "</td>";
+          html += "<td>" + DG.escapeHtml(r.gender) + "</td>";
+          html += "<td>" + DG.escapeHtml(r.email) + "</td>";
+          html += "<td>" + DG.escapeHtml(r.quiz) + "</td>";
+          html += "<td>" + r.score + " / " + r.total + "</td>";
+          html += "<td>" + r.pct + "%</td>";
+          html += "<td class='ad-verdict " + (r.passed ? "ok" : "bad") + "'>" + (r.passed ? "СДАН" : "НЕ СДАН") + "</td>";
+          html += "</tr>";
+          html += '<tr class="ad-detail" id="adD_' + i + '" style="display:none;"><td colspan="9">';
+          html += '<details class="res__detail" open=""><summary>Детализация по вопросам</summary><ul>';
+          (r.answers || []).forEach(function (a) {
+            var chosenText = a.chosen >= 0 && a.options ? a.options[a.chosen] : "(ответ не выбран)";
+            var correctText = a.correct >= 0 && a.options ? a.options[a.correct] : "—";
+            html += '<li class="' + (a.right ? "ok" : "err") + '">';
+            html += "<b>" + DG.escapeHtml(a.q) + "</b>";
+            html += "<br/>Выбранный ответ: " + DG.escapeHtml(chosenText);
+            html += "<br/>Правильный ответ: " + DG.escapeHtml(correctText);
+            html += "<br/>Вывод: <b>" + (a.right ? "верный ответ" : "неверный ответ") + "</b>";
+            html += "</li>";
+          });
+          html += "</ul></details>";
+          html += "<div style='margin-top:10px;'>Неправильных ответов: " + (r.total - r.score) + " из " + r.total +
+                  " (" + (100 - r.pct) + "%). " +
+                  (r.passed ? "<b>Тест сдан</b> — 30% и более верных ответов." :
+                              "<b>Тест не сдан</b> — больше 30% ответов неправильные.") + "</div>";
+          html += "</td></tr>";
+        });
+
+        html += "</tbody></table></div>";
+        tableEl.innerHTML = html;
+
+        rows.forEach(function (r, i) {
+          var tr = document.getElementById("adD_" + i);
+          if (tr) tr.parentNode.insertBefore(document.createTextNode(""), tr);
+        });
+
+        rows.forEach(function (r, i) {
+          (function (idx) {
+            var row = document.querySelectorAll(".admin-table tbody tr")[idx * 2];
+            row.style.cursor = "pointer";
+            row.onclick = function () {
+              var detail = document.getElementById("adD_" + idx);
+              detail.style.display = detail.style.display === "none" ? "" : "none";
+            };
+          })(i);
+        });
+      }
+
+      function load() {
+        showStatus("Загружаем данные с сервера…", "warn");
+        DG.fetchServer({ method: "GET", mode: "cors", redirect: "follow" })
+          .then(function (res) { return res.json(); })
+          .then(function (json) {
+            data = (json && json.data) ? json.data : (json.rows || json || []);
+            showStatus("Данных получено: " + data.length + ". Обновлено " + new Date().toLocaleString("ru-RU"));
+            renderStats();
+            renderTable();
+          })
+          .catch(function () {
+            data = [];
+            statsEl.innerHTML = "";
+            tableEl.innerHTML = "";
+            showStatus("Не удалось получить данные. Убедитесь, что в config.js прописан URL Apps Script и он развёрнут как «Любой пользователь Интернета».", "err");
+          });
+      }
+
+      document.getElementById("adRefresh").onclick = load;
+      document.getElementById("adCsv").onclick = function () {
+        if (!data.length) { alert("Данных для экспорта нет"); return; }
+        var line = function (arr) { return arr.map(DG.csvEscape).join(";") + "\r\n"; };
+        var out = "\uFEFF" + line(["Дата", "Имя", "Телефон", "Пол", "Email", "Тест", "Баллы", "%% верных", "Вердикт"]);
+        data.forEach(function (r) {
+          out += line([r.date, r.name, r.phone, r.gender, r.email, r.quiz, r.score + "/" + r.total, r.pct + "%", r.passed ? "СДАН" : "НЕ СДАН"]);
+        });
+        var blob = new Blob([out], {type: "text/csv;charset=utf-8"});
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "damir-school-admin.csv";
+        a.click();
+        URL.revokeObjectURL(a.href);
+      };
+
+      document.getElementById("adSearch").addEventListener("input", renderTable);
+      load();
+    };
+
+    DG.renderAdmin();
+  </script>
+
+</body>
+</html>

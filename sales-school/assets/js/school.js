@@ -1,6 +1,10 @@
+var _dgcfg = window.DG || {};
+
 var DG = {
+  _cfg: _dgcfg,
 
   KEY: "dg_school_v1",
+  PENDING_KEY: "dg_school_pending_v1",
 
   getData: function () {
     try { return JSON.parse(localStorage.getItem(DG.KEY)) || {profile: null, results: []}; }
@@ -15,6 +19,74 @@ var DG = {
     var d = DG.getData(); d.profile = p; DG.saveData(d);
   },
 
+  hasServer: function () {
+    return DG._cfg.ENDPOINT && DG._cfg.ENDPOINT.indexOf("script.google.com") >= 0;
+  },
+
+  fetchServer: function (opts) {
+    if (!DG.hasServer()) {
+      if (opts && opts.error) opts.error(new Error("no server"));
+      return;
+    }
+    return fetch(DG._cfg.ENDPOINT, opts);
+  },
+
+  sendToServer: function (r) {
+    if (!DG.hasServer()) return;
+    var body = JSON.stringify({
+      type: "school_result",
+      ts: r.ts,
+      date: r.date,
+      name: r.name, phone: r.phone, gender: r.gender, email: r.email,
+      quiz: r.quiz, score: r.score, total: r.total, pct: r.pct, passed: r.passed,
+      wrong: (r.total || 0) - (r.score || 0),
+      answers: r.answers || []
+    });
+    var payload = {
+      method: "POST",
+      mode: "cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: body
+    };
+    DG.fetchServer(payload).then(function (res) {
+      if (res.ok) DG.removePending(r.ts);
+      else DG.keepPending(r.ts, body, payload);
+    }).catch(function () {
+      DG.keepPending(r.ts, body, payload);
+    });
+  },
+
+  getPending: function () {
+    try { return JSON.parse(localStorage.getItem(DG.PENDING_KEY)) || []; }
+    catch (e) { return []; }
+  },
+  savePending: function (list) { localStorage.setItem(DG.PENDING_KEY, JSON.stringify(list)); },
+
+  removePending: function (ts) {
+    var list = DG.getPending().filter(function (p) { return p.ts !== ts; });
+    DG.savePending(list);
+  },
+  keepPending: function (ts, body, payload) {
+    var list = DG.getPending().filter(function (p) { return p.ts !== ts; });
+    list.push({ ts: ts, body: body, payload: payload });
+    DG.savePending(list);
+  },
+
+  sendPending: function () {
+    if (!DG.hasServer()) return;
+    DG.getPending().slice().forEach(function (p) {
+      var payload = p.payload || {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: p.body
+      };
+      DG.fetchServer(payload).then(function (res) {
+        if (res.ok) DG.removePending(p.ts);
+      }).catch(function () {});
+    });
+  },
+
   addResult: function (r) {
     var d = DG.getData();
     r.ts = Date.now();
@@ -25,6 +97,7 @@ var DG = {
     }
     d.results.push(r);
     DG.saveData(d);
+    DG.sendToServer(r);
   },
 
   clearResults: function () { var d = DG.getData(); d.results = []; DG.saveData(d); },
@@ -157,7 +230,7 @@ var DG = {
         q.options.forEach(function (o, oi) {
           var el = document.getElementById("qo_" + qi + "_" + oi);
           el.classList.remove("is-right", "is-wrong");
-          if (oi === q.correct) el.classList.add("is-right");
+          if (oi === chosen && isRight) el.classList.add("is-right");
           if (oi === chosen && !isRight) el.classList.add("is-wrong");
         });
 
@@ -166,22 +239,23 @@ var DG = {
         expl.className = "quiz__expl " + (isRight ? "good" : "bad");
         expl.innerHTML = (isRight ? "✅ " + DG.QUIZ_WORDS.ok : "❌ " + DG.QUIZ_WORDS.bad +
           (chosen >= 0 ? " («" + DG.escapeHtml(q.options[chosen]) + "»)" : " — ответ не выбран") +
-          ". " + DG.QUIZ_WORDS.correct + ": «" + DG.escapeHtml(q.options[q.correct]) + "».") +
-          (q.expl ? "<br/>" + DG.escapeHtml(q.expl) : "");
+          ".") + (q.expl ? "<br/><b>Как правильно:</b> " + DG.escapeHtml(q.expl) : "");
 
-        rows.push({ qi: qi, q: q.q, chosen: chosen, correct: q.correct, right: isRight });
+        rows.push({ qi: qi, q: q.q, options: q.options, chosen: chosen, correct: q.correct, right: isRight });
       });
 
       var total = quiz.questions.length;
       var pct = Math.round(correct * 100 / total);
+      var wrong = total - correct;
 
       var sum = document.getElementById("quizSummary");
       sum.style.display = "block";
-      var verdict = pct >= (quiz.pass || 70) ? "Тест пройден" : "Нужно повторить раздел";
-      sum.className = "quiz__summary " + (pct >= (quiz.pass || 70) ? "good" : "bad");
+      var passed = pct >= (quiz.pass || 70);
+      var verdict = passed ? "Тест сдан" : "Тест не сдан — неправильных ответов больше 30%";
+      sum.className = "quiz__summary " + (passed ? "good" : "bad");
       sum.innerHTML =
-        "<b>Результат: " + correct + " из " + total + " (" + pct + "%).</b> " + verdict +
-        "<br/><small>Ответили на " + checked + " из " + total + " вопросов.</small>";
+        "<b>Результат: " + correct + " из " + total + " (" + pct + "% правильных).</b> " + verdict +
+        "<br/><small>Неправильных ответов: " + wrong + " (" + Math.round(wrong * 100 / total) + "%). Ответили на " + checked + " из " + total + " вопросов.</small>";
 
       document.getElementById("quizCheck").disabled = true;
       document.getElementById("quizCheck").textContent = "Тест проверен";
@@ -192,7 +266,7 @@ var DG = {
         score: correct,
         total: total,
         pct: pct,
-        passed: pct >= (quiz.pass || 70),
+        passed: passed,
         answers: rows
       });
     };
@@ -287,8 +361,10 @@ var DG = {
         html += "<ul>";
         r.answers.forEach(function (a) {
           var ok = a.right;
+          var chosenText = a.chosen >= 0 && a.options ? a.options[a.chosen] : "—";
           html += "<li class='" + (ok ? "ok" : "err") + "'>" + DG.escapeHtml(a.q) +
-            " — " + (ok ? "верно" : "неверно") + "</li>";
+            "<br/>Ваш ответ: " + DG.escapeHtml(chosenText) +
+            " — <b>" + (ok ? "верно" : "неверно") + "</b></li>";
         });
         html += "</ul></details>";
       });
