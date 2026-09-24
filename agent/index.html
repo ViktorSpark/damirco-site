@@ -456,6 +456,7 @@
       var ORDER_KEY = "damir-order-v1";
       var ORDER = [];
       var orderBtnEl = document.getElementById("order-btn");
+      var activeOrderWidget = null;
 
       var REPLIES = [
         "Здравствуйте. Я — Дамир, ваш гид по ДАМИР ГРУПП.",
@@ -1180,6 +1181,22 @@ container.appendChild(wrap);
         }).join("\n");
       }
 
+      function orderFileText() {
+        var lines = orderSummaryText().split("\n");
+        if (!lines[0]) return "Заказ пуст.";
+        var now = new Date();
+        var d = now.toLocaleDateString("ru-RU") + " " +
+          now.toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" });
+        return "ЗАЯВКА ДАМИР ГРУПП\n" + d + "\n\n" +
+          lines.join("\n") + "\n\nВсего позиций: " + lines.length;
+      }
+
+      function clearOrder() {
+        ORDER.length = 0;
+        try { window.localStorage.removeItem(ORDER_KEY); } catch (e) { }
+        orderRefresh();
+      }
+
       function itemOrderBtn(it, container) {
         var box = document.createElement("div");
         box.className = "item-actions";
@@ -1290,6 +1307,7 @@ container.appendChild(wrap);
           actions.appendChild(root);
           widget.appendChild(actions);
           typing.appendChild(widget);
+          activeOrderWidget = widget;
           scrollBottom();
           busy = false;
         }
@@ -1314,13 +1332,27 @@ container.appendChild(wrap);
           return;
         }
         busy = true;
+        var txt = orderFileText();
         var lines = orderSummaryText().split("\n");
         var msg = "Принял ваш заказ " + lines.length + " поз.:\n" + lines.join("\n") +
-          "\n\nОставьте контакты в «Заявке / расчёте» — вернусь со сроками, ценой и доставкой.";
+          "\n\nЗаказ очищен — копия ниже (скачайте при необходимости). Контакты оставьте в «Заявке / расчёте» — вернусь со сроками, ценой и доставкой.";
         addBlank();
         userReplied("Отправить заказ").then(function () {
-          return addMessage("D: ", msg, "type");
+          return addMessage("D: ", msg, "type", function (msgEl) {
+            var a = document.createElement("a");
+            a.className = "download-link";
+            a.href = URL.createObjectURL(new Blob(["\ufeff" + txt], { type: "text/plain;charset=utf-8" }));
+            a.download = "damir-zakaz.txt";
+            a.textContent = "Скачать заказ (.txt)";
+            a.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
+            msgEl.appendChild(a);
+          });
         }).then(function () {
+          clearOrder();
+          if (activeOrderWidget && activeOrderWidget.parentNode) {
+            activeOrderWidget.parentNode.removeChild(activeOrderWidget);
+            activeOrderWidget = null;
+          }
           busy = false;
           var chipList = [
             { label: "← Мой заказ", onPick: function () { if (busy) return; enter("order"); } },
