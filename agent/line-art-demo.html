@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LineArt — обработчик фото в инженерный чертёж</title>
+  <script src="line-art.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #fff;
+      color: #111;
+      font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      padding: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 { font-size: 20px; letter-spacing: .02em; }
+    p.sub { color: #777; font-size: 13px; margin: 6px 0 22px; }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px 26px;
+      align-items: center;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+    .controls label { margin-right: 8px; font-weight: 600; }
+    .controls input[type="radio"], .controls input[type="checkbox"] { margin-right: 4px; }
+    .stage {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: flex-start;
+      margin-bottom: 26px;
+    }
+    .stage figure {
+      border: 1px solid #ddd;
+      padding: 10px;
+      background: #fafafa;
+      max-width: 520px;
+    }
+    .stage figcaption { font-size: 11px; color: #888; margin-top: 6px; letter-spacing: .06em; text-transform: uppercase; }
+    .stage img, .stage canvas { max-width: 500px; height: auto; background: #fff; }
+    .stage img.hide, .stage canvas.hide { display: none; }
+    .btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 7px 14px;
+      border: 1px solid #111;
+      background: none;
+      color: #111;
+      font: 600 13px -apple-system, sans-serif;
+      cursor: pointer;
+    }
+    .btn:hover { background: #111; color: #fff; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+    .thumb {
+      border: 1px solid #eee;
+      padding: 8px;
+      cursor: pointer;
+      background: #fcfcfc;
+    }
+    .thumb:hover { border-color: #111; }
+    .thumb img, .thumb canvas { width: 100%; height: 110px; object-fit: contain; background: #fff; }
+    .thumb .name { font-size: 11px; color: #555; margin-top: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .file-row { margin: 4px 0 20px; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <h1>LineArt · фото → инженерный чертёж</h1>
+  <p class="sub" id="status">Модуль line-art.js. Загрузка…</p>
+
+  <div class="controls">
+    <div><label>Вид</label>
+      <label><input type="radio" name="mode" value="drawing" checked />чертёж</label>
+      <label><input type="radio" name="mode" value="shaded" />оттенки</label>
+      <label><input type="radio" name="mode" value="photo" />фото</label>
+    </div>
+    <div><label><input type="checkbox" id="axis" checked />ось симметрии</label></div>
+    <div><label><input type="checkbox" id="frame" checked />рамка чертежа</label></div>
+  </div>
+
+  <div class="file-row">
+    <label>Своё фото: <input type="file" id="file" accept="image/*" /></label>
+  </div>
+
+  <div class="stage" id="stage"></div>
+  <h3 style="font-size:14px;margin-bottom:10px;">Примеры из каталога (клик — открыть):</h3>
+  <div class="grid" id="grid"></div>
+
+  <script>
+    (function () {
+      "use strict";
+      var status = document.getElementById("status");
+      var grid = document.getElementById("grid");
+      var stage = document.getElementById("stage");
+      var fileInput = document.getElementById("file");
+      var frameBox = document.getElementById("frame");
+
+      var SAMPLES = [
+        ["../catalog-photos/hbm-din-933-602287808551__1.png", "Болт DIN 933"],
+        ["../catalog-photos/hit-re-100-500-hilti-177533719641__1.jpg", "Анкер Hilti HIT-RE"],
+        ["../catalog-photos/hsa-hilti-994105041801__1.png", "Шпилька Hilti HSA"],
+        ["../catalog-photos/bz3-din-125a-mkt-709301406851__1.jpg", "Болт BZ3 MKT"],
+        ["../catalog-photos/fs-ssf-fasty-633378502631__1.jpg", "Саморез Fasty FS-SSF"],
+        ["../catalog-photos/graf-epoxy-385-585-378543048283__1.png", "Химический анкер Graf"],
+        ["../catalog-photos/tech-krep-572949253851__1.jpg", "Технический крепёж"]
+      ];
+
+      var currentSrc = SAMPLES[0][0], currentTitle = SAMPLES[0][1];
+      var axisBox = document.getElementById("axis");
+
+      function opts(style) {
+        return {
+          maxSize: 1000,
+          style: style,
+          axis: axisBox.checked && style === "drawing",
+          frame: frameBox.checked,
+          fit: frameBox.checked,
+          title: currentTitle
+        };
+      }
+
+      function showStage(origSrc, title) {
+        stage.textContent = "";
+        var draws = null, shades = null;
+
+        function addFigure(label) {
+          var fig = document.createElement("figure");
+          var cap = document.createElement("figcaption");
+          cap.textContent = label;
+          fig.appendChild(cap);
+          fig.style.border = "1px solid #ddd";
+          fig.style.padding = "10px";
+          fig.style.background = "#fafafa";
+          stage.appendChild(fig);
+          return { fig: fig, cap: cap };
+        }
+
+        var photoFig = addFigure("фото");
+        var oi = document.createElement("img");
+        oi.alt = title;
+        oi.src = origSrc;
+        photoFig.fig.insertBefore(oi, photoFig.cap);
+
+        var drawFig = addFigure("чертёж · в обработке…");
+        var shadeFig = addFigure("оттенки · в обработке…");
+
+        function currentMode() {
+          return document.querySelector('input[name="mode"]:checked').value;
+        }
+        function applyMode() {
+          var m = currentMode();
+          oi.classList.toggle("hide", m !== "photo");
+          if (draws) draws.classList.toggle("hide", m !== "drawing");
+          if (shades) shades.classList.toggle("hide", m !== "shaded");
+        }
+
+        status.textContent = "Обработка: " + title + " …";
+        Promise.all([
+          LineArt.fromImage(origSrc, opts("drawing")),
+          LineArt.fromImage(origSrc, opts("shaded"))
+        ]).then(function (rs) {
+          draws = rs[0].canvas;
+          shades = rs[1].canvas;
+          draws.alt = title;
+          shades.alt = title;
+          drawFig.fig.insertBefore(draws, drawFig.cap);
+          shadeFig.fig.insertBefore(shades, shadeFig.cap);
+          drawFig.cap.textContent = "чертёж · line-art.js";
+          shadeFig.cap.textContent = "оттенки · line-art.js";
+          applyMode();
+          status.textContent = "Готово: " + title;
+        }).catch(function (e) {
+          drawFig.cap.textContent = "чертёж — ошибка";
+          shadeFig.cap.textContent = "оттенки — ошибка";
+          status.textContent = "Ошибка обработки (запустите через http://, не file://): " + (e && e.message);
+          applyMode();
+        });
+        applyMode();
+      }
+
+      SAMPLES.forEach(function (s) {
+        var t = document.createElement("div");
+        t.className = "thumb";
+        var img = document.createElement("img");
+        img.src = s[0];
+        img.alt = s[1];
+        var name = document.createElement("div");
+        name.className = "name";
+        name.textContent = s[1];
+        t.appendChild(img);
+        t.appendChild(name);
+        t.addEventListener("click", function () { currentSrc = s[0]; currentTitle = s[1]; showStage(s[0], s[1]); });
+        grid.appendChild(t);
+      });
+
+      function renderChange() {
+        showStage(currentSrc, currentTitle);
+      }
+
+      document.querySelectorAll('input[name="mode"]').forEach(function (r) {
+        r.addEventListener("change", renderChange);
+      });
+      axisBox.addEventListener("change", renderChange);
+      frameBox.addEventListener("change", renderChange);
+
+      fileInput.addEventListener("change", function () {
+        var file = fileInput.files[0];
+        if (!file) return;
+        var rd = new FileReader();
+        rd.onload = function () {
+          currentSrc = rd.result;
+          currentTitle = file.name;
+          showStage(currentSrc, currentTitle);
+        };
+        rd.readAsDataURL(file);
+      });
+
+      showStage(currentSrc, currentTitle);
+    })();
+  </script>
+</body>
+</html>
