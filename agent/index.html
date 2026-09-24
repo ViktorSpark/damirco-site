@@ -272,7 +272,7 @@
     .brand__info { display: flex; flex-direction: column; gap: 2px; }
     .brand { align-items: flex-start; gap: 12px; }
 
-    .item-actions { margin-top: 16px; }
+    .item-actions { margin-top: 16px; display: flex; gap: 12px; align-items: center; }
 
     .order-widget { margin-top: 14px; max-width: 660px; }
     .order-row {
@@ -400,6 +400,18 @@
     .widget-row { margin-top: 22px; }
 
     @media (max-width: 640px) {
+      html { font-size: 18px; }
+      .typing { font-size: clamp(1rem, 3.9vw, 1.12rem); }
+      .chip { font-size: 1.02rem; }
+      .order-btn { font-size: .95rem; }
+      .order-row { font-size: 1rem; }
+      .order-row__num { min-width: 30px; }
+      .mini-card__name { font-size: .92rem; }
+      .mini-card__meta { font-size: .8rem; }
+      .item-details__row, .item-details__text { font-size: 1.02rem; }
+      input[type="text"], input[type="tel"], input[type="email"], textarea { font-size: 1rem; }
+      .field label, .item-details__head { font-size: 12px; }
+      .cat-more, .send-btn { font-size: 1rem; }
       .conversation { flex-direction: column; align-items: flex-start; }
       .avatar-d { font-size: 96px; }
       .screen { justify-content: flex-start; padding-top: 14vh; }
@@ -547,19 +559,19 @@
 
       node("about_team", "Команда",
         "За проектами компании — конкретные люди, их экспертиза и персональная ответственность за результат.",
-        { parent: "about", children: ["team_artur", "team_alexey", "team_viktor"], photo: "team-photos/team.png" });
+        { parent: "about", children: ["team_artur", "team_alexey", "team_viktor"], photo: "team-photos/team.jpg" });
 
       node("team_artur", "Артур Юмагулов",
         "Генеральный директор. CEO: общее руководство, HR, консультации и ведение постоянных клиентов, развитие продуктовой линейки. Прямой номер +7 958 777 73 47.",
-        { parent: "about_team", photo: "team-photos/artur.png" });
+        { parent: "about_team", photo: "team-photos/artur.jpg" });
 
       node("team_alexey", "Алексей Уразаев",
         "Менеджмент продаж: поиск новых клиентов, сопровождение сделок и проектов на всех этапах. Прямой номер +7 963 899 80 29.",
-        { parent: "about_team", photo: "team-photos/alexey.png" });
+        { parent: "about_team", photo: "team-photos/alexey.jpg" });
 
       node("team_viktor", "Виктор Казадаев",
         "IT-сопровождение компании, SMM, поддержка в HR, разработка интеллектуальных решений. Прямой номер +7 987 145 69 27.",
-        { parent: "about_team", photo: "team-photos/viktor.png" });
+        { parent: "about_team", photo: "team-photos/viktor.jpg" });
 
       node("about_why", "Почему выбирают нас",
         "Четыре причины работать с нами. Высокое качество — продукция соответствует стандартам и обеспечивает надёжность соединений. Надёжность — стабильные поставки и долгосрочные отношения. Сервис — консультации и помощь с выбором. Цены — конкурентные, без ущерба качеству.",
@@ -1161,6 +1173,13 @@ container.appendChild(wrap);
         orderRefresh();
       }
 
+      function orderSummaryText() {
+        if (!ORDER.length) return "";
+        return ORDER.map(function (r, i) {
+          return (i + 1) + ". " + r.it.t + (r.qty > 1 ? " × " + r.qty : "");
+        }).join("\n");
+      }
+
       function itemOrderBtn(it, container) {
         var box = document.createElement("div");
         box.className = "item-actions";
@@ -1180,6 +1199,19 @@ container.appendChild(wrap);
           }, 900);
         });
         box.appendChild(btn);
+
+        var orders = document.createElement("button");
+        orders.type = "button";
+        orders.className = "order-btn order-btn--dim";
+        orders.textContent = "В заказы";
+        orders.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
+        orders.addEventListener("click", function (e) {
+          e.stopPropagation();
+          if (busy) return;
+          enter("order");
+        });
+        box.appendChild(orders);
+
         container.appendChild(box);
       }
 
@@ -1282,9 +1314,7 @@ container.appendChild(wrap);
           return;
         }
         busy = true;
-        var lines = ORDER.map(function (r, i) {
-          return (i + 1) + ". " + r.it.t + (r.qty > 1 ? " × " + r.qty : "");
-        });
+        var lines = orderSummaryText().split("\n");
         var msg = "Принял ваш заказ " + lines.length + " поз.:\n" + lines.join("\n") +
           "\n\nОставьте контакты в «Заявке / расчёте» — вернусь со сроками, ценой и доставкой.";
         addBlank();
@@ -1503,6 +1533,12 @@ container.appendChild(wrap);
           send.type = "button";
           send.className = "send-btn";
           send.textContent = "Отправить";
+
+          if (f4.input) {
+            f4.input.value = orderSummaryText();
+            f4.input.placeholder = "Например: состав моего заказа предзаполнен, дополните деталями";
+            f4.input.rows = ORDER.length ? Math.max(2, ORDER.length + 1) : 2;
+          }
 
           var root = document.createElement("button");
           root.type = "button";
