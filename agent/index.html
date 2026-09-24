@@ -1197,6 +1197,24 @@ container.appendChild(wrap);
         orderRefresh();
       }
 
+      function clearOrderUI() {
+        clearOrder();
+        if (activeOrderWidget && activeOrderWidget.parentNode) {
+          activeOrderWidget.parentNode.removeChild(activeOrderWidget);
+          activeOrderWidget = null;
+        }
+      }
+
+      function offerOrderDownload(container, txt) {
+        var a = document.createElement("a");
+        a.className = "download-link";
+        a.href = URL.createObjectURL(new Blob(["\ufeff" + txt], { type: "text/plain;charset=utf-8" }));
+        a.download = "damir-zakaz.txt";
+        a.textContent = "Скачать заказ (.txt)";
+        a.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
+        container.appendChild(a);
+      }
+
       function itemOrderBtn(it, container) {
         var box = document.createElement("div");
         box.className = "item-actions";
@@ -1339,20 +1357,10 @@ container.appendChild(wrap);
         addBlank();
         userReplied("Отправить заказ").then(function () {
           return addMessage("D: ", msg, "type", function (msgEl) {
-            var a = document.createElement("a");
-            a.className = "download-link";
-            a.href = URL.createObjectURL(new Blob(["\ufeff" + txt], { type: "text/plain;charset=utf-8" }));
-            a.download = "damir-zakaz.txt";
-            a.textContent = "Скачать заказ (.txt)";
-            a.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
-            msgEl.appendChild(a);
+            offerOrderDownload(msgEl, txt);
           });
         }).then(function () {
-          clearOrder();
-          if (activeOrderWidget && activeOrderWidget.parentNode) {
-            activeOrderWidget.parentNode.removeChild(activeOrderWidget);
-            activeOrderWidget = null;
-          }
+          clearOrderUI();
           busy = false;
           var chipList = [
             { label: "← Мой заказ", onPick: function () { if (busy) return; enter("order"); } },
@@ -1653,10 +1661,16 @@ container.appendChild(wrap);
           (emailVal ? ", email " + emailVal : "") +
           (commVal ? " — «" + commVal + "»" : "");
 
+        var hadOrder = ORDER.length > 0;
+        var txt = hadOrder ? orderFileText() : "";
+
         addBlank();
         userReplied(summary).then(function () {
-          return addMessage("D: ", "Спасибо, " + first + "! Заявка передана менеджерам. Свяжемся в рабочее время: пн–пт 9:00–18:00.", "type");
+          return addMessage("D: ", "Спасибо, " + first + "! Заявка передана менеджерам. Свяжемся в рабочее время: пн–пт 9:00–18:00.", "type", function (msgEl) {
+            if (hadOrder) offerOrderDownload(msgEl, txt);
+          });
         }).then(function () {
+          if (hadOrder) clearOrderUI();
           busy = false;
           setTimeout(function () { showNav("request"); }, 250);
         });
