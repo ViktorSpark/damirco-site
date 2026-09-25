@@ -576,27 +576,27 @@
 
       node("about_team", "Команда",
         "За проектами компании — конкретные люди, их экспертиза и персональная ответственность за результат.",
-        { parent: "about", children: ["team_artur", "team_alexey", "team_viktor", "team_valentina", "team_kazim"], photo: "team-photos/team.jpg" });
+        { parent: "about", children: ["team_artur", "team_alexey", "team_viktor", "team_valentina", "team_kazim"], photo: "team-photos/team.jpg", plain: true });
 
       node("team_artur", "Артур Юмагулов",
         "Генеральный директор. CEO: общее руководство, HR, консультации и ведение постоянных клиентов, развитие продуктовой линейки. Прямой номер +7 958 777 73 47.",
-        { parent: "about_team", photo: "team-photos/artur.jpg" });
+        { parent: "about_team", photo: "team-photos/artur.jpg", plain: true });
 
       node("team_alexey", "Алексей Уразаев",
         "Менеджмент продаж: поиск новых клиентов, сопровождение сделок и проектов на всех этапах. Прямой номер +7 963 899 80 29.",
-        { parent: "about_team", photo: "team-photos/alexey.jpg" });
+        { parent: "about_team", photo: "team-photos/alexey.jpg", plain: true });
 
       node("team_viktor", "Виктор Казадаев",
         "IT-сопровождение компании, SMM, поддержка в HR, разработка интеллектуальных решений. Прямой номер +7 987 145 69 27.",
-        { parent: "about_team", photo: "team-photos/viktor.jpg" });
+        { parent: "about_team", photo: "team-photos/viktor.jpg", plain: true });
 
-      node("team_valentina", "Валентина Уракчева",
+      node("team_valentina", "Валентина Юмагулова",
         "Ассистент менеджера по продажам: поиск новых клиентов, подготовка и работа с документами, сопровождение заявок.",
-        { parent: "about_team", photo: "team-photos/valentina.jpg" });
+        { parent: "about_team", photo: "team-photos/valentina.jpg", plain: true });
 
-      node("team_kazim", "Казим Казадаев",
+      node("team_kazim", "Казим Давидов",
         "Аналитик компании: решение нестандартных задач, снабжение, расширение продуктовой линейки.",
-        { parent: "about_team", photo: "team-photos/kazim.jpg" });
+        { parent: "about_team", photo: "team-photos/kazim.jpg", plain: true });
 
       node("about_why", "Почему выбирают нас",
         "Четыре причины работать с нами. Высокое качество — продукция соответствует стандартам и обеспечивает надёжность соединений. Надёжность — стабильные поставки и долгосрочные отношения. Сервис — консультации и помощь с выбором. Цены — конкурентные, без ущерба качеству.",
@@ -876,7 +876,7 @@
           if (node.kind === "order") { showOrder(true); return; }
           if (node.kind === "catalog") { showCategoryWidget(id, true); return; }
           return addMessage("D: ", node.text, node.reveal, function (msg) {
-            if (node.photo) itemPhoto({ ph: node.photo, t: node.label }, msg);
+            if (node.photo) itemPhoto({ ph: node.photo, t: node.label, plain: !!node.plain }, msg);
             if (node.videos) itemVideos({ vs: node.videos, t: node.label }, msg);
             if (node.file) {
               var a = document.createElement("a");
@@ -1101,9 +1101,33 @@
       }
 
       function itemPhoto(it, container) {
+        if (it.plain) {
+          var pw = photoBlockPlain(it.ph, it.t, it.t);
+          if (pw) container.appendChild(pw);
+          return;
+        }
         var wrap = photoBlock(it.ph, it.t);
         if (wrap) container.appendChild(wrap);
       }
+
+
+      function photoBlockPlain(src, alt) {
+        if (!src) return null;
+        var BASE = "https://viktorspark.github.io/damirco-site/";
+        if (typeof src === "string" && src.indexOf(BASE) === 0) src = "../" + src.slice(BASE.length);
+
+        var wrap = document.createElement("div");
+        wrap.className = "item-photo";
+
+        var img = document.createElement("img");
+        img.className = "item-photo__img item-photo__img--plain";
+        img.loading = "lazy";
+        img.alt = alt || "";
+        img.src = src20;
+        wrap.appendChild(img);
+        return wrap;
+      }
+
 
       function itemVideos(it, container) {
         if (!it.vs || !it.vs.length) return;
