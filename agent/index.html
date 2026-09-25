@@ -423,6 +423,19 @@
       transition: background .2s, color .2s;
     }
     .download-link:hover { background: var(--ink); color: var(--bg); }
+    .write-link {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 10px 16px;
+      font-family: var(--font-text);
+      font-weight: 600;
+      font-size: .9rem;
+      color: var(--bg);
+      background: var(--ink);
+      text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+    .write-link:hover { background: var(--ink-soft); }
 
     @media (max-width: 640px) {
       .catalog-grid { grid-template-columns: repeat(2, 1fr); }
@@ -580,6 +593,7 @@
           logo: opts.logo || null,
           brandName: opts.brandName || null,
           file: opts.file || null,
+          write: opts.write || null,
           plain: opts.plain || false
         };
       }
@@ -599,23 +613,23 @@
 
       node("team_artur", "Артур Юмагулов",
         "Генеральный директор. CEO: общее руководство, HR, консультации и ведение постоянных клиентов, развитие продуктовой линейки. Прямой номер +7 958 777 73 47.",
-        { parent: "about_team", photo: "team-photos/artur.jpg", plain: true });
+        { parent: "about_team", photo: "team-photos/artur.jpg", plain: true, write: "https://web.max.ru/266554139" });
 
       node("team_alexey", "Алексей Уразаев",
         "Менеджмент продаж: поиск новых клиентов, сопровождение сделок и проектов на всех этапах. Прямой номер +7 963 899 80 29.",
-        { parent: "about_team", photo: "team-photos/alexey.jpg", plain: true });
+        { parent: "about_team", photo: "team-photos/alexey.jpg", plain: true, write: "https://web.max.ru/323993397" });
 
       node("team_viktor", "Виктор Казадаев",
         "IT-сопровождение компании, SMM, поддержка в HR, разработка интеллектуальных решений. Прямой номер +7 987 145 69 27.",
-        { parent: "about_team", photo: "team-photos/viktor.jpg", plain: true });
+        { parent: "about_team", photo: "team-photos/viktor.jpg", plain: true, write: "https://max.ru/u/f9LHodD0cOIqtwTG0JeO71YoJ9s-T-Qp2tK5o6QEBS51L2ZoxInJm56zlsI" });
 
       node("team_valentina", "Валентина Юмагулова",
         "Ассистент менеджера по продажам: поиск новых клиентов, подготовка и работа с документами, сопровождение заявок.",
-        { parent: "about_team", photo: "team-photos/valentina.jpg", plain: true });
+        { parent: "about_team", photo: "team-photos/valentina.jpg", plain: true, write: "https://web.max.ru/159620065" });
 
       node("team_kazim", "Казим Давидов",
         "Аналитик компании: решение нестандартных задач, снабжение, расширение продуктовой линейки.",
-        { parent: "about_team", photo: "team-photos/kazim.jpg", plain: true });
+        { parent: "about_team", photo: "team-photos/kazim.jpg", plain: true, write: "https://web.max.ru/78797556" });
 
       node("about_why", "Почему выбирают нас",
         "Четыре причины работать с нами. Высокое качество — продукция соответствует стандартам и обеспечивает надёжность соединений. Надёжность — стабильные поставки и долгосрочные отношения. Сервис — консультации и помощь с выбором. Цены — конкурентные, без ущерба качеству.",
@@ -703,7 +717,11 @@
       // Контакты
       node("contacts", "Контакты",
         "Телефон 8 (495) 363-71-60, почта damirgrupp@mail.ru. Адрес: г. Химки, ул. Германа Титова, 3к1. График: пн–пт 9:00–18:00.",
-        { parent: "root" });
+        { parent: "root", children: ["contacts_requisites"] });
+
+      node("contacts_requisites", "Реквизиты",
+        "Реквизиты счета\n\nНазвание организации\nОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ «ДАМИР ГРУПП»\n\nЮридический адрес организации\n141432, РОССИЯ, МОСКОВСКАЯ ОБЛАСТЬ, Г.О. ХИМКИ, Г. ХИМКИ, КВ-Л ИВАКИНО, К. 3, КВ. 270\n\nИНН\n5047327064\n\nКПП\n504701001\n\nОГРН/ОГРНИП\n1265000052657\n\nРасчетный счет\n40702810210002263631\n\nБанк\nАО «ТБанк»\n\nИНН банка\n7710140679\n\nБИК банка\n044525974\n\nКорреспондентский счет банка\n30101810145250000974\n\nЮридический адрес банка\n127287, г. Москва, ул. Хуторская 2-я, д. 38А, стр. 26",
+        { parent: "contacts" });
 
       // Наши будни
       node("daily", "Наши будни",
@@ -958,6 +976,16 @@
           a.textContent = "Скачать: " + node.file.label;
           a.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
           msg.appendChild(a);
+        }
+        if (node.write) {
+          var w = document.createElement("a");
+          w.className = "write-link";
+          w.href = node.write;
+          w.target = "_blank";
+          w.rel = "noopener";
+          w.textContent = "Написать";
+          w.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
+          msg.appendChild(w);
         }
       }
 
