@@ -379,6 +379,22 @@
     .item-photo__mode:hover { color: var(--ink); }
     .item-photo__mode.is-on { color: var(--ink); border-bottom-color: var(--ink); }
 
+    .item-videos { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .item-videos__head {
+      width: 100%;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      color: var(--ink-soft);
+      margin-bottom: 2px;
+    }
+    .item-videos__v {
+      width: min(180px, 46%);
+      max-height: 300px;
+      background: #000;
+      border-radius: 8px;
+    }
+
     .download-link {
       display: inline-block;
       margin-top: 16px;
@@ -560,7 +576,7 @@
 
       node("about_team", "Команда",
         "За проектами компании — конкретные люди, их экспертиза и персональная ответственность за результат.",
-        { parent: "about", children: ["team_artur", "team_alexey", "team_viktor"], photo: "team-photos/team.jpg" });
+        { parent: "about", children: ["team_artur", "team_alexey", "team_viktor", "team_valentina", "team_kazim"], photo: "team-photos/team.jpg" });
 
       node("team_artur", "Артур Юмагулов",
         "Генеральный директор. CEO: общее руководство, HR, консультации и ведение постоянных клиентов, развитие продуктовой линейки. Прямой номер +7 958 777 73 47.",
@@ -573,6 +589,14 @@
       node("team_viktor", "Виктор Казадаев",
         "IT-сопровождение компании, SMM, поддержка в HR, разработка интеллектуальных решений. Прямой номер +7 987 145 69 27.",
         { parent: "about_team", photo: "team-photos/viktor.jpg" });
+
+      node("team_valentina", "Валентина Уракчева",
+        "Ассистент менеджера по продажам: поиск новых клиентов, подготовка и работа с документами, сопровождение заявок.",
+        { parent: "about_team", photo: "team-photos/valentina.jpg" });
+
+      node("team_kazim", "Казим Казадаев",
+        "Аналитик компании: решение нестандартных задач, снабжение, расширение продуктовой линейки.",
+        { parent: "about_team", photo: "team-photos/kazim.jpg" });
 
       node("about_why", "Почему выбирают нас",
         "Четыре причины работать с нами. Высокое качество — продукция соответствует стандартам и обеспечивает надёжность соединений. Надёжность — стабильные поставки и долгосрочные отношения. Сервис — консультации и помощь с выбором. Цены — конкурентные, без ущерба качеству.",
@@ -602,7 +626,7 @@
       // Испытания
       node("tests", "Испытания",
         "Проведение испытаний крепёжных элементов на строительной площадке — ключевой этап подбора крепежа и сдачи объекта технадзору. Натурные испытания позволяют определить фактическую несущую способность узла в конкретном основании (бетон, кирпич, газобетон) с учётом его реального состояния и маркерной прочности.",
-        { parent: "root", children: ["test_objects", "test_service", "test_why"], photo: "tests-photos/tests-cover.jpg" });
+        { parent: "root", children: ["test_objects", "test_service", "test_why", "test_video"], photo: "tests-photos/tests-cover.jpg" });
 
       node("test_objects", "Объекты и виды испытываемого крепежа",
         "Клиновые и механические анкеры — проверка прочности фиксации в полнотелом бетоне и природном камне для несущих металлоконструкций и оборудования.\nХимические анкеры — контроль адгезии и несущей способности клеевого состава в пустотелом кирпиче, пористом бетоне и старых основаниях.\nФасадные дюбели — испытания на вырыв для систем навесных вентилируемых фасадов (НВФ) с расчётом ветровых нагрузок.\nДюбели для теплоизоляции — оценка прочности удерживания минваты и пенополистирола в фасадных системах (СФТК/НВФ).\nСпециальный крепёж — кровельные саморезы, арматурные выпуски, анкерные болты и высокопрочные метизы.",
@@ -615,6 +639,15 @@
       node("test_why", "Зачем это заказчику",
         "Безопасность — исключение риска обрушения фасадных и несущих конструкций.\nПрохождение экспертизы — наличие протоколов испытаний — обязательное требование СНиП, ГОСТ и технадзора.\nЭкономия бюджета — возможность подобрать оптимальный тип крепежа без переплаты за избыточный запас прочности.",
         { parent: "tests", photo: "tests-photos/tests-3.jpg" });
+
+      node("test_video", "Видео — испытания на объектах",
+        "Короткие ролики с натурных испытаний крепежа на реальных объектах: монтаж вырывного гидропресса, установка анкера, нагружение до контрольных значений и фиксация показателей. Смотрите, как проходит процедура от запуска оборудования до записи результата.",
+        { parent: "tests", videos: [
+          "tests-videos/tv-1.mp4",
+          "tests-videos/tv-2.mp4",
+          "tests-videos/tv-3.mp4",
+          "tests-videos/tv-4.mp4"
+        ] });
 
       // Контакты
       node("contacts", "Контакты",
@@ -844,6 +877,7 @@
           if (node.kind === "catalog") { showCategoryWidget(id, true); return; }
           return addMessage("D: ", node.text, node.reveal, function (msg) {
             if (node.photo) itemPhoto({ ph: node.photo, t: node.label }, msg);
+            if (node.videos) itemVideos({ vs: node.videos, t: node.label }, msg);
             if (node.file) {
               var a = document.createElement("a");
               a.className = "download-link";
@@ -1069,6 +1103,26 @@
       function itemPhoto(it, container) {
         var wrap = photoBlock(it.ph, it.t);
         if (wrap) container.appendChild(wrap);
+      }
+
+      function itemVideos(it, container) {
+        if (!it.vs || !it.vs.length) return;
+        var wrap = document.createElement("div");
+        wrap.className = "item-videos";
+        var h = document.createElement("div");
+        h.className = "item-videos__head";
+        h.textContent = it.t + " — видео";
+        wrap.appendChild(h);
+        it.vs.forEach(function (src) {
+          var v = document.createElement("video");
+          v.className = "item-videos__v";
+          v.controls = true;
+          v.playsinline = true;
+          v.preload = "metadata";
+          v.src = src;
+          wrap.appendChild(v);
+        });
+        container.appendChild(wrap);
       }
 
       function itemDetails(it, container) {
