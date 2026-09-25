@@ -395,6 +395,15 @@
       border-radius: 8px;
     }
 
+    .brand-logo { margin-top: 14px; }
+    .brand-logo img {
+      display: block;
+      height: 54px;
+      width: auto;
+      max-width: 300px;
+      object-fit: contain;
+    }
+
     .download-link {
       display: inline-block;
       margin-top: 16px;
@@ -441,7 +450,7 @@
         <span class="brand__name">ДАМИР&nbsp;ГРУПП</span>
         <span class="brand__tag">гид</span>
       </span>
-      <button type="button" class="order-btn order-btn--top" id="order-btn" title="Открыть мой заказ">Мой заказ (0)</button>
+      <button type="button" class="order-btn order-btn--top" id="order-btn" title="Открыть мой заказ">Заказы (0)</button>
     </div>
 
     <div class="conversation">
@@ -452,7 +461,7 @@
       </div>
     </div>
 
-    <div class="skip-hint">Esc — пропустить</div>
+    <div class="skip-hint">Esc — в корень</div>
   </main>
 
   <script>
@@ -472,6 +481,7 @@
       var ORDER_KEY = "damir-order-v1";
       var ORDER = [];
       var orderBtnEl = document.getElementById("order-btn");
+      var orderDimBtns = [];
       var activeOrderWidget = null;
 
       var REPLIES = [
@@ -561,6 +571,8 @@
           kind: opts.kind || "node",
           reveal: opts.reveal || "type",
           photo: opts.photo || null,
+          logo: opts.logo || null,
+          brandName: opts.brandName || null,
           file: opts.file || null
         };
       }
@@ -612,8 +624,40 @@
         { parent: "root", children: ["prod_brands", "prod_catalog", "prod_pdf"] });
 
       node("prod_brands", "Бренды",
-        "Работаем с проверенными производителями: Graf, Himtex, Fasty, MKT, Sormat, Фиксар и Hilti. Каждый бренд — характеристики и преимущества для удобства и надёжности использования.",
-        { parent: "products" });
+        "Работаем с проверенными производителями: Graf, Himtex, Fasty, MKT, Sormat, Фиксар и Hilti. Открывайте бренды — покажу логотип, страну производства и класс (качество/стоимость).",
+        { parent: "products", children: ["br_tiers", "br_hilti", "br_sormat", "br_mkt", "br_graf", "br_himtex", "br_fiksar", "br_fasty"] });
+
+      node("br_tiers", "Классы брендов",
+        "Распределяю по качеству и стоимости:\n\nПРЕМИУМ — Hilti, Sormat, MKT. Международные бренды с сертификацией ETA, гарантией и мировым опытом. Для ответственных конструкций, где важна надёжность.\n\nПРОФЕССИОНАЛЬНЫЕ — Graf, HIMTEX, Фиксар. Российские производители со свидетельствами (ГОСТ, Минстрой РФ). Надёжный крепёж с оптимальным балансом цены и качества.\n\nДОСТУПНЫЙ — Fasty. Практичный промышленный крепёж для типовых монтажных и строительных задач по привлекательной цене.",
+        { parent: "prod_brands", reveal: "fast" });
+
+      node("br_hilti", "Hilti",
+        "Лихтенштейнский премиум-бренд (основан в 1941): мировой эталон анкерной техники и строительного инструмента. Химические и механические анкеры (HST, HDA), тест-инструменты, сервис и обучение монтажу. Класс: премиум · Цена: самая высокая.",
+        { parent: "prod_brands", kind: "brand", brandName: "hilti", logo: "brand-logos/hilti.svg" });
+
+      node("br_sormat", "Sormat",
+        "Финский производитель с 1970 года (Турку): анкеры и пластиковые дюбели. Более 50 лет опыта, поставки в 40+ стран, входит в мировую четвёрку производителей анкеров наряду с HILTI и Fischer. Класс: премиум · Цена: высокая.",
+        { parent: "prod_brands", kind: "brand", brandName: "sormat", logo: "brand-logos/sormat.png" });
+
+      node("br_mkt", "MKT",
+        "Немецкий производитель MKT (Metall-Kunststoff-Technik, с 1990 года): клиновые, гильзовые, химические анкеры с международной сертификацией ETA. Спец-решения из нержавейки 1.4529, 1.4571, 1.4462 для тоннелей и агрессивных сред. Класс: премиум · Цена: высокая.",
+        { parent: "prod_brands", kind: "brand", brandName: "mkt", logo: "brand-logos/mkt.png" });
+
+      node("br_graf", "Graf",
+        "Российский производитель анкерного крепежа с 2019 года: клиновые, распорные, рамные и химические анкеры по ГОСТ Р 72018-2025, соответствие DIN и ISO. Полный контроль на всех этапах производства, заявленная гарантия до 30 лет. Класс: профессиональный · Цена: средняя-высокая.",
+        { parent: "prod_brands", kind: "brand", brandName: "graf", logo: "brand-logos/graf.webp" });
+
+      node("br_himtex", "HIMTEX",
+        "Российский производитель (Санкт-Петербург): химические анкеры, конструкционные саморезы HIMTEXfix, анкер-шурупы по бетону и метрический крепёж. Сертифицированная продукция и запатентованные разработки. Класс: профессиональный · Цена: средняя.",
+        { parent: "prod_brands", kind: "brand", brandName: "himtex", logo: "brand-logos/himtex.png" });
+
+      node("br_fiksar", "Фиксар",
+        "Российская торговая марка профессионального крепежа: фасадные дюбели, клиновые и химические анкеры, крепёж для теплоизоляции и фасадных систем. Продукция с техническими свидетельствами Минстроя РФ. Класс: профессиональный · Цена: средняя.",
+        { parent: "prod_brands", kind: "brand", brandName: "fiksar", logo: "brand-logos/fiksar.svg" });
+
+      node("br_fasty", "Fasty",
+        "Бренд промышленного крепежа: анкеры, дюбели, заклёпки, установочный инструмент и химические анкеры. Широкий ассортимент в наличии, оптимален для типовых монтажных задач. Класс: доступный · Цена: низкая-средняя.",
+        { parent: "prod_brands", kind: "brand", brandName: "fasty", logo: "brand-logos/fasty.png" });
 
       node("prod_catalog", "Виды продукции",
         "Клиновые и химические анкеры, заклёпки вытяжные, саморезы для сэндвич-панелей и кровельные, метизы — дюбели, болты, гайки, шайбы, шпильки. Покрываем в ТДЦ в кратчайшие сроки.",
@@ -863,6 +907,7 @@
           if (node.kind === "form") { showForm(); return; }
           if (node.kind === "order") { showOrder(false); return; }
           if (node.kind === "catalog") { showCategoryWidget(id, false); return; }
+          if (node.kind === "brand") { showBrandWidget(id, false); return; }
           showNav(id);
           busy = false;
           return;
@@ -875,23 +920,38 @@
           if (node.kind === "form") { showForm(); return; }
           if (node.kind === "order") { showOrder(true); return; }
           if (node.kind === "catalog") { showCategoryWidget(id, true); return; }
+          if (node.kind === "brand") { showBrandWidget(id, true); return; }
           return addMessage("D: ", node.text, node.reveal, function (msg) {
-            if (node.photo) itemPhoto({ ph: node.photo, t: node.label, plain: !!node.plain }, msg);
-            if (node.videos) itemVideos({ vs: node.videos, t: node.label }, msg);
-            if (node.file) {
-              var a = document.createElement("a");
-              a.className = "download-link";
-              a.href = node.file.href;
-              a.download = node.file.label;
-              a.textContent = "Скачать: " + node.file.label;
-              a.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
-              msg.appendChild(a);
-            }
+            attachNodeAssets(node, msg);
           }).then(function () {
             busy = false;
             setTimeout(function () { showNav(id); }, 250);
           });
         });
+      }
+
+      function attachNodeAssets(node, msg) {
+        if (node.photo) itemPhoto({ ph: node.photo, t: node.label }, msg);
+        if (node.logo) {
+          var wrap = document.createElement("div");
+          wrap.className = "brand-logo";
+          var img = document.createElement("img");
+          img.src = node.logo;
+          img.alt = node.label;
+          img.loading = "lazy";
+          img.onerror = function () { wrap.remove(); };
+          wrap.appendChild(img);
+          msg.appendChild(wrap);
+        }
+        if (node.file) {
+          var a = document.createElement("a");
+          a.className = "download-link";
+          a.href = node.file.href;
+          a.download = node.file.label;
+          a.textContent = "Скачать: " + node.file.label;
+          a.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
+          msg.appendChild(a);
+        }
       }
 
       // ---------- Виджет категории (карточки товаров) ----------
@@ -961,9 +1021,6 @@
             }, 200);
           });
           input.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
-          input.addEventListener("keydown", function (e) {
-            if (e.key === "Escape") input.blur();
-          });
 
           more.addEventListener("click", function () {
             state.shown += 6;
@@ -974,6 +1031,7 @@
           widget.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
 
           render();
+          showWidgetNav(id);
           busy = false;
           scrollBottom();
         }
@@ -986,6 +1044,123 @@
           });
         } else {
           renderWidget();
+        }
+      }
+
+      function normBrand(b) {
+        var s = (b || "").trim().toLowerCase();
+        if (s === "граф") return "graf";
+        if (s === "хилти") return "hilti";
+        return s;
+      }
+
+      function brandItems(name) {
+        var q = normBrand(name);
+        return CATALOG.list.filter(function (it) {
+          return normBrand(it.b) === q;
+        });
+      }
+
+      function showBrandWidget(id, fresh) {
+        var node = NODES[id];
+        var items = brandItems(node.brandName);
+
+        function renderBrand() {
+          var widget = document.createElement("div");
+          widget.className = "cat-widget";
+
+          if (!items.length) {
+            var none = document.createElement("div");
+            none.className = "field";
+            var nb = document.createElement("label");
+            nb.textContent = "Товары «" + node.label + "» в онлайн-каталоге пока не выгружены — оставьте заявку в разделе «Заявка / расчёт», подберём и посчитаем.";
+            none.appendChild(nb);
+            widget.appendChild(none);
+            typing.appendChild(widget);
+            scrollBottom();
+            busy = false;
+            setTimeout(function () { showNav(id); }, 250);
+            return;
+          }
+
+          var input = document.createElement("input");
+          input.type = "text";
+          input.className = "search-line";
+          input.placeholder = "Поиск в бренде «" + node.label + "»…";
+
+          var grid = document.createElement("div");
+          grid.className = "catalog-grid";
+
+          var more = document.createElement("button");
+          more.type = "button";
+          more.className = "send-btn cat-more";
+          more.textContent = "Показать еще";
+
+          widget.appendChild(input);
+          widget.appendChild(grid);
+          widget.appendChild(more);
+          typing.appendChild(widget);
+          scrollBottom();
+          input.focus();
+
+          var state = { items: items, q: "", shown: 6 };
+
+          function filtered() {
+            if (!state.q) return state.items;
+            var ql = state.q.toLowerCase();
+            return state.items.filter(function (it) {
+              return it.t.toLowerCase().indexOf(ql) > -1 ||
+                     (it.b && it.b.toLowerCase().indexOf(ql) > -1);
+            });
+          }
+
+          function render() {
+            var list = filtered();
+            grid.textContent = "";
+            list.slice(0, state.shown).forEach(function (it) {
+              grid.appendChild(miniCard(it, function () {
+                openItem(it, id, "← К бренду «" + node.label + "»");
+              }));
+            });
+            more.style.display = list.length > state.shown ? "" : "none";
+            scrollBottom();
+          }
+
+          var t = null;
+          input.addEventListener("input", function () {
+            clearTimeout(t);
+            t = setTimeout(function () {
+              state.q = input.value.trim();
+              state.shown = 6;
+              render();
+            }, 200);
+          });
+          input.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
+
+          more.addEventListener("click", function () {
+            state.shown += 6;
+            render();
+          });
+          more.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
+
+          widget.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
+
+          render();
+          showWidgetNav(id);
+          busy = false;
+          scrollBottom();
+        }
+
+        if (fresh) {
+          addBlank();
+          var intro = items.length
+            ? "Бренд «" + node.label + "».\n\n" + node.text + "\n\nВ каталоге ДАМИР ГРУПП: " + items.length + " позиций. Листайте карточки ниже или ищите по названию."
+            : "Бренд «" + node.label + "»: " + node.text;
+          addMessage("D: ", intro, items.length > 24 ? "fast" : "type", function (msg) {
+            attachNodeAssets(node, msg);
+          }).then(renderBrand);
+        } else {
+          renderBrand();
         }
       }
 
@@ -1210,14 +1385,13 @@ container.appendChild(wrap);
         } catch (e) { }
       }
 
-      function orderTotal() {
-        var n = 0;
-        ORDER.forEach(function (r) { n += r.qty; });
-        return n;
+      function orderBadgeText() {
+        return "В заказы (" + ORDER.length + ")";
       }
 
       function orderRefresh() {
-        if (orderBtnEl) orderBtnEl.textContent = "Мой заказ (" + orderTotal() + ")";
+        if (orderBtnEl) orderBtnEl.textContent = "Заказы (" + ORDER.length + ")";
+        orderDimBtns.forEach(function (b) { b.textContent = orderBadgeText(); });
       }
 
       function orderAdd(it) {
@@ -1308,7 +1482,8 @@ container.appendChild(wrap);
         var orders = document.createElement("button");
         orders.type = "button";
         orders.className = "order-btn order-btn--dim";
-        orders.textContent = "В заказы";
+        orders.textContent = orderBadgeText();
+        orderDimBtns.push(orders);
         orders.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
         orders.addEventListener("click", function (e) {
           e.stopPropagation();
@@ -1384,15 +1559,15 @@ container.appendChild(wrap);
           send.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
           send.addEventListener("click", function (e) { e.stopPropagation(); sendOrder(); });
 
-          var root = document.createElement("button");
-          root.type = "button";
-          root.className = "order-btn order-btn--dim";
-          root.textContent = "↑ В корень";
-          root.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
-          root.addEventListener("click", function () { if (busy) return; showNav("root"); });
+          var back = document.createElement("button");
+          back.type = "button";
+          back.className = "order-btn order-btn--dim";
+          back.textContent = "← Назад";
+          back.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
+          back.addEventListener("click", function () { if (busy) return; navigate("root"); });
 
           actions.appendChild(send);
-          actions.appendChild(root);
+          actions.appendChild(back);
           widget.appendChild(actions);
           typing.appendChild(widget);
           activeOrderWidget = widget;
@@ -1420,29 +1595,13 @@ container.appendChild(wrap);
           return;
         }
         busy = true;
-        var txt = orderFileText();
-        var lines = orderSummaryText().split("\n");
-        var msg = "Принял ваш заказ " + lines.length + " поз.:\n" + lines.join("\n") +
-          "\n\nЗаказ очищен — копия ниже (скачайте при необходимости). Контакты оставьте в «Заявке / расчёте» — вернусь со сроками, ценой и доставкой.";
         addBlank();
         userReplied("Отправить заказ").then(function () {
-          return addMessage("D: ", msg, "type", function (msgEl) {
-            offerOrderDownload(msgEl, txt);
-          });
-        }).then(function () {
-          clearOrderUI();
-          busy = false;
-          var chipList = [
-            { label: "← Мой заказ", onPick: function () { if (busy) return; enter("order"); } },
-            { label: "→ Заявка / расчёт", onPick: function () { if (busy) return; enter("request"); } },
-            { label: "↑ В корень", onPick: function () { if (busy) return; showNav("root"); } }
-          ];
-          showChips(chipList);
-          scrollBottom();
+          showForm();
         });
       }
 
-      function openItem(it, catId, input) {
+      function openItem(it, catId, backLabel) {
         if (busy) return;
         busy = true;
         choices.textContent = "";
@@ -1456,15 +1615,15 @@ container.appendChild(wrap);
           });
         }).then(function () {
           busy = false;
-          setTimeout(function () { showCatNav(catId); }, 250);
+          setTimeout(function () { showCatNav(catId, backLabel); }, 250);
         });
       }
 
-      function showCatNav(catId) {
+      function showCatNav(catId, backLabel) {
         var chipList = [];
         var node = NODES[catId];
         chipList.push({
-          label: "← В категорию «" + prettyName(node.catName) + "»",
+          label: backLabel || "← В категорию «" + prettyName(node.catName) + "»",
           onPick: function () { enter(catId); }
         });
         navChipsFor(catId).forEach(function (c) {
@@ -1475,6 +1634,18 @@ container.appendChild(wrap);
           });
         });
         showChips(chipList);
+      }
+
+      function showWidgetNav(id) {
+        var node = NODES[id];
+        if (!node || !node.parent) return;
+        var back = NODES[node.parent];
+        if (!back) return;
+        showChips([{
+          label: "← Назад",
+          cls: "chip--dim",
+          onPick: function () { navigate(back.id); }
+        }]);
       }
 
       // ---------- Поиск ----------
@@ -1512,9 +1683,6 @@ container.appendChild(wrap);
           input.addEventListener("input", function () {
             clearTimeout(t);
             t = setTimeout(function () { runSearch(input.value.trim(), results); }, 220);
-          });
-          input.addEventListener("keydown", function (e) {
-            if (e.key === "Escape") input.blur();
           });
           input.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
           row.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
@@ -1645,7 +1813,9 @@ container.appendChild(wrap);
           send.textContent = "Отправить";
 
           if (f4.input) {
-            f4.input.value = orderSummaryText();
+            f4.input.value = ORDER.length
+              ? "Доброго времени! Прошу выставить счет на следующую продукцию:\n\n" + orderSummaryText()
+              : "";
             f4.input.placeholder = "Например: состав моего заказа предзаполнен, дополните деталями";
             f4.input.rows = ORDER.length ? Math.max(2, ORDER.length + 1) : 2;
           }
@@ -1779,7 +1949,11 @@ container.appendChild(wrap);
       })();
 
       document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") onSkip();
+        if (e.key === "Escape") {
+          e.preventDefault();
+          if (busy) return;
+          navigate("root");
+        }
       });
 
       choices.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
