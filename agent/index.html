@@ -304,6 +304,12 @@
       outline: none;
     }
     .order-qty:focus { border-color: var(--ink); }
+    .order-qty-unit {
+      flex: 0 0 auto;
+      font-size: .9rem;
+      color: var(--ink-soft);
+      margin-left: 4px;
+    }
     .order-del {
       flex: 0 0 auto;
       font: inherit;
@@ -573,7 +579,8 @@
           photo: opts.photo || null,
           logo: opts.logo || null,
           brandName: opts.brandName || null,
-          file: opts.file || null
+          file: opts.file || null,
+          plain: opts.plain || false
         };
       }
 
@@ -931,7 +938,7 @@
       }
 
       function attachNodeAssets(node, msg) {
-        if (node.photo) itemPhoto({ ph: node.photo, t: node.label }, msg);
+        if (node.photo) itemPhoto({ ph: node.photo, t: node.label, plain: !!node.plain }, msg);
         if (node.logo) {
           var wrap = document.createElement("div");
           wrap.className = "brand-logo";
@@ -1298,7 +1305,7 @@
         img.className = "item-photo__img item-photo__img--plain";
         img.loading = "lazy";
         img.alt = alt || "";
-        img.src = src20;
+        img.src = src;
         wrap.appendChild(img);
         return wrap;
       }
@@ -1421,7 +1428,7 @@ container.appendChild(wrap);
       function orderSummaryText() {
         if (!ORDER.length) return "";
         return ORDER.map(function (r, i) {
-          return (i + 1) + ". " + r.it.t + (r.qty > 1 ? " × " + r.qty : "");
+          return (i + 1) + ". " + r.it.t + " × " + r.qty + " шт";
         }).join("\n");
       }
 
@@ -1534,6 +1541,10 @@ container.appendChild(wrap);
               });
               qty.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
 
+              var unit = document.createElement("span");
+              unit.className = "order-qty-unit";
+              unit.textContent = "шт";
+
               var del = document.createElement("button");
               del.type = "button";
               del.className = "order-del";
@@ -1545,6 +1556,7 @@ container.appendChild(wrap);
               row.appendChild(num);
               row.appendChild(name);
               row.appendChild(qty);
+              row.appendChild(unit);
               row.appendChild(del);
               widget.appendChild(row);
             });
@@ -1817,7 +1829,7 @@ container.appendChild(wrap);
               ? "Доброго времени! Прошу выставить счет на следующую продукцию:\n\n" + orderSummaryText()
               : "";
             f4.input.placeholder = "Например: состав моего заказа предзаполнен, дополните деталями";
-            f4.input.rows = ORDER.length ? Math.max(2, ORDER.length + 1) : 2;
+            f4.input.rows = 6;
           }
 
           var root = document.createElement("button");
