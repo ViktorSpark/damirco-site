@@ -269,6 +269,27 @@
     .order-btn--dim { border-color: var(--ink-soft); color: var(--ink-soft); }
     .order-btn--dim:hover { background: var(--ink-soft); color: var(--bg); }
 
+    .brand__actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      pointer-events: auto;
+    }
+    .site-btn {
+      font-family: var(--font-text);
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .01em;
+      color: var(--ink-soft);
+      background: var(--bg);
+      border: 1.5px solid var(--ink-soft);
+      border-radius: 3px;
+      padding: 5px 11px;
+      text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+    .site-btn:hover { background: var(--ink-soft); color: var(--bg); }
+
     .brand__info { display: flex; flex-direction: column; gap: 2px; }
     .brand { align-items: flex-start; gap: 12px; }
 
@@ -469,7 +490,10 @@
         <span class="brand__name">ДАМИР&nbsp;ГРУПП</span>
         <span class="brand__tag">гид</span>
       </span>
-      <button type="button" class="order-btn order-btn--top" id="order-btn" title="Открыть мой заказ">Заказы (0)</button>
+      <div class="brand__actions">
+        <a class="site-btn" href="http://damirco.ru/" target="_blank" rel="noopener" title="Открыть сайт damirco.ru">Сайт</a>
+        <button type="button" class="order-btn order-btn--top" id="order-btn" title="Открыть мой заказ">Заказы (0)</button>
+      </div>
     </div>
 
     <div class="conversation">
@@ -1913,6 +1937,25 @@ container.appendChild(wrap);
         return { wrap: wrap, input: input };
       }
 
+      function withTimeout(promise, ms) {
+        return new Promise(function (resolve, reject) {
+          var t = setTimeout(function () { reject(new Error("timeout")); }, ms);
+          promise.then(function (v) { clearTimeout(t); resolve(v); }, function (e) { clearTimeout(t); reject(e); });
+        });
+      }
+
+      function sendZayavkaEmail(payload) {
+        if (typeof fetch !== "function") return Promise.reject(new Error("no-fetch"));
+        return fetch("https://formsubmit.co/ajax/damirgrupp@mail.ru", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(payload)
+        }).then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.json();
+        });
+      }
+
       function submitForm(name, phone, email, comment) {
         if (busy) return;
         var nameVal = name.value.trim();
@@ -1946,9 +1989,22 @@ container.appendChild(wrap);
 
         addBlank();
         userReplied(summary).then(function () {
-          return addMessage("D: ", "Спасибо, " + first + "! Заявка передана менеджерам. Свяжемся в рабочее время: пн–пт 9:00–18:00.", "type", function (msgEl) {
-            if (hadOrder) offerOrderDownload(msgEl, txt);
-          });
+          return withTimeout(sendZayavkaEmail({
+            _subject: "Заявка с сайта ДАМИР ГРУПП" + (hadOrder ? " — заказ, " + ORDER.length + " поз." : " — расчёт"),
+            _template: "table",
+            _captcha: "false",
+            _honey: "",
+            Имя: nameVal,
+            Телефон: phoneVal,
+            Email: emailVal,
+            "Комментарий / состав заказа": commVal
+          }), 8000).then(function () { return true; }, function () { return false; });
+        }).then(function (mailOk) {
+          return addMessage("D: ", mailOk
+            ? "Спасибо, " + first + "! Заявка передана менеджерам. Свяжемся в рабочее время: пн–пт 9:00–18:00."
+            : "Спасибо, " + first + "! Заявка собрана, но письмо не отправилось — проверьте сеть. Свяжитесь напрямую: 8 (495) 363-71-60 или damirgrupp@mail.ru.", "type", function (msgEl) {
+              if (hadOrder) offerOrderDownload(msgEl, txt);
+            });
         }).then(function () {
           if (hadOrder) clearOrderUI();
           busy = false;
