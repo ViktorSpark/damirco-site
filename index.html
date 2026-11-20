@@ -21,6 +21,8 @@
         <li><a href="#about">О компании</a></li>
         <li><a href="#products">Продукция</a></li>
         <li><a href="#catalog">Каталог</a></li>
+        <li><a href="catalog/index.html">Все товары</a></li>
+        <li><a href="tests.html">Испытания</a></li>
         <li><a href="#why">О нас</a></li>
         <li><a href="#news">Новости</a></li>
         <li><a href="#contacts">Контакты</a></li>
@@ -148,44 +150,30 @@
     </div>
   </section>
 
-  <!-- ===== НОВЫЙ РАЗДЕЛ: КАТАЛОГ ПРОДУКЦИИ ===== -->
+  <!-- ===== КАТАЛОГ ПРОДУКЦИИ (независимый движок) ===== -->
   <section class="section section--white" id="catalog">
     <div class="container">
       <div class="section__title">Каталог продукции</div>
       <div class="section__descr">
-        Полный каталог крепежа с фото и описаниями — анкеры, заклёпки, саморезы, шпильки и метизы.
-        Ниже — краткая витрина, полная версия доступна на отдельной странице.
+        Полный каталог крепежа ДАМИР ГРУПП: все разделы, карточки товаров с описаниями, характеристиками и размерными рядами. Поиск и подбор работают прямо на сайте, без внешних сервисов.
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-bottom:30px;">
-        <a class="card" href="catalog.html#khimicheskie-ankery" style="text-align:center;padding:22px;text-decoration:none;">
-          <div style="font-weight:700;">Химические анкеры</div>
-          <div style="font-size:13px;color:var(--gray);">54 позиции</div>
-        </a>
-        <a class="card" href="catalog.html#mekhanicheskie-ankery" style="text-align:center;padding:22px;text-decoration:none;">
-          <div style="font-weight:700;">Механические анкеры</div>
-          <div style="font-size:13px;color:var(--gray);">30 позиций</div>
-        </a>
-        <a class="card" href="catalog.html#fasadnye-dyubeli" style="text-align:center;padding:22px;text-decoration:none;">
-          <div style="font-weight:700;">Фасадные дюбели</div>
-          <div style="font-size:13px;color:var(--gray);">27 позиций</div>
-        </a>
-        <a class="card" href="catalog.html#samosverlyaschie-vinty" style="text-align:center;padding:22px;text-decoration:none;">
-          <div style="font-weight:700;">Самосверлящие винты</div>
-          <div style="font-size:13px;color:var(--gray);">27 позиций</div>
-        </a>
-        <a class="card" href="catalog.html#zaklepki" style="text-align:center;padding:22px;text-decoration:none;">
-          <div style="font-weight:700;">Заклёпки</div>
-          <div style="font-size:13px;color:var(--gray);">8 позиций</div>
-        </a>
-        <a class="card" href="catalog.html#prinadlezhnosti-dlya-khimicheskikh-ankerov" style="text-align:center;padding:22px;text-decoration:none;">
-          <div style="font-weight:700;">Принадлежности для хим. анкеров</div>
-          <div style="font-size:13px;color:var(--gray);">8 позиций</div>
-        </a>
+      <div style="max-width:720px;margin:0 auto 22px;">
+        <input id="home-catalog-search" type="search" placeholder="Поиск по названию, бренду, разделу..." aria-label="Поиск по каталогу"
+          style="width:100%;padding:14px 16px;border:1px solid #d9dde3;border-radius:12px;font-size:16px;" />
+        <div id="home-catalog-meta" style="margin-top:8px;font-size:14px;color:#6b7280;"></div>
       </div>
+
+      <div id="home-catalog-results" class="grid" style="margin-bottom:28px;"></div>
+
+      <h3 style="font-size:22px;margin:10px 0 14px;text-align:center;">Разделы каталога</h3>
+      <div id="home-catalog-cats" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:30px;"></div>
+
+      <h3 style="font-size:22px;margin:10px 0 14px;text-align:center;">Популярное из каталога</h3>
+      <div id="home-popular" class="grid" style="margin-bottom:24px;"></div>
 
       <div style="text-align:center;">
-        <a href="catalog.html" class="btn">Перейти в каталог</a>
+        <a href="catalog/index.html" class="btn">Открыть полный каталог</a>
       </div>
     </div>
   </section>
@@ -324,5 +312,76 @@
   </footer>
 
   <script src="assets/js/main.js"></script>
+  <script>
+  (function(){
+    function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];});}
+    function norm(s){return String(s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-я0-9]+/g,' ').trim();}
+    function fmtPrice(p){p=(p==null?'':String(p)).trim(); return p ? p+' ₽' : 'Цена по запросу';}
+    function photoSrc(p){
+      var img = String(p.ph || p.photo || '').trim();
+      if(!img) return '';
+      if(/^https?:\/\//i.test(img)) return img;
+      return img.replace(/^\/+/, ''); // site-root-relative path, homepage is at site root
+    }
+    function card(p){
+      var href = 'catalog/p/' + encodeURIComponent(p.s||p.slug) + '/';
+      var img = photoSrc(p);
+      var imgHtml = img ? '<img src="'+esc(img)+'" alt="'+esc(p.t||p.title)+'" loading="lazy" />' : '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#9ca3af;font-size:13px;">Нет фото</div>';
+      return '<div class="card">'+
+        '<a class="card__img" href="'+href+'" style="display:block;background:#fff;">'+imgHtml+'</a>'+
+        '<div class="card__body">'+
+          '<div class="card__title"><a href="'+href+'" style="color:inherit;text-decoration:none;">'+esc(p.t||p.title)+'</a></div>'+
+          '<div class="card__descr">'+esc(p.c||p.category||'')+(p.b||p.brand?' · '+esc(p.b||p.brand):'')+'</div>'+
+          '<div class="card__price">'+esc(fmtPrice(p.p||p.price))+'</div>'+
+        '</div></div>';
+    }
+    function renderGrid(list, el, limit){ if(!el) return; list = limit?list.slice(0,limit):list; if(!list.length){ el.innerHTML='<div style="grid-column:1/-1;text-align:center;color:#6b7280;padding:20px;">Ничего не найдено</div>'; return; } el.innerHTML = list.map(card).join(''); }
+
+    var searchInput = document.getElementById('home-catalog-search');
+    var resultsEl = document.getElementById('home-catalog-results');
+    var metaEl = document.getElementById('home-catalog-meta');
+    var catsEl = document.getElementById('home-catalog-cats');
+    var popularEl = document.getElementById('home-popular');
+    var searchIndex = [];
+
+    fetch('catalog/data/catalog.json').then(function(r){return r.json();}).then(function(data){
+      var cats = (data && data.categories) || [];
+      if(catsEl){
+        catsEl.innerHTML = cats.map(function(c){
+          return '<a class="card" href="catalog/'+encodeURIComponent(c.slug)+'/" style="text-align:center;padding:18px;text-decoration:none;color:inherit;">'+
+            '<div style="font-weight:700;line-height:1.3;">'+esc(c.name)+'</div>'+
+            '<div style="font-size:13px;color:#6b7280;margin-top:4px;">'+esc(c.count)+' позиций</div></a>';
+        }).join('');
+      }
+    }).catch(function(){ if(catsEl) catsEl.innerHTML=''; });
+
+    fetch('catalog/data/search.json').then(function(r){return r.json();}).then(function(items){
+      searchIndex = items || [];
+      if(metaEl) metaEl.textContent = 'В каталоге: ' + searchIndex.length + ' товаров. Введите запрос для поиска.';
+      if(resultsEl) resultsEl.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#6b7280;padding:8px 0;">Начните вводить название, бренд или раздел — результаты появятся здесь.</div>';
+      if(searchInput){
+        searchInput.addEventListener('input', function(){
+          var q = norm(searchInput.value);
+          if(!q){
+            if(metaEl) metaEl.textContent = 'В каталоге: ' + searchIndex.length + ' товаров. Введите запрос для поиска.';
+            resultsEl.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#6b7280;padding:8px 0;">Начните вводить название, бренд или раздел — результаты появятся здесь.</div>';
+            return;
+          }
+          var terms = q.split(' ').filter(Boolean);
+          var list = searchIndex.filter(function(x){
+            var hay = norm((x.t||'')+' '+(x.b||'')+' '+(x.c||''));
+            return terms.every(function(t){ return hay.indexOf(t)!==-1; });
+          });
+          if(metaEl) metaEl.textContent = 'Найдено: ' + list.length;
+          renderGrid(list, resultsEl, 24);
+        });
+      }
+    }).catch(function(){ if(metaEl) metaEl.textContent = 'Не удалось загрузить каталог.'; });
+
+    fetch('catalog/data/popular.json').then(function(r){return r.json();}).then(function(items){
+      renderGrid(items || [], popularEl, 12);
+    }).catch(function(){ if(popularEl) popularEl.innerHTML=''; });
+  })();
+  </script>
 </body>
 </html>
