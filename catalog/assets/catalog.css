@@ -23,14 +23,18 @@ a { color: var(--brand); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 .site-header {
-  background: #fff; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 20;
+  background: #3f444a; color: #fff; position: sticky; top: 0; z-index: 20;
 }
-.site-header .inner { display: flex; align-items: center; gap: 14px; padding: 12px 0; }
-.header-back { width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; color: #374151; background: #fff; transition: all .2s ease; flex: 0 0 42px; }
-.header-back:hover { color: var(--brand); border-color: #b7d7c4; background: var(--accent); text-decoration: none; }
+.site-header .inner { display: flex; align-items: center; gap: 14px; padding: 14px 0; }
+.header-back { width: 42px; height: 42px; border: 1px solid rgba(255,255,255,.25); border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; color: #fff; background: rgba(255,255,255,.06); transition: all .2s ease; flex: 0 0 42px; }
+.header-back:hover { color: #fff; border-color: rgba(255,255,255,.5); background: rgba(255,255,255,.14); text-decoration: none; }
 .header-back svg { width: 20px; height: 20px; display: block; }
-.brand-logo { width: 46px; height: 46px; border-radius: 50%; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--line); background: #fff; flex: 0 0 46px; }
-.brand-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.brand-logo { width: 52px; height: 52px; border-radius: 50%; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,.2); background: #fff; flex: 0 0 52px; padding: 3px; }
+.brand-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.header-info { min-width: 0; }
+.header-info h1, .header-info .header-title { margin: 0 0 4px; font-size: 28px; line-height: 1.15; font-weight: 700; color: #fff; }
+.header-info p { margin: 0; color: rgba(255,255,255,.85); font-size: 14px; line-height: 1.4; }
+@media (max-width: 700px) { .header-info h1, .header-info .header-title { font-size: 22px; } .header-info p { font-size: 13px; } }
 .brand-mark { font-weight: 800; font-size: 20px; color: #111; letter-spacing: .02em; }
 .brand-mark span { color: var(--brand); }
 .site-nav { display: flex; gap: 14px; flex-wrap: wrap; font-size: 14px; }
