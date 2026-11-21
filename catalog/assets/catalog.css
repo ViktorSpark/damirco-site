@@ -50,6 +50,9 @@ a:hover { text-decoration: underline; }
 .panel {
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px;
 }
+@media (min-width: 901px) {
+  .layout > .panel { position: sticky; top: 92px; max-height: calc(100vh - 104px); overflow: auto; align-self: start; }
+}
 .panel h3 { margin: 0 0 12px; font-size: 16px; }
 .cat-list { list-style: none; margin: 0; padding: 0; }
 .cat-list li { margin: 0; }
@@ -60,6 +63,16 @@ a:hover { text-decoration: underline; }
 .cat-name { flex: 1; min-width: 0; }
 .cat-count { color: var(--muted); font-size: 12px; margin-left: auto; }
 .toolbar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+.catalog-sticky { background: var(--bg); }
+.catalog-sticky .toolbar { margin-bottom: 0; }
+.catalog-sticky-title { margin: 0; font-size: 22px; line-height: 1.2; }
+h1.catalog-sticky-title { font-size: 28px; }
+.catalog-sticky .toolbar + .catalog-sticky-title { margin-top: 10px; }
+.catalog-sticky .catalog-sticky-title + .toolbar { margin-top: 10px; }
+@media (min-width: 901px) {
+  .layout > main .catalog-sticky { position: sticky; top: 92px; z-index: 6; padding: 8px 0 10px; margin-bottom: 6px; }
+  .layout > main .catalog-sticky .toolbar { padding: 0; }
+}
 .search-input {
   flex: 1; min-width: 220px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px;
   font-size: 15px; background: #fff;

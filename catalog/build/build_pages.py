@@ -174,20 +174,20 @@ def main():
   <div class="layout">
     {cat_sidebar(categories, '', '', interactive=True)}
     <main>
-      <div class="toolbar">
-        <input id="catalog-search" class="search-input" type="search" placeholder="Поиск по всем товарам..." />
-        <span id="catalog-meta" class="meta-line"></span>
+      <div class="catalog-sticky">
+        <div class="toolbar">
+          <input id="catalog-search" class="search-input" type="search" placeholder="Поиск по всем товарам..." />
+          <span id="catalog-meta" class="meta-line"></span>
+        </div>
+        <h2 id="catalog-sticky-title" class="catalog-sticky-title">Популярное из каталога</h2>
       </div>
       <section class="section" id="search-section" hidden>
-        <h2 id="search-title">Результаты поиска</h2>
         <div id="search-results" class="grid"></div>
       </section>
       <section class="section" id="popular-section">
-        <h2>Популярное из каталога</h2>
         <div id="popular-root" class="popular-grid"></div>
       </section>
       <section class="section" id="category-section" hidden>
-        <h2 id="category-title"></h2>
         <div id="category-root" class="grid"></div>
       </section>
     </main>
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {{
   var activeCatName = '';
   var popularSection = document.getElementById('popular-section');
   var categorySection = document.getElementById('category-section');
-  var categoryTitle = document.getElementById('category-title');
+  var stickyTitle = document.getElementById('catalog-sticky-title');
   var categoryRoot = document.getElementById('category-root');
   var searchSection = document.getElementById('search-section');
   var searchResults = document.getElementById('search-results');
@@ -228,15 +228,20 @@ document.addEventListener('DOMContentLoaded', function() {{
     if (!searchInput) return;
     searchInput.placeholder = activeCat ? ('Поиск в разделе «' + activeCatName + '»...') : 'Поиск по всем товарам...';
   }}
+  function setStickyTitle(text) {{
+    if (stickyTitle) stickyTitle.textContent = text || '';
+  }}
   function showCurrentView() {{
     searchSection.hidden = true;
     searchResults.innerHTML = '';
     if (activeCat) {{
       popularSection.hidden = true;
       categorySection.hidden = false;
+      setStickyTitle(activeCatName || 'Раздел');
     }} else {{
       categorySection.hidden = true;
       popularSection.hidden = false;
+      setStickyTitle('Популярное из каталога');
     }}
   }}
   function runSearch() {{
@@ -257,6 +262,7 @@ document.addEventListener('DOMContentLoaded', function() {{
       popularSection.hidden = true;
       categorySection.hidden = true;
       searchSection.hidden = false;
+      setStickyTitle(activeCat ? ('Результаты поиска: ' + activeCatName) : 'Результаты поиска');
       if (searchMeta) searchMeta.textContent = 'Найдено: ' + list.length;
       DamirCatalog.renderGrid(list, '#search-results', '', 60);
     }});
@@ -266,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {{
     activeCatName = name || '';
     setActive(slug);
     updatePlaceholder();
-    categoryTitle.textContent = name || 'Раздел';
+    setStickyTitle(activeCatName || 'Раздел');
     categoryRoot.innerHTML = '<div class="empty">Загрузка...</div>';
     loadSearch().then(function(items) {{
       var list = items.filter(function(x) {{ return x.cs === slug; }});
@@ -280,7 +286,6 @@ document.addEventListener('DOMContentLoaded', function() {{
     activeCatName = '';
     setActive('');
     updatePlaceholder();
-    categoryTitle.textContent = '';
     categoryRoot.innerHTML = '';
     if (searchInput && norm(searchInput.value)) {{ runSearch(); }}
     else {{ showCurrentView(); }}
@@ -333,11 +338,13 @@ document.addEventListener('DOMContentLoaded', function() {{
         body = f'''
 <div class="container">
   <div class="breadcrumbs"><a href="../index.html">Каталог</a> / <span>{esc(c["name"])}</span></div>
-  <h1 class="page-title">{esc(c["name"])}</h1>
   <div class="layout">
     {cat_sidebar(categories, c['slug'], '../')}
     <main>
-      <div class="toolbar"><input id="catalog-search" class="search-input" type="search" placeholder="Поиск в разделе «{esc(c["name"])}»..." /><span id="catalog-meta" class="meta-line">Товаров: {len(items)}</span></div>
+      <div class="catalog-sticky">
+        <h1 class="catalog-sticky-title">{esc(c["name"])}</h1>
+        <div class="toolbar"><input id="catalog-search" class="search-input" type="search" placeholder="Поиск в разделе «{esc(c["name"])}»..." /><span id="catalog-meta" class="meta-line">Товаров: {len(items)}</span></div>
+      </div>
       <div id="catalog-results" class="grid">{''.join(cards)}</div>
     </main>
   </div>
