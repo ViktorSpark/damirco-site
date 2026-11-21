@@ -122,6 +122,43 @@ def main():
     with open(ROOT/'catalog_data'/'tilda_импорт_2075_финал.csv', encoding='utf-8-sig', newline='') as f:
         rows = list(csv.DictReader(f, delimiter=';'))
 
+    # optional supplemental Tilda CSVs (e.g. separately uploaded category exports)
+    extra_files = [
+        ROOT/'catalog_data'/'tilda_tarelchatye_daxmer_local.csv',
+        ROOT/'catalog_data'/'tilda_tarelchatye_daxmer.csv',
+    ]
+    seen_extra = set()
+    existing_ids = set()
+    for r in rows:
+        for k in ('External ID', 'SKU'):
+            v = str(r.get(k) or '').strip()
+            if v:
+                existing_ids.add(v)
+    for ep in extra_files:
+        if not ep.exists():
+            continue
+        rp = str(ep.resolve())
+        if rp in seen_extra:
+            continue
+        seen_extra.add(rp)
+        # prefer *_local.csv over original
+        if ep.name.endswith('_local.csv'):
+            orig = ep.with_name(ep.name.replace('_local.csv', '.csv'))
+            if orig.exists():
+                seen_extra.add(str(orig.resolve()))
+        if ep.name == 'tilda_tarelchatye_daxmer.csv' and (ROOT/'catalog_data'/'tilda_tarelchatye_daxmer_local.csv').exists():
+            continue
+        with open(ep, encoding='utf-8-sig', newline='') as f:
+            extra_rows = list(csv.DictReader(f, delimiter=';'))
+        for r in extra_rows:
+            ids = [str(r.get(k) or '').strip() for k in ('External ID', 'SKU')]
+            ids = [v for v in ids if v]
+            if any(v in existing_ids for v in ids):
+                continue
+            rows.append(r)
+            for v in ids:
+                existing_ids.add(v)
+
     inv = load_json(ROOT/'scraper'/'inventory.json') or []
     raw = load_json(ROOT/'catalog_data'/'products_raw.json') or []
     live = load_json(ROOT/'feed'/'live_cache.json') or []
