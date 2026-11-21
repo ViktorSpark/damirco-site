@@ -89,5 +89,25 @@
     }catch(e){ root.innerHTML='<div class="empty">Не удалось загрузить популярные товары</div>'; }
   }
 
+  function initStickyCompact(){
+    const sticky = qs('.layout > main .catalog-sticky');
+    if(!sticky) return;
+    let lastY = window.scrollY || 0;
+    function onScroll(){
+      const y = window.scrollY || 0;
+      const desktop = window.innerWidth >= 901;
+      if(!desktop){ sticky.classList.remove('is-compact'); lastY = y; return; }
+      if(y > 140 && y >= lastY) sticky.classList.add('is-compact');
+      else if(y < 80) sticky.classList.remove('is-compact');
+      lastY = y;
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll);
+    onScroll();
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initStickyCompact);
+  else initStickyCompact();
+
   window.DamirCatalog = { initSearch, initPopular, renderGrid, loadJSON, esc };
 })();

@@ -65,13 +65,19 @@ a:hover { text-decoration: underline; }
 .toolbar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
 .catalog-sticky { background: var(--bg); }
 .catalog-sticky .toolbar { margin-bottom: 0; }
-.catalog-sticky-title { margin: 0; font-size: 22px; line-height: 1.2; }
-h1.catalog-sticky-title { font-size: 28px; }
-.catalog-sticky .toolbar + .catalog-sticky-title { margin-top: 10px; }
-.catalog-sticky .catalog-sticky-title + .toolbar { margin-top: 10px; }
+.catalog-sticky-title { margin: 0; font-size: 20px; line-height: 1.2; }
+h1.catalog-sticky-title { font-size: 24px; }
+.catalog-sticky .toolbar + .catalog-sticky-title { margin-top: 8px; }
+.catalog-sticky .catalog-sticky-title + .toolbar { margin-top: 8px; }
 @media (min-width: 901px) {
-  .layout > main .catalog-sticky { position: sticky; top: 92px; z-index: 6; padding: 8px 0 10px; margin-bottom: 6px; }
-  .layout > main .catalog-sticky .toolbar { padding: 0; }
+  .layout > main .catalog-sticky { position: sticky; top: 92px; z-index: 6; padding: 6px 0 8px; margin-bottom: 4px; }
+  .layout > main .catalog-sticky .toolbar { padding: 0; gap: 10px; }
+  .layout > main .catalog-sticky .search-input { padding: 10px 12px; font-size: 14px; }
+  .layout > main .catalog-sticky.is-compact { padding: 4px 0 6px; }
+  .layout > main .catalog-sticky.is-compact .catalog-sticky-title { display: none; }
+  .layout > main .catalog-sticky.is-compact .toolbar + .catalog-sticky-title,
+  .layout > main .catalog-sticky.is-compact .catalog-sticky-title + .toolbar { margin-top: 0; }
+  .layout > main .section { margin: 12px 0 24px; }
 }
 .search-input {
   flex: 1; min-width: 220px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px;
