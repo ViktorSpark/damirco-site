@@ -38,7 +38,7 @@ alt=""> </div> </div> <style>#rec2617194601 .t-menu-base__imglogo{max-width:240p
 class="t-menu__link-wrapper" data-menu-submenu-hook=""> <a class="t-menu__link-item"
 href="index.html#rec3856509901" data-menu-item-number="1">Главная</a> </div> </li> <li class="t-menu-base__list-item"> <div
 class="t-menu__link-wrapper" data-menu-submenu-hook=""> <a class="t-menu__link-item"
-href="index.html#rec3855004901" data-menu-item-number="2">О компании</a> </div> </li> <li class="t-menu-base__list-item"> <div
+href="index.html#rec4237721701" data-menu-item-number="2">О компании</a> </div> </li> <li class="t-menu-base__list-item"> <div
 class="t-menu__link-wrapper" data-menu-submenu-hook=""> <a class="t-menu__link-item"
 href="index.html#rec4048986001" data-menu-item-number="3">Продукция</a> </div> </li> <li class="t-menu-base__list-item"> <div
 class="t-menu__link-wrapper" data-menu-submenu-hook=""> <a class="t-menu__link-item"
@@ -57,7 +57,7 @@ rec.setAttribute('data-animationappear','off');rec.style.opacity=1;});</script> 
 
   <nav class="hero-overlay-nav" aria-label="Основное меню">
     <ul class="hero-overlay-nav__list">
-      <li><a class="hero-overlay-nav__link" href="index.html#rec3855004901">О компании</a></li>
+      <li><a class="hero-overlay-nav__link" href="index.html#rec4237721701">О компании</a></li>
       <li><a class="hero-overlay-nav__link" href="index.html#rec4048986001">Продукция</a></li>
       <li><a class="hero-overlay-nav__link" href="index.html#rec2617195501">Контакты</a></li>
       <li><a class="hero-overlay-nav__link" href="index.html#rec5581746501">Новости</a></li>
@@ -450,74 +450,123 @@ rec.setAttribute('data-animationappear','off');rec.style.opacity=1;});</script> 
 })();
 </script> <!-- nominify end --> </div> <script>(()=>{const record=document.getElementById('rec3856509901');if(!record) {return;}
 const elements=record.querySelectorAll('.t1370 [data-vibeblock-anchor]');const anchors=Array.from(elements,element=>({element,parentNode:element.parentNode,anchorName:element.getAttribute('data-vibeblock-anchor'),}));for(const {element,parentNode,anchorName} of anchors) {if(!anchorName) continue;const anchor=document.createElement('a');anchor.name=anchorName;anchor.setAttribute('style','font-size:0');parentNode.insertBefore(anchor,element);}})();</script> </div> <div id="rec4237721701" class="r t-rec" style=" " data-record-type="1370"> <!-- T1370 --> <div class="t1370"> <!-- nominify begin --> <section class="vb-k3p" data-section-name="О компании" data-vibeblock-unique-section="yes" aria-labelledby="vb-k3p-title"> <style>
-    .vb-k3p,
-    .vb-k3p * { box-sizing: border-box; }
-    .vb-k3p input,
-    .vb-k3p textarea,
-    .vb-k3p select { font: inherit; }
-
+    .vb-k3p, .vb-k3p * { box-sizing: border-box; }
     .vb-k3p {
       width: 100%;
       background: #ffffff;
       font-family: var(--t-text-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
-      color: #111111;
-      padding: 72px 24px 80px;
+      color: #1a1a1a;
+      padding: 80px 24px 88px;
     }
-
-    .vb-k3p__inner {
-      width: 100%;
-      max-width: 1360px;
-      margin: 0 auto;
-    }
-
+    .vb-k3p__inner { width: 100%; max-width: 1280px; margin: 0 auto; }
     .vb-k3p__heading {
-      margin: 0 0 32px;
+      margin: 0 0 48px;
       font-family: var(--t-headline-font, "Bebas Neue", Bebas, Impact, sans-serif);
-      font-size: clamp(29px, calc(6vw - 5px), 71px);
+      font-size: clamp(32px, 5vw, 64px);
       line-height: 0.98;
       font-weight: 700;
       letter-spacing: -0.01em;
-      color: #000000;
+      color: #42875e;
       text-wrap: balance;
     }
-
-    .vb-k3p__figure {
-      margin: 0;
+    .vb-k3p__grid {
+      display: grid;
+      grid-template-columns: minmax(280px, 420px) 1fr;
+      gap: 56px;
+      align-items: center;
     }
-
-    .vb-k3p__image {
+    .vb-k3p__mascot {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .vb-k3p__mascot img {
       display: block;
       width: 100%;
+      max-width: 420px;
       height: auto;
-      border-radius: 10px;
-      background: #f4f4f4;
     }
-
-    @media (max-width: 1200px) {
-      .vb-k3p { padding: 64px 24px 72px; }
-      .vb-k3p__heading { margin-bottom: 28px; }
+    .vb-k3p__content { display: flex; flex-direction: column; gap: 36px; }
+    .vb-k3p__item { display: grid; grid-template-columns: 56px 1fr; gap: 0 20px; }
+    .vb-k3p__num {
+      font-family: var(--t-headline-font, "Bebas Neue", Bebas, Impact, sans-serif);
+      font-size: 42px;
+      line-height: 1;
+      font-weight: 700;
+      color: #42875e;
+      letter-spacing: -0.02em;
+      padding-top: 2px;
     }
-
-    @media (max-width: 960px) {
-      .vb-k3p { padding: 56px 20px 64px; }
-      .vb-k3p__heading { margin-bottom: 24px; }
+    .vb-k3p__item-body { min-width: 0; }
+    .vb-k3p__item-title {
+      margin: 0 0 14px;
+      font-family: var(--t-headline-font, "Bebas Neue", Bebas, Impact, sans-serif);
+      font-size: clamp(22px, 2.4vw, 34px);
+      line-height: 1.08;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #1a1a1a;
+      text-transform: uppercase;
     }
-
+    .vb-k3p__item-title .vb-k3p__accent { color: #42875e; }
+    .vb-k3p__item-text {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #4b5563;
+      max-width: 720px;
+    }
+    .vb-k3p__divider {
+      height: 1px;
+      background: linear-gradient(90deg, rgba(66,135,94,.35), rgba(66,135,94,0));
+      margin: 0;
+      border: 0;
+    }
+    @media (max-width: 1024px) {
+      .vb-k3p__grid { grid-template-columns: minmax(220px, 320px) 1fr; gap: 40px; }
+    }
+    @media (max-width: 860px) {
+      .vb-k3p { padding: 64px 20px 72px; }
+      .vb-k3p__heading { margin-bottom: 36px; }
+      .vb-k3p__grid { grid-template-columns: 1fr; gap: 32px; }
+      .vb-k3p__mascot img { max-width: 320px; }
+    }
     @media (max-width: 640px) {
-      .vb-k3p { padding: 44px 16px 52px; }
-      .vb-k3p__heading { font-size: clamp(27px, calc(9vw - 5px), 47px); margin-bottom: 20px; }
-      .vb-k3p__image { border-radius: 8px; }
+      .vb-k3p { padding: 48px 16px 56px; }
+      .vb-k3p__item { grid-template-columns: 44px 1fr; gap: 0 14px; }
+      .vb-k3p__num { font-size: 34px; }
+      .vb-k3p__item-title { font-size: 22px; margin-bottom: 10px; }
+      .vb-k3p__item-text { font-size: 15px; }
+      .vb-k3p__content { gap: 28px; }
     }
-
-    @media (max-width: 480px) {
-      .vb-k3p { padding: 36px 14px 44px; }
-      .vb-k3p__heading { margin-bottom: 16px; }
-    }
-  </style> <div class="vb-k3p__inner"> <h2 class="vb-k3p__heading" id="vb-k3p-title">О компании</h2> <figure class="vb-k3p__figure"> <img class="vb-k3p__image" src="vendor/static.tildacdn.com/tila3763-6330-4361-b539-396663383339/nano-banana-pro-7c44.png" alt="Маскот Дамир Групп: панда в строительной каске и очках с инструментом в руке" loading="lazy" decoding="async"> </figure> </div> </section><style data-vb-overrides="true">
-#vb-k3p-title {
-    color: #42875e;
-}
-</style> <!-- nominify end --> </div> <script>(()=>{const record=document.getElementById('rec4237721701');if(!record) {return;}
+  </style>
+  <div class="vb-k3p__inner">
+    <h2 class="vb-k3p__heading" id="vb-k3p-title">О компании</h2>
+    <div class="vb-k3p__grid">
+      <figure class="vb-k3p__mascot">
+        <img src="images/panda-damir.png" alt="Маскот ДАМИР ГРУПП — панда в строительной каске" loading="lazy" decoding="async" width="900" height="900">
+      </figure>
+      <div class="vb-k3p__content">
+        <div class="vb-k3p__item">
+          <div class="vb-k3p__num">01</div>
+          <div class="vb-k3p__item-body">
+            <h3 class="vb-k3p__item-title">Мы не представители бренда — <span class="vb-k3p__accent">мы можем поставить любой бренд</span></h3>
+            <p class="vb-k3p__item-text">ДАМИР ГРУПП выступает в роли системного интегратора крепежных решений, объединяя экспертизу поставщиков, отлаженную логистику и глубокое знание строительного рынка. Широкий ассортимент позволяет оперативно комплектовать объекты «под ключ», минимизируя простои и сокращая время на поиск позиций у разных поставщиков.</p>
+          </div>
+        </div>
+        <hr class="vb-k3p__divider">
+        <div class="vb-k3p__item">
+          <div class="vb-k3p__num">02</div>
+          <div class="vb-k3p__item-body">
+            <h3 class="vb-k3p__item-title">Это помогает нам быть независимыми от интересов конкретных поставщиков и <span class="vb-k3p__accent">выбирать лучших</span></h3>
+            <p class="vb-k3p__item-text">Наша компания стремится обеспечить высокое качество продукции и быстрый сервис. Мы работаем с ведущими брендами в области строительного крепежа и предлагаем широкий ассортимент товаров для удовлетворения потребностей наших клиентов.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> <!-- nominify end --> </div> <script>(()=>{const record=document.getElementById('rec4237721701');if(!record) {return;}
 const elements=record.querySelectorAll('.t1370 [data-vibeblock-anchor]');const anchors=Array.from(elements,element=>({element,parentNode:element.parentNode,anchorName:element.getAttribute('data-vibeblock-anchor'),}));for(const {element,parentNode,anchorName} of anchors) {if(!anchorName) continue;const anchor=document.createElement('a');anchor.name=anchorName;anchor.setAttribute('style','font-size:0');parentNode.insertBefore(anchor,element);}})();</script> </div> <div id="rec5557742201" class="r t-rec" style=" " data-record-type="1370"> <!-- T1370 --> <div class="t1370"> <!-- nominify begin --> <style>
   .ok-products {
     max-width: 1200px;
