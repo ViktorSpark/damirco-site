@@ -724,8 +724,9 @@ if(video){
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 16px;
-    margin: 28px auto 0;
-    max-width: 980px;
+    margin: 28px 0 0;
+    width: 100%;
+    max-width: none;
     align-items: stretch;
   }
   .ok-products__brand {
@@ -745,6 +746,10 @@ if(video){
     height: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
+    transition: transform .35s ease;
+  }
+  .ok-products__brand:hover img {
+    transform: scale(1.06);
   }
   @media (max-width: 620px) {
     .ok-products { padding: 56px 16px; }
