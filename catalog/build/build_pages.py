@@ -31,19 +31,22 @@ def resolve_photo_src(photo, site_root_prefix):
         return photo
     return site_root_prefix + photo.lstrip('/')
 
-def layout(title, body, rel='', description='', extra_head=''):
+def layout(title, body, rel='', description='', extra_head='', back_href=None):
     # rel is relative prefix to /catalog/ root from this page, e.g. '' for /catalog/, '../' for category, '../../' for product
     css = rel + 'assets/catalog.css'
     js = rel + 'assets/catalog.js'
+    site_root = rel + '../'
+    logo = site_root + 'vendor/static.tildacdn.com/tild3836-3065-4361-b230-346163353065/photo.jpg'
+    if not back_href:
+        back_href = site_root + 'index.html#search-products'
     nav = f'''
 <header class="site-header"><div class="container inner">
-  <a class="brand-mark" href="{rel}../index.html">ДАМИР <span>ГРУПП</span></a>
-  <nav class="site-nav">
-    <a href="{rel}../index.html">Главная</a>
-    <a href="{rel}index.html">Каталог</a>
-    <a href="{rel}../tests.html">Испытания</a>
-    <a href="{rel}../index.html#contacts">Контакты</a>
-  </nav>
+  <a class="header-back" href="{esc(back_href)}" aria-label="Назад">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+  </a>
+  <a class="brand-logo" href="{esc(site_root + 'index.html')}" aria-label="ДАМИР ГРУПП">
+    <img src="{esc(logo)}" alt="ДАМИР ГРУПП">
+  </a>
 </div></header>'''
     desc_meta = f'<meta name="description" content="{esc(description)}" />' if description else ''
     return f'''<!DOCTYPE html>
@@ -64,12 +67,20 @@ def layout(title, body, rel='', description='', extra_head=''):
 </body>
 </html>'''
 
-def cat_sidebar(categories, active_slug, rel_to_catalog):
+def cat_sidebar(categories, active_slug, rel_to_catalog, interactive=False):
     items=[]
     for c in categories:
         href = rel_to_catalog + c['slug'] + '/'
         cls = ' class="active"' if c['slug']==active_slug else ''
-        items.append(f'<li><a{cls} href="{href}"><span>{esc(c["name"])}</span><span class="cat-count">{c["count"]}</span></a></li>')
+        icon = rel_to_catalog + 'assets/icons/' + c['slug'] + '.png'
+        data = f' data-cat="{esc(c["slug"])}"' if interactive else ''
+        items.append(
+            f'<li><a{cls}{data} href="{href}">'
+            f'<span class="cat-icon"><img src="{esc(icon)}" alt="" loading="lazy"></span>'
+            f'<span class="cat-name">{esc(c["name"])}</span>'
+            f'<span class="cat-count">{c["count"]}</span>'
+            f'</a></li>'
+        )
     return '<aside class="panel"><h3>Разделы каталога</h3><ul class="cat-list">' + ''.join(items) + '</ul></aside>'
 
 import re as _re
@@ -148,23 +159,94 @@ def main():
     products = catalog['products']
 
     # index page
-    cat_cards=[]
-    for c in categories:
-        cat_cards.append(f'''<article class="card"><div class="card-body"><div class="card-cat">{c["count"]} товаров</div><div class="card-title"><a href="{esc(c["slug"])}/">{esc(c["name"])}</a></div></div></article>''')
     body = f'''
 <div class="hero-bar"><div class="container"><h1>Каталог продукции</h1><p>Полный ассортимент ДАМИР ГРУПП: {catalog['meta']['total']} позиций в {len(categories)} разделах. Описания, характеристики и размерные ряды.</p></div></div>
 <div class="container section">
-  <div class="toolbar"><input id="catalog-search" class="search-input" type="search" placeholder="Поиск по названию, бренду, разделу..." /><span id="catalog-meta" class="meta-line"></span></div>
   <div class="layout">
-    {cat_sidebar(categories, '', '')}
+    {cat_sidebar(categories, '', '', interactive=True)}
     <main>
-      <section class="section"><h2>Разделы</h2><div class="grid">{''.join(cat_cards)}</div></section>
-      <section class="section"><h2>Поиск по каталогу</h2><div id="catalog-results" class="grid"></div></section>
-      <section class="section"><h2>Популярное</h2><div id="popular-root" class="grid"></div></section>
+      <section class="section" id="popular-section">
+        <h2>Популярное из каталога</h2>
+        <div id="popular-root" class="popular-grid"></div>
+      </section>
+      <section class="section" id="category-section" hidden>
+        <h2 id="category-title"></h2>
+        <div id="category-root" class="grid"></div>
+      </section>
     </main>
   </div>
 </div>
-<script>document.addEventListener('DOMContentLoaded',function(){{ DamirCatalog.initSearch({{base:'', input:'#catalog-search', results:'#catalog-results', meta:'#catalog-meta', limit:48}}); DamirCatalog.initPopular({{base:'', root:'#popular-root', limit:12}}); }});</script>'''
+<script>
+document.addEventListener('DOMContentLoaded', function() {{
+  var searchData = null;
+  var popularData = null;
+  var activeCat = '';
+  var popularSection = document.getElementById('popular-section');
+  var categorySection = document.getElementById('category-section');
+  var categoryTitle = document.getElementById('category-title');
+  var categoryRoot = document.getElementById('category-root');
+  var sidebarLinks = Array.prototype.slice.call(document.querySelectorAll('.cat-list a[data-cat]'));
+
+  function loadSearch() {{
+    if (searchData) return Promise.resolve(searchData);
+    return DamirCatalog.loadJSON('data/search.json').then(function(items) {{ searchData = items || []; return searchData; }});
+  }}
+  function renderPopular() {{
+    if (popularData) {{ DamirCatalog.renderGrid(popularData, '#popular-root', '', 9); return; }}
+    DamirCatalog.loadJSON('data/popular.json').then(function(items) {{
+      popularData = (items || []).slice(0, 9);
+      DamirCatalog.renderGrid(popularData, '#popular-root', '', 9);
+    }}).catch(function(){{}});
+  }}
+  function setActive(slug) {{
+    sidebarLinks.forEach(function(a) {{ a.classList.toggle('active', a.getAttribute('data-cat') === slug); }});
+  }}
+  function openCategory(slug, name) {{
+    activeCat = slug;
+    setActive(slug);
+    popularSection.hidden = true;
+    categorySection.hidden = false;
+    categoryTitle.textContent = name || 'Раздел';
+    categoryRoot.innerHTML = '<div class="empty">Загрузка...</div>';
+    loadSearch().then(function(items) {{
+      var list = items.filter(function(x) {{ return x.cs === slug; }});
+      DamirCatalog.renderGrid(list, '#category-root', '', 500);
+    }}).catch(function() {{ categoryRoot.innerHTML = '<div class="empty">Не удалось загрузить товары.</div>'; }});
+  }}
+  function closeCategory() {{
+    activeCat = '';
+    setActive('');
+    categorySection.hidden = true;
+    popularSection.hidden = false;
+    categoryTitle.textContent = '';
+    categoryRoot.innerHTML = '';
+  }}
+
+  sidebarLinks.forEach(function(a) {{
+    a.addEventListener('click', function(e) {{
+      e.preventDefault();
+      var slug = a.getAttribute('data-cat') || '';
+      var nameEl = a.querySelector('.cat-name');
+      var name = nameEl ? nameEl.textContent : '';
+      if (activeCat === slug) {{ closeCategory(); return; }}
+      openCategory(slug, name);
+    }});
+  }});
+
+  renderPopular();
+
+  var params = new URLSearchParams(window.location.search || '');
+  var openSlug = params.get('open');
+  if (openSlug) {{
+    var match = sidebarLinks.find(function(a) {{ return a.getAttribute('data-cat') === openSlug; }});
+    if (match) {{
+      var n = match.querySelector('.cat-name');
+      openCategory(openSlug, n ? n.textContent : '');
+      match.scrollIntoView({{block:'nearest'}});
+    }}
+  }}
+}});
+</script>'''
     (OUT/'index.html').write_text(layout('Каталог — ДАМИР ГРУПП', body, '', 'Каталог крепежа ДАМИР ГРУПП: все разделы, поиск, описания и размеры.'), encoding='utf-8')
 
     # category pages
@@ -195,7 +277,7 @@ def main():
   </div>
 </div>
 <script>document.addEventListener('DOMContentLoaded',function(){{ DamirCatalog.initSearch({{base:'../', input:'#catalog-search', results:'#catalog-results', meta:'#catalog-meta', category:{json.dumps(c['name'], ensure_ascii=False)}, limit:500}}); }});</script>'''
-        (cdir/'index.html').write_text(layout(f'{c["name"]} — Каталог ДАМИР ГРУПП', body, '../', f'{c["name"]} — {len(items)} товаров в каталоге ДАМИР ГРУПП.'), encoding='utf-8')
+        (cdir/'index.html').write_text(layout(f'{c["name"]} — Каталог ДАМИР ГРУПП', body, '../', f'{c["name"]} — {len(items)} товаров в каталоге ДАМИР ГРУПП.', back_href=f'../index.html?open={esc(c["slug"])}'), encoding='utf-8')
 
     # product pages
     pdir = OUT / 'p'
@@ -263,7 +345,7 @@ document.addEventListener('DOMContentLoaded', function(){{
 </script>'''
         title = f'{p["title"]} — {p["category"]} — ДАМИР ГРУПП'
         desc_meta = (p.get('description') or p.get('text') or '')[:180].replace('\n',' ')
-        (d/'index.html').write_text(layout(title, body, '../../', desc_meta), encoding='utf-8')
+        (d/'index.html').write_text(layout(title, body, '../../', desc_meta, back_href=f'../../index.html?open={esc(p["category_slug"])}'), encoding='utf-8')
 
     print('generated catalog pages: index,', len(categories), 'categories,', len(products), 'products')
 
