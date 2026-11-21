@@ -32,17 +32,17 @@
       <div class="notice">Для заказа и уточнения актуальной цены/наличия отправьте запрос на почту или позвоните +7 (495) 363-71-60.</div>
     </div>
   </div>
-  <div class="block"><h3>Описание</h3><div class="desc">Пристрелочный набор Fixpistols (Standart) СN газовый Представляем вашему вниманию пристрелочный набор Fixpistols (Standart) что позволит вам упростить процесс подбора гвоздя под вашу задачу.&amp;amp;lt;br&amp;amp;gt;
- В набор входит:&amp;amp;lt;br&amp;amp;gt;
- Гвозди F-CN 3.0×16 мм – 150 шт&amp;amp;lt;br&amp;amp;gt;
- Гвозди F-CN 3.0×19 мм – 150 шт&amp;amp;lt;br&amp;amp;gt;
- Гвозди F-CN 3.0×22 мм – 150 шт&amp;amp;lt;br&amp;amp;gt;
- Гвозди F-CN 3.0×25 мм – 150 шт&amp;amp;lt;br&amp;amp;gt;
- Гвозди F-CN 3.0×32 мм – 100 шт&amp;amp;lt;br&amp;amp;gt;
- Гвозди F-CN 3.0×38 мм – 100 шт&amp;amp;lt;br&amp;amp;gt;
- Газовый баллон FC-165 – 1 шт&amp;amp;lt;br&amp;amp;gt;
- Крепеж-клипса F-CPE 20 мм – 4 шт&amp;amp;lt;br&amp;amp;gt;
- Площадка под хомут-стяжку F-CTE – 8 шт&amp;amp;lt;br&amp;amp;gt;
+  <div class="block"><h3>Описание</h3><div class="desc">Пристрелочный набор Fixpistols (Standart) СN газовый Представляем вашему вниманию пристрелочный набор Fixpistols (Standart) что позволит вам упростить процесс подбора гвоздя под вашу задачу.&amp;lt;br&amp;gt;
+ В набор входит:&amp;lt;br&amp;gt;
+ Гвозди F-CN 3.0×16 мм – 150 шт&amp;lt;br&amp;gt;
+ Гвозди F-CN 3.0×19 мм – 150 шт&amp;lt;br&amp;gt;
+ Гвозди F-CN 3.0×22 мм – 150 шт&amp;lt;br&amp;gt;
+ Гвозди F-CN 3.0×25 мм – 150 шт&amp;lt;br&amp;gt;
+ Гвозди F-CN 3.0×32 мм – 100 шт&amp;lt;br&amp;gt;
+ Гвозди F-CN 3.0×38 мм – 100 шт&amp;lt;br&amp;gt;
+ Газовый баллон FC-165 – 1 шт&amp;lt;br&amp;gt;
+ Крепеж-клипса F-CPE 20 мм – 4 шт&amp;lt;br&amp;gt;
+ Площадка под хомут-стяжку F-CTE – 8 шт&amp;lt;br&amp;gt;
 
 ХАРАКТЕРИСТИКИ:
 Артикул: 1-2-3-6499</div></div>
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function(){
     var parts=n.toFixed(2).split('.'); parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,' ');
     return parts[0]+','+parts[1]+' ₽';
   }
-  function photoSrc(ph){ ph=String(ph||'').trim(); if(!ph) return ''; if(/^https?:\/\//i.test(ph)) return ph; return '../../' + ph.replace(/^\/+/, ''); }
+  function photoSrc(ph){ ph=String(ph||'').trim(); if(!ph) return ''; if(/^https?:\/\//i.test(ph)) return ph; return '../../../' + ph.replace(/^\/+/, ''); }
   function card(p){
     var href='../../p/'+encodeURIComponent(p.s||p.slug||'')+'/';
     var img=photoSrc(p.ph||p.photo||'');

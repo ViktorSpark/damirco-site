@@ -16,6 +16,21 @@ def norm_text(s):
     s = re.sub(r'[^a-zа-я0-9]+', ' ', s)
     return re.sub(r'\s+', ' ', s).strip()
 
+def clean_html(s):
+    s = (s or '').strip()
+    if not s:
+        return ''
+    s = re.sub(r'<br\s*/?>', '\n', s, flags=re.I)
+    s = re.sub(r'</(p|div|li|h[1-6]|tr)>', '\n', s, flags=re.I)
+    s = re.sub(r'<li[^>]*>', '- ', s, flags=re.I)
+    s = re.sub(r'<[^>]+>', ' ', s)
+    s = html.unescape(s)
+    s = s.replace('\xa0', ' ')
+    s = re.sub(r'[ \t]+\n', '\n', s)
+    s = re.sub(r'\n{3,}', '\n\n', s)
+    s = re.sub(r'[ \t]{2,}', ' ', s)
+    return s.strip()
+
 def slugify(s, maxlen=80):
     s = (s or '').strip().lower().replace('ё', 'е')
     tr = {
@@ -200,8 +215,8 @@ def main():
         ext = (r.get('External ID') or '').strip()
         title = (r.get('Title') or '').strip()
         category = (r.get('Category') or '').strip() or 'Без категории'
-        desc = (r.get('Description') or '').strip()
-        text = (r.get('Text') or '').strip()
+        desc = clean_html((r.get('Description') or '').strip())
+        text = clean_html((r.get('Text') or '').strip())
         photo = (r.get('Photo') or '').strip()
         price = (r.get('Price') or '').strip()
         price_old = (r.get('Price Old') or '').strip()
