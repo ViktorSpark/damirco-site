@@ -792,8 +792,8 @@ const elements=record.querySelectorAll('.t1370 [data-vibeblock-anchor]');const a
     .dg-home-catalog .dg-pop-brand{font-size:12px;color:#4b5563;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
     .dg-home-catalog .dg-pop-price{margin-top:auto;padding-top:4px;font-weight:700;color:#111;font-size:14px;line-height:1.3;}
     .dg-home-catalog .dg-search-block{margin-top:34px;}
-    .dg-home-catalog .dg-search-title{font-size:32px;line-height:1.2;margin:0 0 14px;text-align:center;color:#111827;}
-    .dg-home-catalog .dg-search-wrap{max-width:760px;margin:0 auto 10px;}
+    .dg-home-catalog .dg-search-title{font-size:32px;line-height:1.2;margin:0 0 14px;text-align:left;color:#111827;}
+    .dg-home-catalog .dg-search-wrap{max-width:100%;margin:0 0 10px;}
     .dg-home-catalog .dg-search-input{width:100%;padding:14px 16px;border:1px solid #d9dde3;border-radius:12px;font-size:16px;box-sizing:border-box;}
     .dg-home-catalog .dg-search-input:focus{outline:none;border-color:#1f6b3b;box-shadow:0 0 0 3px rgba(31,107,59,.12);}
     .dg-home-catalog .dg-search-meta{margin-top:8px;font-size:14px;color:#6b7280;text-align:center;}
@@ -826,7 +826,7 @@ const elements=record.querySelectorAll('.t1370 [data-vibeblock-anchor]');const a
   </div>
 
   <div class="dg-search-block">
-    <h2 class="dg-search-title">Каталог и поиск</h2>
+    <h2 class="dg-search-title">Поиск товаров</h2>
     <div class="dg-search-wrap">
       <input id="home-catalog-search" class="dg-search-input" type="search" placeholder="Поиск по названию, бренду, разделу..." />
       <div id="home-catalog-meta" class="dg-search-meta"></div>
@@ -839,9 +839,43 @@ const elements=record.querySelectorAll('.t1370 [data-vibeblock-anchor]');const a
 </div></div></div></div><div id="rec4048986001" class="r t-rec" style=" " data-record-type="131">
 <div class="t123"><div class="t-container_100"><div class="t-width t-width_100">
 <section class="dg-catalog-sections" style="max-width:1200px;margin:0 auto;padding:20px 20px 50px;font-family:Arial,sans-serif;">
-  <h2 style="font-size:34px;line-height:1.2;margin:0 0 10px;text-align:center;">Каталог по разделам</h2>
-  <p style="text-align:center;color:#555;margin:0 0 22px;">Все разделы, карточки товаров с описаниями, характеристиками и размерными рядами.</p>
-  <div id="home-catalog-cats" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;"></div>
+  <style>
+    .dg-catalog-sections .dg-sec-title{font-size:34px;line-height:1.2;margin:0 0 20px;text-align:left;color:#111827;}
+    .dg-catalog-sections .dg-cats{display:flex;flex-direction:column;gap:12px;}
+    .dg-catalog-sections .dg-cat-item{background:#fff;border:1px solid #e5e7eb;border-radius:14px;overflow:hidden;transition:border-color .2s ease,box-shadow .2s ease;}
+    .dg-catalog-sections .dg-cat-item.is-open{border-color:#cfe0d4;box-shadow:0 8px 24px rgba(17,24,39,.06);}
+    .dg-catalog-sections .dg-cat-row{width:100%;display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fff;border:0;cursor:pointer;text-align:left;font:inherit;color:inherit;}
+    .dg-catalog-sections .dg-cat-row:hover{background:#fafcfb;}
+    .dg-catalog-sections .dg-cat-icon{width:52px;height:52px;flex:0 0 52px;border-radius:12px;background:#f7f7f8;border:1px solid #eceef1;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+    .dg-catalog-sections .dg-cat-icon img{width:100%;height:100%;object-fit:contain;background:#fff;}
+    .dg-catalog-sections .dg-cat-name{flex:1;font-size:17px;font-weight:600;line-height:1.3;color:#111827;}
+    .dg-catalog-sections .dg-cat-count{font-size:13px;color:#6b7280;margin-left:auto;white-space:nowrap;}
+    .dg-catalog-sections .dg-cat-chev{width:28px;height:28px;flex:0 0 28px;color:#6b7280;transition:transform .22s ease;}
+    .dg-catalog-sections .dg-cat-item.is-open .dg-cat-chev{transform:rotate(180deg);color:#1f6b3b;}
+    .dg-catalog-sections .dg-cat-panel{display:none;padding:0 16px 16px;border-top:1px solid #eef0f2;background:#fcfdfc;}
+    .dg-catalog-sections .dg-cat-item.is-open .dg-cat-panel{display:block;}
+    .dg-catalog-sections .dg-cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;padding-top:14px;}
+    .dg-catalog-sections .dg-cat-card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;}
+    .dg-catalog-sections .dg-cat-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(17,24,39,.09);border-color:#d1d5db;}
+    .dg-catalog-sections .dg-cat-card-img{display:block;aspect-ratio:1/1;background:#fff;}
+    .dg-catalog-sections .dg-cat-card-img img{width:100%;height:100%;object-fit:contain;background:#fff;}
+    .dg-catalog-sections .dg-cat-card-body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1;}
+    .dg-catalog-sections .dg-cat-card-cat{font-size:12px;color:#6b7280;}
+    .dg-catalog-sections .dg-cat-card-title{font-size:14px;font-weight:600;line-height:1.35;}
+    .dg-catalog-sections .dg-cat-card-title a{color:#111827;text-decoration:none;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+    .dg-catalog-sections .dg-cat-card-brand{font-size:12px;color:#4b5563;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .dg-catalog-sections .dg-cat-card-price{margin-top:auto;font-weight:700;color:#111;font-size:14px;}
+    .dg-catalog-sections .dg-cat-more{margin-top:14px;text-align:center;}
+    .dg-catalog-sections .dg-cat-more a{display:inline-block;padding:10px 16px;border-radius:10px;border:1px solid #d1d5db;color:#1f2937;text-decoration:none;font-weight:600;font-size:14px;background:#fff;}
+    .dg-catalog-sections .dg-cat-more a:hover{border-color:#1f6b3b;color:#1f6b3b;}
+    @media (max-width:640px){
+      .dg-catalog-sections .dg-sec-title{font-size:26px;}
+      .dg-catalog-sections .dg-cat-name{font-size:15px;}
+      .dg-catalog-sections .dg-cat-count{display:none;}
+    }
+  </style>
+  <h2 class="dg-sec-title">Каталог по разделам</h2>
+  <div id="home-catalog-cats" class="dg-cats"></div>
 </section>
 </div></div></div></div><div id="rec4140355201" class="r t-rec" style=" " data-record-type="1370"> <!-- T1370 --> <div class="t1370"> <!-- nominify begin --> <section class="dg-dl" aria-labelledby="dg-dl__title"> <style>
     .dg-dl,
@@ -3300,7 +3334,15 @@ window.tildastatcookie='no';setTimeout(function(){(function(d,w,k,o,g) {var n=d.
 (function(){
   function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];});}
   function norm(s){return String(s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-я0-9]+/g,' ').trim();}
-  function fmtPrice(p){p=(p==null?'':String(p)).trim(); return p ? p+' ₽' : 'Цена по запросу';}
+  function fmtPrice(p){
+    p=(p==null?'':String(p)).replace(/\s+/g,'').replace(',', '.').trim();
+    if(!p) return 'Цена по запросу';
+    var n=Number(p);
+    if(!isFinite(n)) return String(p)+' ₽';
+    var parts=n.toFixed(2).split('.');
+    parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+    return parts[0]+','+parts[1]+' ₽';
+  }
   function photoSrc(p){var img=String((p&& (p.ph||p.photo))||'').trim(); if(!img) return ''; if(/^https?:\/\//i.test(img)) return img; return img.replace(/^\/+/,'');}
   function hintText(count){ return 'В каталоге: '+count+' товаров. Начните вводить название, бренд или раздел — результаты появятся здесь.'; }
 
@@ -3366,9 +3408,84 @@ window.tildastatcookie='no';setTimeout(function(){(function(d,w,k,o,g) {var n=d.
 
   setupCarousel(popularEl, prevBtn, nextBtn);
 
+  var CAT_ICONS = {
+    'anker-shurup-po-betonu-muaf':'catalog/assets/icons/anker-shurup-po-betonu-muaf.png',
+    'bury':'catalog/assets/icons/bury.png',
+    'fasadnye-dyubeli':'catalog/assets/icons/fasadnye-dyubeli.png',
+    'himicheskie-ankery':'catalog/assets/icons/himicheskie-ankery.png',
+    'mehanicheskie-ankery':'catalog/assets/icons/mehanicheskie-ankery.png',
+    'prinadlezhnosti-dlya-himicheskih-ankerov':'catalog/assets/icons/prinadlezhnosti-dlya-himicheskih-ankerov.png',
+    'samosverlyaschie-vinty':'catalog/assets/icons/samosverlyaschie-vinty.png',
+    'shpilki':'catalog/assets/icons/shpilki.png',
+    'sverla':'catalog/assets/icons/sverla.png',
+    'tarelchatye-dyubeli':'catalog/assets/icons/tarelchatye-dyubeli.png',
+    'vinty-dlya-sendvich-paneley':'catalog/assets/icons/vinty-dlya-sendvich-paneley.png',
+    'zaklepki':'catalog/assets/icons/zaklepki.png',
+    'dyubeli':'catalog/assets/icons/dyubeli.png',
+    'samorezy':'catalog/assets/icons/samorezy.png',
+    'bystryy-montazh':'catalog/assets/icons/bystryy-montazh.png',
+    'derevyannoe-domostroenie':'catalog/assets/icons/derevyannoe-domostroenie.png'
+  };
+
+  function catProductCard(p){
+    var href='catalog/p/'+encodeURIComponent((p&& (p.s||p.slug))||'')+'/';
+    var img=photoSrc(p);
+    var imgHtml=img?'<img src="'+esc(img)+'" alt="'+esc((p.t||p.title)||'')+'" loading="lazy">':'<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#9ca3af;font-size:13px;background:#fff;">Нет фото</div>';
+    return '<article class="dg-cat-card">'
+      +'<a class="dg-cat-card-img" href="'+href+'">'+imgHtml+'</a>'
+      +'<div class="dg-cat-card-body">'
+      +'<div class="dg-cat-card-cat">'+esc((p.c||p.category)||'')+'</div>'
+      +'<div class="dg-cat-card-title"><a href="'+href+'" title="'+esc((p.t||p.title)||'')+'">'+esc((p.t||p.title)||'')+'</a></div>'
+      +((p.b||p.brand)?'<div class="dg-cat-card-brand">'+esc(p.b||p.brand)+'</div>':'')
+      +'<div class="dg-cat-card-price">'+esc(fmtPrice(p.p||p.price))+'</div>'
+      +'</div></article>';
+  }
+
   fetch('catalog/data/catalog.json').then(function(r){return r.json();}).then(function(data){
     var cats=(data&&data.categories)||[];
-    if(catsEl){ catsEl.innerHTML=cats.map(function(c){ return '<a href="catalog/'+encodeURIComponent(c.slug)+'/" style="display:block;background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:18px;text-decoration:none;color:inherit;text-align:center;"><div style="font-weight:700;line-height:1.3;">'+esc(c.name)+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">'+esc(c.count)+' позиций</div></a>'; }).join(''); }
+    var products=(data&&data.products)||[];
+    var byCat={};
+    for(var i=0;i<products.length;i++){
+      var p=products[i];
+      var k=p.category_slug || p.category || '';
+      (byCat[k]=byCat[k]||[]).push(p);
+    }
+    if(!catsEl) return;
+    catsEl.innerHTML=cats.map(function(c){
+      var icon=CAT_ICONS[c.slug]||'';
+      var iconHtml=icon?'<img src="'+esc(icon)+'" alt="" loading="lazy">':'<div style="width:24px;height:24px;border-radius:6px;background:#e5e7eb;"></div>';
+      return '<div class="dg-cat-item" data-cat="'+esc(c.slug)+'">'
+        +'<button type="button" class="dg-cat-row" aria-expanded="false">'
+        +'<span class="dg-cat-icon">'+iconHtml+'</span>'
+        +'<span class="dg-cat-name">'+esc(c.name)+'</span>'
+        +'<span class="dg-cat-count">'+esc(c.count)+' позиций</span>'
+        +'<svg class="dg-cat-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>'
+        +'</button>'
+        +'<div class="dg-cat-panel"><div class="dg-cat-grid"></div><div class="dg-cat-more"><a href="catalog/'+encodeURIComponent(c.slug)+'/">Открыть страницу раздела</a></div></div>'
+        +'</div>';
+    }).join('');
+
+    catsEl.addEventListener('click', function(e){
+      var row=e.target.closest('.dg-cat-row');
+      if(!row || !catsEl.contains(row)) return;
+      var item=row.closest('.dg-cat-item');
+      if(!item) return;
+      var wasOpen=item.classList.contains('is-open');
+      // close others? keep simple: toggle only this one
+      item.classList.toggle('is-open');
+      row.setAttribute('aria-expanded', wasOpen ? 'false' : 'true');
+      if(!wasOpen){
+        var panel=item.querySelector('.dg-cat-grid');
+        if(panel && !panel.dataset.loaded){
+          var slug=item.getAttribute('data-cat')||'';
+          var list=byCat[slug]||[];
+          panel.innerHTML=list.map(function(p){
+            return catProductCard({s:p.slug, t:p.title, c:p.category, b:p.brand, ph:p.photo, p:p.price});
+          }).join('');
+          panel.dataset.loaded='1';
+        }
+      }
+    });
   }).catch(function(){});
 
   fetch('catalog/data/search.json').then(function(r){return r.json();}).then(function(items){

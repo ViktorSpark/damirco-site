@@ -2,7 +2,15 @@
   function qs(sel, root){ return (root||document).querySelector(sel); }
   function qsa(sel, root){ return Array.prototype.slice.call((root||document).querySelectorAll(sel)); }
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c])); }
-  function fmtPrice(p){ if(p==null||p==='') return ''; return String(p).replace(/\s+/g,' ').trim() + ' ₽'; }
+  function fmtPrice(p){
+    if(p==null||p==='') return '';
+    var s = String(p).replace(/\s+/g,'').replace(',', '.').trim();
+    var n = Number(s);
+    if(!isFinite(n)) return String(p).trim() + ' ₽';
+    var parts = n.toFixed(2).split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    return parts[0] + ',' + parts[1] + ' ₽';
+  }
   function norm(s){ return String(s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-я0-9]+/g,' ').trim(); }
 
   async function loadJSON(url){

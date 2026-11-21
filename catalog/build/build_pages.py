@@ -13,9 +13,14 @@ def esc(s):
 def fmt_price(p):
     p = ('' if p is None else str(p)).strip()
     if not p: return 'Цена по запросу'
-    # normalize spaces
-    p = ' '.join(p.split())
-    return p + ' ₽'
+    p = p.replace(' ', '').replace(',', '.')
+    try:
+        n = float(p)
+        s = f"{n:,.2f}"  # 1,234.56
+        s = s.replace(',', ' ').replace('.', ',')
+        return s + ' ₽'
+    except Exception:
+        return ' '.join(str(p).split()) + ' ₽'
 
 def resolve_photo_src(photo, site_root_prefix):
     """photo is external URL or site-root-relative path; return src usable from current page."""
