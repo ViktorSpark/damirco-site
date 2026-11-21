@@ -361,7 +361,8 @@ document.addEventListener('DOMContentLoaded', function() {{
         if p.get('external_id') and p.get('external_id')!=p.get('sku'): kv.append(('Внешний ID', esc(p['external_id'])))
         price = p.get('price') or ''
         price_old = p.get('price_old') or ''
-        price_html = esc(fmt_price(price)) + (f' <span class="price-old">{esc(fmt_price(price_old))}</span>' if price_old else '')
+        price_main = f'<span class="product-price-main">{esc(fmt_price(price))}</span>' if price else '<span class="product-price-main" style="color:#6b7280;font-size:20px;">Цена по запросу</span>'
+        price_html = price_main + (f' <span class="price-old">{esc(fmt_price(price_old))}</span>' if price_old else '')
         kv.append(('Цена', price_html))
         if p.get('quantity'): kv.append(('Наличие', esc(p['quantity'])))
         if p.get('url'): kv.append(('Страница на сайте', f'<a href="{esc(p["url"])}" target="_blank" rel="noopener">Открыть</a>'))
@@ -399,13 +400,62 @@ document.addEventListener('DOMContentLoaded', function() {{
   </div>
   {desc_block}
   {variants_block}
-  <div class="section"><h2>Другие товары раздела</h2><div id="related-root" class="grid"></div></div>
+  <div class="section">
+    <h2>Другие товары раздела</h2>
+    <div class="rel-carousel-wrap">
+      <button type="button" class="rel-car-arrow rel-car-prev" id="rel-prev" aria-label="Прокрутить влево"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+      <div id="related-root" class="rel-carousel" aria-label="Другие товары раздела"></div>
+      <button type="button" class="rel-car-arrow rel-car-next" id="rel-next" aria-label="Прокрутить вправо"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+    </div>
+  </div>
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function(){{
+  function esc(s){{return String(s==null?'':s).replace(/[&<>"']/g,function(c){{return {{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}}[c];}});}}
+  function fmtPrice(p){{
+    p=(p==null?'':String(p)).replace(/\\s+/g,'').replace(',', '.').trim();
+    if(!p) return 'Цена по запросу';
+    var n=Number(p); if(!isFinite(n)) return String(p)+' ₽';
+    var parts=n.toFixed(2).split('.'); parts[0]=parts[0].replace(/\\B(?=(\\d{{3}})+(?!\\d))/g,' ');
+    return parts[0]+','+parts[1]+' ₽';
+  }}
+  function photoSrc(ph){{ ph=String(ph||'').trim(); if(!ph) return ''; if(/^https?:\\/\\//i.test(ph)) return ph; return '../../' + ph.replace(/^\\/+/, ''); }}
+  function card(p){{
+    var href='../../p/'+encodeURIComponent(p.s||p.slug||'')+'/';
+    var img=photoSrc(p.ph||p.photo||'');
+    var imgHtml=img?'<img src="'+esc(img)+'" alt="'+esc(p.t||p.title||'')+'" loading="lazy">':'<div class="rel-ph">Нет фото</div>';
+    return '<article class="rel-card">'
+      +'<a class="rel-img" href="'+href+'">'+imgHtml+'</a>'
+      +'<div class="rel-body">'
+      +'<div class="rel-cat">'+esc(p.c||p.category||'')+'</div>'
+      +'<a class="rel-title" href="'+href+'" title="'+esc(p.t||p.title||'')+'">'+esc(p.t||p.title||'')+'</a>'
+      +'<div class="rel-price">'+esc(fmtPrice(p.p||p.price))+'</div>'
+      +'</div></article>';
+  }}
+  function setupCarousel(track, prev, next){{
+    function step(){{ return Math.max(track.clientWidth*0.8, 240); }}
+    function update(){{
+      var max=track.scrollWidth-track.clientWidth-4;
+      prev.disabled = track.scrollLeft <= 4;
+      next.disabled = track.scrollLeft >= max;
+    }}
+    if(!track.dataset.carouselInit){{
+      prev.addEventListener('click', function(){{ track.scrollBy({{left:-step(),behavior:'smooth'}}); }});
+      next.addEventListener('click', function(){{ track.scrollBy({{left:step(),behavior:'smooth'}}); }});
+      track.addEventListener('scroll', function(){{ window.requestAnimationFrame(update); }});
+      window.addEventListener('resize', update);
+      track.dataset.carouselInit='1';
+    }}
+    setTimeout(update, 60);
+  }}
+  var track=document.getElementById('related-root');
+  var prev=document.getElementById('rel-prev');
+  var next=document.getElementById('rel-next');
+  if(track && prev && next) setupCarousel(track,prev,next);
   DamirCatalog.loadJSON('../../data/search.json').then(function(items){{
-    var rel = items.filter(function(x){{ return x.cs === {json.dumps(p['category_slug'], ensure_ascii=False)} && x.i !== {p['id']}; }}).slice(0,8);
-    DamirCatalog.renderGrid(rel, '#related-root', '../../', 8);
+    var rel = items.filter(function(x){{ return x.cs === {json.dumps(p['category_slug'], ensure_ascii=False)} && x.i !== {p['id']}; }}).slice(0,12);
+    if(track) track.innerHTML = rel.map(card).join('');
+    if(track && prev && next) setupCarousel(track,prev,next);
   }}).catch(function(){{}});
 }});
 </script>'''

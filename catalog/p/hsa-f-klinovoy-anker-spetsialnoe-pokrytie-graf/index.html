@@ -27,7 +27,7 @@
     <div class="product-info">
       <h1>HSA-F Клиновой анкер специальное покрытие, Граф</h1>
       <div class="card-brand">HSA</div>
-      <div class="kv"><div>Раздел</div><div><a href="../../mehanicheskie-ankery/">Механические анкеры</a></div><div>Бренд</div><div>HSA</div><div>Артикул (SKU)</div><div>224216085651</div><div>Цена</div><div>70,25 ₽</div><div>Страница на сайте</div><div><a href="https://anker-profi.ru/graf/hsa-f-klinovoy-anker-spetsialnoe-pokrytie" target="_blank" rel="noopener">Открыть</a></div></div>
+      <div class="kv"><div>Раздел</div><div><a href="../../mehanicheskie-ankery/">Механические анкеры</a></div><div>Бренд</div><div>HSA</div><div>Артикул (SKU)</div><div>224216085651</div><div>Цена</div><div><span class="product-price-main">70,25 ₽</span></div><div>Страница на сайте</div><div><a href="https://anker-profi.ru/graf/hsa-f-klinovoy-anker-spetsialnoe-pokrytie" target="_blank" rel="noopener">Открыть</a></div></div>
       <div style="margin-top:14px"><a class="btn" href="mailto:damirgrupp@mail.ru?subject=Запрос по товару: HSA-F Клиновой анкер специальное покрытие, Граф">Запросить предложение</a></div>
       <div class="notice">Для заказа и уточнения актуальной цены/наличия отправьте запрос на почту или позвоните +7 (495) 363-71-60.</div>
     </div>
@@ -37,13 +37,62 @@
 ХАРАКТЕРИСТИКИ:
 Размер, мм: 8х75, 8х95, 8х115, 10х80, 10х100, 10х120, 10х135, 10х150, 12х85, 12х100, 12х120, 12х135, 12х150, 12х200, 16x140 (и ещё 1)</div></div>
   <div class="block"><h3>Размерный ряд / варианты</h3><div class="table-wrap"><table><thead><tr><th>Размер, мм</th><th>Артикул</th><th>Цена</th></tr></thead><tbody><tr><td>8х75</td><td>TR-AK0008075F</td><td>70,25 ₽</td></tr><tr><td>8х95</td><td>TR-AK0008095F</td><td>77,72 ₽</td></tr><tr><td>8х115</td><td>TR-AK0008115F</td><td>90,21 ₽</td></tr><tr><td>10х80</td><td>TR-AK0010080F</td><td>101,28 ₽</td></tr><tr><td>10х100</td><td>TR-AK0010100F</td><td>107,95 ₽</td></tr><tr><td>10х120</td><td>TR-AK0010120F</td><td>123,06 ₽</td></tr><tr><td>10х135</td><td>TR-AK0012200F-13</td><td>144,03 ₽</td></tr><tr><td>10х150</td><td>TR-AK0010150F</td><td>152,14 ₽</td></tr><tr><td>12х85</td><td>TR-AK0012200F-14</td><td>153,83 ₽</td></tr><tr><td>12х100</td><td>TR-AK0012100F</td><td>164,50 ₽</td></tr><tr><td>12х120</td><td>TR-AK0012120F</td><td>186,91 ₽</td></tr><tr><td>12х135</td><td>TR-AK0012135F</td><td>204,52 ₽</td></tr><tr><td>12х150</td><td>TR-AK0012150F</td><td>220,44 ₽</td></tr><tr><td>12х200</td><td>TR-AK0012200F</td><td>277,70 ₽</td></tr><tr><td>16x140</td><td>TR-AK0012200F-17</td><td>413,34 ₽</td></tr><tr><td>16x180</td><td>TR-AK0012200F-19</td><td>531,15 ₽</td></tr></tbody></table></div></div>
-  <div class="section"><h2>Другие товары раздела</h2><div id="related-root" class="grid"></div></div>
+  <div class="section">
+    <h2>Другие товары раздела</h2>
+    <div class="rel-carousel-wrap">
+      <button type="button" class="rel-car-arrow rel-car-prev" id="rel-prev" aria-label="Прокрутить влево"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+      <div id="related-root" class="rel-carousel" aria-label="Другие товары раздела"></div>
+      <button type="button" class="rel-car-arrow rel-car-next" id="rel-next" aria-label="Прокрутить вправо"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+    </div>
+  </div>
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function fmtPrice(p){
+    p=(p==null?'':String(p)).replace(/\s+/g,'').replace(',', '.').trim();
+    if(!p) return 'Цена по запросу';
+    var n=Number(p); if(!isFinite(n)) return String(p)+' ₽';
+    var parts=n.toFixed(2).split('.'); parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+    return parts[0]+','+parts[1]+' ₽';
+  }
+  function photoSrc(ph){ ph=String(ph||'').trim(); if(!ph) return ''; if(/^https?:\/\//i.test(ph)) return ph; return '../../' + ph.replace(/^\/+/, ''); }
+  function card(p){
+    var href='../../p/'+encodeURIComponent(p.s||p.slug||'')+'/';
+    var img=photoSrc(p.ph||p.photo||'');
+    var imgHtml=img?'<img src="'+esc(img)+'" alt="'+esc(p.t||p.title||'')+'" loading="lazy">':'<div class="rel-ph">Нет фото</div>';
+    return '<article class="rel-card">'
+      +'<a class="rel-img" href="'+href+'">'+imgHtml+'</a>'
+      +'<div class="rel-body">'
+      +'<div class="rel-cat">'+esc(p.c||p.category||'')+'</div>'
+      +'<a class="rel-title" href="'+href+'" title="'+esc(p.t||p.title||'')+'">'+esc(p.t||p.title||'')+'</a>'
+      +'<div class="rel-price">'+esc(fmtPrice(p.p||p.price))+'</div>'
+      +'</div></article>';
+  }
+  function setupCarousel(track, prev, next){
+    function step(){ return Math.max(track.clientWidth*0.8, 240); }
+    function update(){
+      var max=track.scrollWidth-track.clientWidth-4;
+      prev.disabled = track.scrollLeft <= 4;
+      next.disabled = track.scrollLeft >= max;
+    }
+    if(!track.dataset.carouselInit){
+      prev.addEventListener('click', function(){ track.scrollBy({left:-step(),behavior:'smooth'}); });
+      next.addEventListener('click', function(){ track.scrollBy({left:step(),behavior:'smooth'}); });
+      track.addEventListener('scroll', function(){ window.requestAnimationFrame(update); });
+      window.addEventListener('resize', update);
+      track.dataset.carouselInit='1';
+    }
+    setTimeout(update, 60);
+  }
+  var track=document.getElementById('related-root');
+  var prev=document.getElementById('rel-prev');
+  var next=document.getElementById('rel-next');
+  if(track && prev && next) setupCarousel(track,prev,next);
   DamirCatalog.loadJSON('../../data/search.json').then(function(items){
-    var rel = items.filter(function(x){ return x.cs === "mehanicheskie-ankery" && x.i !== 113; }).slice(0,8);
-    DamirCatalog.renderGrid(rel, '#related-root', '../../', 8);
+    var rel = items.filter(function(x){ return x.cs === "mehanicheskie-ankery" && x.i !== 113; }).slice(0,12);
+    if(track) track.innerHTML = rel.map(card).join('');
+    if(track && prev && next) setupCarousel(track,prev,next);
   }).catch(function(){});
 });
 </script>

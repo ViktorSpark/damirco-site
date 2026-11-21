@@ -27,7 +27,7 @@
     <div class="product-info">
       <h1>BZ3 Анкер-болт с гайкой и шайбой по DIN 125A (оцинкованная сталь), MKT</h1>
       <div class="card-brand">MKT</div>
-      <div class="kv"><div>Раздел</div><div><a href="../../mehanicheskie-ankery/">Механические анкеры</a></div><div>Бренд</div><div>MKT</div><div>Артикул (SKU)</div><div>709301406851</div><div>Цена</div><div>Цена по запросу</div><div>Страница на сайте</div><div><a href="https://anker-profi.ru/mkt/bz3" target="_blank" rel="noopener">Открыть</a></div></div>
+      <div class="kv"><div>Раздел</div><div><a href="../../mehanicheskie-ankery/">Механические анкеры</a></div><div>Бренд</div><div>MKT</div><div>Артикул (SKU)</div><div>709301406851</div><div>Цена</div><div><span class="product-price-main" style="color:#6b7280;font-size:20px;">Цена по запросу</span></div><div>Страница на сайте</div><div><a href="https://anker-profi.ru/mkt/bz3" target="_blank" rel="noopener">Открыть</a></div></div>
       <div style="margin-top:14px"><a class="btn" href="mailto:damirgrupp@mail.ru?subject=Запрос по товару: BZ3 Анкер-болт с гайкой и шайбой по DIN 125A (оцинкованная сталь), MKT">Запросить предложение</a></div>
       <div class="notice">Для заказа и уточнения актуальной цены/наличия отправьте запрос на почту или позвоните +7 (495) 363-71-60.</div>
     </div>
@@ -37,13 +37,62 @@
 ХАРАКТЕРИСТИКИ:
 Размер, мм: 8х60, 8х65, 8х75, 8х80, 8х95, 8х115, 8х165, 10х70, 10х80, 10х90, 10х95, 10х100, 10х110, 10х130, 10х155 (и ещё 17)</div></div>
   <div class="block"><h3>Размерный ряд / варианты</h3><div class="table-wrap"><table><thead><tr><th>Размер, мм</th><th>Артикул</th></tr></thead><tbody><tr><td>8х60</td><td>20105001</td></tr><tr><td>8х65</td><td>20110001</td></tr><tr><td>8х75</td><td>20115001</td></tr><tr><td>8х80</td><td>20125001</td></tr><tr><td>8х95</td><td>20140001</td></tr><tr><td>8х115</td><td>20150001</td></tr><tr><td>8х165</td><td>20170001</td></tr><tr><td>10х70</td><td>20205001</td></tr><tr><td>10х80</td><td>20210001</td></tr><tr><td>10х90</td><td>20215001</td></tr><tr><td>10х95</td><td>20220001</td></tr><tr><td>10х100</td><td>20225001</td></tr><tr><td>10х110</td><td>20230001</td></tr><tr><td>10х130</td><td>20235001</td></tr><tr><td>10х155</td><td>20250001</td></tr><tr><td>10х180</td><td>20260001</td></tr><tr><td>12х85</td><td>20305001</td></tr><tr><td>12х95</td><td>20310001</td></tr><tr><td>12х105</td><td>20313001</td></tr><tr><td>12х110</td><td>20315001</td></tr><tr><td>12х115</td><td>20320001</td></tr><tr><td>12х125</td><td>20325001</td></tr><tr><td>12х145</td><td>20330001</td></tr><tr><td>12х160</td><td>20335001</td></tr><tr><td>12х180</td><td>20340001</td></tr><tr><td>12х200</td><td>20345001</td></tr><tr><td>16х115</td><td>20510001</td></tr><tr><td>16х125</td><td>20515001</td></tr><tr><td>16х135</td><td>20520001</td></tr><tr><td>16х145</td><td>20525001</td></tr><tr><td>16х170</td><td>20530001</td></tr><tr><td>16х200</td><td>20535001</td></tr></tbody></table></div></div>
-  <div class="section"><h2>Другие товары раздела</h2><div id="related-root" class="grid"></div></div>
+  <div class="section">
+    <h2>Другие товары раздела</h2>
+    <div class="rel-carousel-wrap">
+      <button type="button" class="rel-car-arrow rel-car-prev" id="rel-prev" aria-label="Прокрутить влево"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+      <div id="related-root" class="rel-carousel" aria-label="Другие товары раздела"></div>
+      <button type="button" class="rel-car-arrow rel-car-next" id="rel-next" aria-label="Прокрутить вправо"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+    </div>
+  </div>
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function fmtPrice(p){
+    p=(p==null?'':String(p)).replace(/\s+/g,'').replace(',', '.').trim();
+    if(!p) return 'Цена по запросу';
+    var n=Number(p); if(!isFinite(n)) return String(p)+' ₽';
+    var parts=n.toFixed(2).split('.'); parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+    return parts[0]+','+parts[1]+' ₽';
+  }
+  function photoSrc(ph){ ph=String(ph||'').trim(); if(!ph) return ''; if(/^https?:\/\//i.test(ph)) return ph; return '../../' + ph.replace(/^\/+/, ''); }
+  function card(p){
+    var href='../../p/'+encodeURIComponent(p.s||p.slug||'')+'/';
+    var img=photoSrc(p.ph||p.photo||'');
+    var imgHtml=img?'<img src="'+esc(img)+'" alt="'+esc(p.t||p.title||'')+'" loading="lazy">':'<div class="rel-ph">Нет фото</div>';
+    return '<article class="rel-card">'
+      +'<a class="rel-img" href="'+href+'">'+imgHtml+'</a>'
+      +'<div class="rel-body">'
+      +'<div class="rel-cat">'+esc(p.c||p.category||'')+'</div>'
+      +'<a class="rel-title" href="'+href+'" title="'+esc(p.t||p.title||'')+'">'+esc(p.t||p.title||'')+'</a>'
+      +'<div class="rel-price">'+esc(fmtPrice(p.p||p.price))+'</div>'
+      +'</div></article>';
+  }
+  function setupCarousel(track, prev, next){
+    function step(){ return Math.max(track.clientWidth*0.8, 240); }
+    function update(){
+      var max=track.scrollWidth-track.clientWidth-4;
+      prev.disabled = track.scrollLeft <= 4;
+      next.disabled = track.scrollLeft >= max;
+    }
+    if(!track.dataset.carouselInit){
+      prev.addEventListener('click', function(){ track.scrollBy({left:-step(),behavior:'smooth'}); });
+      next.addEventListener('click', function(){ track.scrollBy({left:step(),behavior:'smooth'}); });
+      track.addEventListener('scroll', function(){ window.requestAnimationFrame(update); });
+      window.addEventListener('resize', update);
+      track.dataset.carouselInit='1';
+    }
+    setTimeout(update, 60);
+  }
+  var track=document.getElementById('related-root');
+  var prev=document.getElementById('rel-prev');
+  var next=document.getElementById('rel-next');
+  if(track && prev && next) setupCarousel(track,prev,next);
   DamirCatalog.loadJSON('../../data/search.json').then(function(items){
-    var rel = items.filter(function(x){ return x.cs === "mehanicheskie-ankery" && x.i !== 106; }).slice(0,8);
-    DamirCatalog.renderGrid(rel, '#related-root', '../../', 8);
+    var rel = items.filter(function(x){ return x.cs === "mehanicheskie-ankery" && x.i !== 106; }).slice(0,12);
+    if(track) track.innerHTML = rel.map(card).join('');
+    if(track && prev && next) setupCarousel(track,prev,next);
   }).catch(function(){});
 });
 </script>

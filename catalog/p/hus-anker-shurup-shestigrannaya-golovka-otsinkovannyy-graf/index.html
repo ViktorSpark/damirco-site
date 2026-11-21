@@ -27,7 +27,7 @@
     <div class="product-info">
       <h1>HUS Анкер-шуруп, Шестигранная головка, Оцинкованный Граф</h1>
       <div class="card-brand">HUS</div>
-      <div class="kv"><div>Раздел</div><div><a href="../../anker-shurup-po-betonu-muaf/">Анкер-шуруп по бетону (MUAF)</a></div><div>Бренд</div><div>HUS</div><div>Артикул (SKU)</div><div>756897355591</div><div>Цена</div><div>60,48 ₽</div><div>Страница на сайте</div><div><a href="https://anker-profi.ru/graf/hus" target="_blank" rel="noopener">Открыть</a></div></div>
+      <div class="kv"><div>Раздел</div><div><a href="../../anker-shurup-po-betonu-muaf/">Анкер-шуруп по бетону (MUAF)</a></div><div>Бренд</div><div>HUS</div><div>Артикул (SKU)</div><div>756897355591</div><div>Цена</div><div><span class="product-price-main">60,48 ₽</span></div><div>Страница на сайте</div><div><a href="https://anker-profi.ru/graf/hus" target="_blank" rel="noopener">Открыть</a></div></div>
       <div style="margin-top:14px"><a class="btn" href="mailto:damirgrupp@mail.ru?subject=Запрос по товару: HUS Анкер-шуруп, Шестигранная головка, Оцинкованный Граф">Запросить предложение</a></div>
       <div class="notice">Для заказа и уточнения актуальной цены/наличия отправьте запрос на почту или позвоните +7 (495) 363-71-60.</div>
     </div>
@@ -39,13 +39,62 @@
 Длина (мм): 100, 120, 110, 150
 Кол-во в упаковке (шт): 1, 100, 70</div></div>
   <div class="block"><h3>Размерный ряд / варианты</h3><div class="table-wrap"><table><thead><tr><th>Диаметр</th><th>Длина (мм)</th><th>Кол-во в упаковке (шт)</th><th>Артикул</th><th>Цена</th></tr></thead><tbody><tr><td>8</td><td>100</td><td>1</td><td>ggMgjDo56v82EvbkKVg4</td><td>60,48 ₽</td></tr><tr><td>8</td><td>100</td><td>100</td><td>EJmgsAoEXNKPPZZmJPBL</td><td>5 040,00 ₽</td></tr><tr><td>10</td><td>100</td><td>1</td><td>ZDn6oeiZgKA2XDlNPN7N</td><td>78,22 ₽</td></tr><tr><td>10</td><td>120</td><td>1</td><td>Jgxm7tBaPCyZBZj4zFbu</td><td>100,80 ₽</td></tr><tr><td>10</td><td>100</td><td>100</td><td>1tVn5kLayy5m5nOG2U2N</td><td>6 518,00 ₽</td></tr><tr><td>10</td><td>120</td><td>100</td><td>ulAr9IjsLhzs4FzdInxu</td><td>8 400,00 ₽</td></tr><tr><td>12</td><td>110</td><td>1</td><td>RPCjsGE724YYO5XT25cT</td><td></td></tr><tr><td>12</td><td>110</td><td>70</td><td>XVfVGljpENlonrLmYSTk</td><td></td></tr><tr><td>12</td><td>150</td><td>1</td><td>2YF7pm1aHSMb59gGplmP</td><td></td></tr><tr><td>12</td><td>150</td><td>70</td><td>BXtuKP5pmKmLVhX0oGYB</td><td></td></tr></tbody></table></div></div><div class="block"><h3>Характеристики</h3><div style="margin-top:10px"><strong>Длина (мм):</strong><ul class="size-list"><li>100</li><li>120</li><li>110</li><li>150</li></ul></div><div style="margin-top:8px"><strong>Кол-во в упаковке (шт):</strong> 1, 100, 70</div></div>
-  <div class="section"><h2>Другие товары раздела</h2><div id="related-root" class="grid"></div></div>
+  <div class="section">
+    <h2>Другие товары раздела</h2>
+    <div class="rel-carousel-wrap">
+      <button type="button" class="rel-car-arrow rel-car-prev" id="rel-prev" aria-label="Прокрутить влево"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+      <div id="related-root" class="rel-carousel" aria-label="Другие товары раздела"></div>
+      <button type="button" class="rel-car-arrow rel-car-next" id="rel-next" aria-label="Прокрутить вправо"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+    </div>
+  </div>
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function fmtPrice(p){
+    p=(p==null?'':String(p)).replace(/\s+/g,'').replace(',', '.').trim();
+    if(!p) return 'Цена по запросу';
+    var n=Number(p); if(!isFinite(n)) return String(p)+' ₽';
+    var parts=n.toFixed(2).split('.'); parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+    return parts[0]+','+parts[1]+' ₽';
+  }
+  function photoSrc(ph){ ph=String(ph||'').trim(); if(!ph) return ''; if(/^https?:\/\//i.test(ph)) return ph; return '../../' + ph.replace(/^\/+/, ''); }
+  function card(p){
+    var href='../../p/'+encodeURIComponent(p.s||p.slug||'')+'/';
+    var img=photoSrc(p.ph||p.photo||'');
+    var imgHtml=img?'<img src="'+esc(img)+'" alt="'+esc(p.t||p.title||'')+'" loading="lazy">':'<div class="rel-ph">Нет фото</div>';
+    return '<article class="rel-card">'
+      +'<a class="rel-img" href="'+href+'">'+imgHtml+'</a>'
+      +'<div class="rel-body">'
+      +'<div class="rel-cat">'+esc(p.c||p.category||'')+'</div>'
+      +'<a class="rel-title" href="'+href+'" title="'+esc(p.t||p.title||'')+'">'+esc(p.t||p.title||'')+'</a>'
+      +'<div class="rel-price">'+esc(fmtPrice(p.p||p.price))+'</div>'
+      +'</div></article>';
+  }
+  function setupCarousel(track, prev, next){
+    function step(){ return Math.max(track.clientWidth*0.8, 240); }
+    function update(){
+      var max=track.scrollWidth-track.clientWidth-4;
+      prev.disabled = track.scrollLeft <= 4;
+      next.disabled = track.scrollLeft >= max;
+    }
+    if(!track.dataset.carouselInit){
+      prev.addEventListener('click', function(){ track.scrollBy({left:-step(),behavior:'smooth'}); });
+      next.addEventListener('click', function(){ track.scrollBy({left:step(),behavior:'smooth'}); });
+      track.addEventListener('scroll', function(){ window.requestAnimationFrame(update); });
+      window.addEventListener('resize', update);
+      track.dataset.carouselInit='1';
+    }
+    setTimeout(update, 60);
+  }
+  var track=document.getElementById('related-root');
+  var prev=document.getElementById('rel-prev');
+  var next=document.getElementById('rel-next');
+  if(track && prev && next) setupCarousel(track,prev,next);
   DamirCatalog.loadJSON('../../data/search.json').then(function(items){
-    var rel = items.filter(function(x){ return x.cs === "anker-shurup-po-betonu-muaf" && x.i !== 2; }).slice(0,8);
-    DamirCatalog.renderGrid(rel, '#related-root', '../../', 8);
+    var rel = items.filter(function(x){ return x.cs === "anker-shurup-po-betonu-muaf" && x.i !== 2; }).slice(0,12);
+    if(track) track.innerHTML = rel.map(card).join('');
+    if(track && prev && next) setupCarousel(track,prev,next);
   }).catch(function(){});
 });
 </script>

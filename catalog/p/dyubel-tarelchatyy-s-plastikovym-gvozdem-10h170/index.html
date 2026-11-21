@@ -27,7 +27,7 @@
     <div class="product-info">
       <h1>Дюбель тарельчатый с пластиковым гвоздем 10х170</h1>
       
-      <div class="kv"><div>Раздел</div><div><a href="../../dyubeli/">Дюбели</a></div><div>Артикул (SKU)</div><div>TXR-f89ed4e8ef96ac</div><div>Цена</div><div>9,11 ₽</div></div>
+      <div class="kv"><div>Раздел</div><div><a href="../../dyubeli/">Дюбели</a></div><div>Артикул (SKU)</div><div>TXR-f89ed4e8ef96ac</div><div>Цена</div><div><span class="product-price-main">9,11 ₽</span></div></div>
       <div style="margin-top:14px"><a class="btn" href="mailto:damirgrupp@mail.ru?subject=Запрос по товару: Дюбель тарельчатый с пластиковым гвоздем 10х170">Запросить предложение</a></div>
       <div class="notice">Для заказа и уточнения актуальной цены/наличия отправьте запрос на почту или позвоните +7 (495) 363-71-60.</div>
     </div>
@@ -41,13 +41,62 @@
 Вид шурупа: 10мм с пластиковым гвоздем
 Базовая единица: шт</div></div>
   <div class="block"><h3>Характеристики и размеры</h3><div style="margin-top:8px"><strong>Длина:</strong> 170</div><div style="margin-top:8px"><strong>Диаметр:</strong> 10</div></div>
-  <div class="section"><h2>Другие товары раздела</h2><div id="related-root" class="grid"></div></div>
+  <div class="section">
+    <h2>Другие товары раздела</h2>
+    <div class="rel-carousel-wrap">
+      <button type="button" class="rel-car-arrow rel-car-prev" id="rel-prev" aria-label="Прокрутить влево"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+      <div id="related-root" class="rel-carousel" aria-label="Другие товары раздела"></div>
+      <button type="button" class="rel-car-arrow rel-car-next" id="rel-next" aria-label="Прокрутить вправо"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+    </div>
+  </div>
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function fmtPrice(p){
+    p=(p==null?'':String(p)).replace(/\s+/g,'').replace(',', '.').trim();
+    if(!p) return 'Цена по запросу';
+    var n=Number(p); if(!isFinite(n)) return String(p)+' ₽';
+    var parts=n.toFixed(2).split('.'); parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+    return parts[0]+','+parts[1]+' ₽';
+  }
+  function photoSrc(ph){ ph=String(ph||'').trim(); if(!ph) return ''; if(/^https?:\/\//i.test(ph)) return ph; return '../../' + ph.replace(/^\/+/, ''); }
+  function card(p){
+    var href='../../p/'+encodeURIComponent(p.s||p.slug||'')+'/';
+    var img=photoSrc(p.ph||p.photo||'');
+    var imgHtml=img?'<img src="'+esc(img)+'" alt="'+esc(p.t||p.title||'')+'" loading="lazy">':'<div class="rel-ph">Нет фото</div>';
+    return '<article class="rel-card">'
+      +'<a class="rel-img" href="'+href+'">'+imgHtml+'</a>'
+      +'<div class="rel-body">'
+      +'<div class="rel-cat">'+esc(p.c||p.category||'')+'</div>'
+      +'<a class="rel-title" href="'+href+'" title="'+esc(p.t||p.title||'')+'">'+esc(p.t||p.title||'')+'</a>'
+      +'<div class="rel-price">'+esc(fmtPrice(p.p||p.price))+'</div>'
+      +'</div></article>';
+  }
+  function setupCarousel(track, prev, next){
+    function step(){ return Math.max(track.clientWidth*0.8, 240); }
+    function update(){
+      var max=track.scrollWidth-track.clientWidth-4;
+      prev.disabled = track.scrollLeft <= 4;
+      next.disabled = track.scrollLeft >= max;
+    }
+    if(!track.dataset.carouselInit){
+      prev.addEventListener('click', function(){ track.scrollBy({left:-step(),behavior:'smooth'}); });
+      next.addEventListener('click', function(){ track.scrollBy({left:step(),behavior:'smooth'}); });
+      track.addEventListener('scroll', function(){ window.requestAnimationFrame(update); });
+      window.addEventListener('resize', update);
+      track.dataset.carouselInit='1';
+    }
+    setTimeout(update, 60);
+  }
+  var track=document.getElementById('related-root');
+  var prev=document.getElementById('rel-prev');
+  var next=document.getElementById('rel-next');
+  if(track && prev && next) setupCarousel(track,prev,next);
   DamirCatalog.loadJSON('../../data/search.json').then(function(items){
-    var rel = items.filter(function(x){ return x.cs === "dyubeli" && x.i !== 171; }).slice(0,8);
-    DamirCatalog.renderGrid(rel, '#related-root', '../../', 8);
+    var rel = items.filter(function(x){ return x.cs === "dyubeli" && x.i !== 171; }).slice(0,12);
+    if(track) track.innerHTML = rel.map(card).join('');
+    if(track && prev && next) setupCarousel(track,prev,next);
   }).catch(function(){});
 });
 </script>

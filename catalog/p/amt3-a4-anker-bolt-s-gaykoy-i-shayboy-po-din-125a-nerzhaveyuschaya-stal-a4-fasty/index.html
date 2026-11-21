@@ -27,7 +27,7 @@
     <div class="product-info">
       <h1>АМТ3 А4 Анкер-болт с гайкой и шайбой по DIN 125A (нержавеющая сталь А4), Fasty</h1>
       <div class="card-brand">Fasty</div>
-      <div class="kv"><div>Раздел</div><div><a href="../../mehanicheskie-ankery/">Механические анкеры</a></div><div>Бренд</div><div>Fasty</div><div>Артикул (SKU)</div><div>195647768101</div><div>Цена</div><div>281,21 ₽</div><div>Страница на сайте</div><div><a href="https://anker-profi.ru/fasty/amt3-a4" target="_blank" rel="noopener">Открыть</a></div></div>
+      <div class="kv"><div>Раздел</div><div><a href="../../mehanicheskie-ankery/">Механические анкеры</a></div><div>Бренд</div><div>Fasty</div><div>Артикул (SKU)</div><div>195647768101</div><div>Цена</div><div><span class="product-price-main">281,21 ₽</span></div><div>Страница на сайте</div><div><a href="https://anker-profi.ru/fasty/amt3-a4" target="_blank" rel="noopener">Открыть</a></div></div>
       <div style="margin-top:14px"><a class="btn" href="mailto:damirgrupp@mail.ru?subject=Запрос по товару: АМТ3 А4 Анкер-болт с гайкой и шайбой по DIN 125A (нержавеющая сталь А4), Fasty">Запросить предложение</a></div>
       <div class="notice">Для заказа и уточнения актуальной цены/наличия отправьте запрос на почту или позвоните +7 (495) 363-71-60.</div>
     </div>
@@ -37,13 +37,62 @@
 ХАРАКТЕРИСТИКИ:
 Размер, мм: 8х75, 8х95, 8х115, 8х135, 8х165, 10х90, 10х105, 10х115, 10х120, 10х135, 10х165, 10х185, 12х100, 12х110, 12х120 (и ещё 8)</div></div>
   <div class="block"><h3>Размерный ряд / варианты</h3><div class="table-wrap"><table><thead><tr><th>Размер, мм</th><th>Артикул</th><th>Цена</th></tr></thead><tbody><tr><td>8х75</td><td>LLAPА408075</td><td></td></tr><tr><td>8х95</td><td>LLAPА408095</td><td>281,21 ₽</td></tr><tr><td>8х115</td><td>LLAPА408115</td><td></td></tr><tr><td>8х135</td><td>LLAPА408135</td><td></td></tr><tr><td>8х165</td><td>LLAPА408165</td><td></td></tr><tr><td>10х90</td><td>LLAPА410090</td><td></td></tr><tr><td>10х105</td><td>LLAPА410105</td><td></td></tr><tr><td>10х115</td><td>LLAPА410115</td><td></td></tr><tr><td>10х120</td><td>LLAPА410120</td><td></td></tr><tr><td>10х135</td><td>LLAPА410135</td><td></td></tr><tr><td>10х165</td><td>LLAPА410165</td><td></td></tr><tr><td>10х185</td><td>LLAPА410185</td><td></td></tr><tr><td>12х100</td><td>LLAPА412100</td><td></td></tr><tr><td>12х110</td><td>LLAPА412110</td><td></td></tr><tr><td>12х120</td><td>LLAPА412120</td><td></td></tr><tr><td>12х130</td><td>LLAPА412130</td><td></td></tr><tr><td>12х145</td><td>LLAPА412145</td><td></td></tr><tr><td>12х180</td><td>LLAPА412180</td><td></td></tr><tr><td>12х200</td><td>LLAPА412200</td><td></td></tr><tr><td>16х125</td><td>LLAPА416125</td><td></td></tr><tr><td>16х145</td><td>LLAPА416145</td><td></td></tr><tr><td>16х175</td><td>LLAPА416175</td><td></td></tr><tr><td>16х220</td><td>LLAPА416220</td><td></td></tr></tbody></table></div></div>
-  <div class="section"><h2>Другие товары раздела</h2><div id="related-root" class="grid"></div></div>
+  <div class="section">
+    <h2>Другие товары раздела</h2>
+    <div class="rel-carousel-wrap">
+      <button type="button" class="rel-car-arrow rel-car-prev" id="rel-prev" aria-label="Прокрутить влево"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+      <div id="related-root" class="rel-carousel" aria-label="Другие товары раздела"></div>
+      <button type="button" class="rel-car-arrow rel-car-next" id="rel-next" aria-label="Прокрутить вправо"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+    </div>
+  </div>
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function fmtPrice(p){
+    p=(p==null?'':String(p)).replace(/\s+/g,'').replace(',', '.').trim();
+    if(!p) return 'Цена по запросу';
+    var n=Number(p); if(!isFinite(n)) return String(p)+' ₽';
+    var parts=n.toFixed(2).split('.'); parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+    return parts[0]+','+parts[1]+' ₽';
+  }
+  function photoSrc(ph){ ph=String(ph||'').trim(); if(!ph) return ''; if(/^https?:\/\//i.test(ph)) return ph; return '../../' + ph.replace(/^\/+/, ''); }
+  function card(p){
+    var href='../../p/'+encodeURIComponent(p.s||p.slug||'')+'/';
+    var img=photoSrc(p.ph||p.photo||'');
+    var imgHtml=img?'<img src="'+esc(img)+'" alt="'+esc(p.t||p.title||'')+'" loading="lazy">':'<div class="rel-ph">Нет фото</div>';
+    return '<article class="rel-card">'
+      +'<a class="rel-img" href="'+href+'">'+imgHtml+'</a>'
+      +'<div class="rel-body">'
+      +'<div class="rel-cat">'+esc(p.c||p.category||'')+'</div>'
+      +'<a class="rel-title" href="'+href+'" title="'+esc(p.t||p.title||'')+'">'+esc(p.t||p.title||'')+'</a>'
+      +'<div class="rel-price">'+esc(fmtPrice(p.p||p.price))+'</div>'
+      +'</div></article>';
+  }
+  function setupCarousel(track, prev, next){
+    function step(){ return Math.max(track.clientWidth*0.8, 240); }
+    function update(){
+      var max=track.scrollWidth-track.clientWidth-4;
+      prev.disabled = track.scrollLeft <= 4;
+      next.disabled = track.scrollLeft >= max;
+    }
+    if(!track.dataset.carouselInit){
+      prev.addEventListener('click', function(){ track.scrollBy({left:-step(),behavior:'smooth'}); });
+      next.addEventListener('click', function(){ track.scrollBy({left:step(),behavior:'smooth'}); });
+      track.addEventListener('scroll', function(){ window.requestAnimationFrame(update); });
+      window.addEventListener('resize', update);
+      track.dataset.carouselInit='1';
+    }
+    setTimeout(update, 60);
+  }
+  var track=document.getElementById('related-root');
+  var prev=document.getElementById('rel-prev');
+  var next=document.getElementById('rel-next');
+  if(track && prev && next) setupCarousel(track,prev,next);
   DamirCatalog.loadJSON('../../data/search.json').then(function(items){
-    var rel = items.filter(function(x){ return x.cs === "mehanicheskie-ankery" && x.i !== 94; }).slice(0,8);
-    DamirCatalog.renderGrid(rel, '#related-root', '../../', 8);
+    var rel = items.filter(function(x){ return x.cs === "mehanicheskie-ankery" && x.i !== 94; }).slice(0,12);
+    if(track) track.innerHTML = rel.map(card).join('');
+    if(track && prev && next) setupCarousel(track,prev,next);
   }).catch(function(){});
 });
 </script>

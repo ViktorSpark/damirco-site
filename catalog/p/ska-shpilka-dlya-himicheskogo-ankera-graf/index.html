@@ -27,7 +27,7 @@
     <div class="product-info">
       <h1>SKA Шпилька для химического анкера, Граф</h1>
       <div class="card-brand">Граф</div>
-      <div class="kv"><div>Раздел</div><div><a href="../../shpilki/">Шпильки</a></div><div>Бренд</div><div>Граф</div><div>Артикул (SKU)</div><div>129968970133</div><div>Цена</div><div>17,94 ₽</div><div>Страница на сайте</div><div><a href="https://anker-profi.ru/graf/ska" target="_blank" rel="noopener">Открыть</a></div></div>
+      <div class="kv"><div>Раздел</div><div><a href="../../shpilki/">Шпильки</a></div><div>Бренд</div><div>Граф</div><div>Артикул (SKU)</div><div>129968970133</div><div>Цена</div><div><span class="product-price-main">17,94 ₽</span></div><div>Страница на сайте</div><div><a href="https://anker-profi.ru/graf/ska" target="_blank" rel="noopener">Открыть</a></div></div>
       <div style="margin-top:14px"><a class="btn" href="mailto:damirgrupp@mail.ru?subject=Запрос по товару: SKA Шпилька для химического анкера, Граф">Запросить предложение</a></div>
       <div class="notice">Для заказа и уточнения актуальной цены/наличия отправьте запрос на почту или позвоните +7 (495) 363-71-60.</div>
     </div>
@@ -37,13 +37,62 @@
 ХАРАКТЕРИСТИКИ:
 Размер, мм: 6х115, 8х75, 8х95, 8x115, 10х100, 10х120, 10х135, 10х150, 10x200, 12х100, 12х120, 12х150, 12х200, 16х140, 16x160 (и ещё 7)</div></div>
   <div class="block"><h3>Размерный ряд / варианты</h3><div class="table-wrap"><table><thead><tr><th>Размер, мм</th><th>Артикул</th><th>Цена</th></tr></thead><tbody><tr><td>6х115</td><td>SKA-6X115</td><td>17,94 ₽</td></tr><tr><td>8х75</td><td>SKA-8X75</td><td>22,61 ₽</td></tr><tr><td>8х95</td><td>SKA-8X95</td><td>26,84 ₽</td></tr><tr><td>8x115</td><td>SKA-8X115</td><td>31,08 ₽</td></tr><tr><td>10х100</td><td>SKA-10X100</td><td>45,76 ₽</td></tr><tr><td>10х120</td><td>SKA-10X120</td><td>55,09 ₽</td></tr><tr><td>10х135</td><td>SKA-10X135</td><td>58,84 ₽</td></tr><tr><td>10х150</td><td>SKA-10X150</td><td>62,13 ₽</td></tr><tr><td>10x200</td><td>SKA-10X200</td><td>82,30 ₽</td></tr><tr><td>12х100</td><td>SKA-12X100</td><td>66,56 ₽</td></tr><tr><td>12х120</td><td>SKA-12X120</td><td>76,12 ₽</td></tr><tr><td>12х150</td><td>SKA-12X150</td><td>90,88 ₽</td></tr><tr><td>12х200</td><td>SKA-12X200</td><td>116,23 ₽</td></tr><tr><td>16х140</td><td>SKA-16X140</td><td>174,17 ₽</td></tr><tr><td>16x160</td><td>SKA-16X160</td><td>196,61 ₽</td></tr><tr><td>16x180</td><td>SKA-16X180</td><td>222,25 ₽</td></tr><tr><td>16x190</td><td>SKA-16X190</td><td>215,30 ₽</td></tr><tr><td>16x220</td><td>SKA-16X220</td><td>223,24 ₽</td></tr><tr><td>20x260</td><td>SKA-20X260</td><td>370,27 ₽</td></tr><tr><td>20x300</td><td>SKA-20X300</td><td>429,84 ₽</td></tr><tr><td>24x300</td><td>SKA-24X300</td><td>617,34 ₽</td></tr><tr><td>30x380</td><td>SKA-30X380</td><td>1 242,87 ₽</td></tr></tbody></table></div></div>
-  <div class="section"><h2>Другие товары раздела</h2><div id="related-root" class="grid"></div></div>
+  <div class="section">
+    <h2>Другие товары раздела</h2>
+    <div class="rel-carousel-wrap">
+      <button type="button" class="rel-car-arrow rel-car-prev" id="rel-prev" aria-label="Прокрутить влево"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+      <div id="related-root" class="rel-carousel" aria-label="Другие товары раздела"></div>
+      <button type="button" class="rel-car-arrow rel-car-next" id="rel-next" aria-label="Прокрутить вправо"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+    </div>
+  </div>
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function fmtPrice(p){
+    p=(p==null?'':String(p)).replace(/\s+/g,'').replace(',', '.').trim();
+    if(!p) return 'Цена по запросу';
+    var n=Number(p); if(!isFinite(n)) return String(p)+' ₽';
+    var parts=n.toFixed(2).split('.'); parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+    return parts[0]+','+parts[1]+' ₽';
+  }
+  function photoSrc(ph){ ph=String(ph||'').trim(); if(!ph) return ''; if(/^https?:\/\//i.test(ph)) return ph; return '../../' + ph.replace(/^\/+/, ''); }
+  function card(p){
+    var href='../../p/'+encodeURIComponent(p.s||p.slug||'')+'/';
+    var img=photoSrc(p.ph||p.photo||'');
+    var imgHtml=img?'<img src="'+esc(img)+'" alt="'+esc(p.t||p.title||'')+'" loading="lazy">':'<div class="rel-ph">Нет фото</div>';
+    return '<article class="rel-card">'
+      +'<a class="rel-img" href="'+href+'">'+imgHtml+'</a>'
+      +'<div class="rel-body">'
+      +'<div class="rel-cat">'+esc(p.c||p.category||'')+'</div>'
+      +'<a class="rel-title" href="'+href+'" title="'+esc(p.t||p.title||'')+'">'+esc(p.t||p.title||'')+'</a>'
+      +'<div class="rel-price">'+esc(fmtPrice(p.p||p.price))+'</div>'
+      +'</div></article>';
+  }
+  function setupCarousel(track, prev, next){
+    function step(){ return Math.max(track.clientWidth*0.8, 240); }
+    function update(){
+      var max=track.scrollWidth-track.clientWidth-4;
+      prev.disabled = track.scrollLeft <= 4;
+      next.disabled = track.scrollLeft >= max;
+    }
+    if(!track.dataset.carouselInit){
+      prev.addEventListener('click', function(){ track.scrollBy({left:-step(),behavior:'smooth'}); });
+      next.addEventListener('click', function(){ track.scrollBy({left:step(),behavior:'smooth'}); });
+      track.addEventListener('scroll', function(){ window.requestAnimationFrame(update); });
+      window.addEventListener('resize', update);
+      track.dataset.carouselInit='1';
+    }
+    setTimeout(update, 60);
+  }
+  var track=document.getElementById('related-root');
+  var prev=document.getElementById('rel-prev');
+  var next=document.getElementById('rel-next');
+  if(track && prev && next) setupCarousel(track,prev,next);
   DamirCatalog.loadJSON('../../data/search.json').then(function(items){
-    var rel = items.filter(function(x){ return x.cs === "shpilki" && x.i !== 146; }).slice(0,8);
-    DamirCatalog.renderGrid(rel, '#related-root', '../../', 8);
+    var rel = items.filter(function(x){ return x.cs === "shpilki" && x.i !== 146; }).slice(0,12);
+    if(track) track.innerHTML = rel.map(card).join('');
+    if(track && prev && next) setupCarousel(track,prev,next);
   }).catch(function(){});
 });
 </script>
