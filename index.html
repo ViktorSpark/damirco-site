@@ -183,7 +183,8 @@ rec.setAttribute('data-animationappear','off');rec.style.opacity=1;});</script> 
   color: #fff;
 }
 .hero-social__item:focus-visible { outline: 2px solid rgba(255,255,255,.7); outline-offset: 3px; }
-.hero-social__item svg { width: 22px; height: 22px; display: block; fill: currentColor; }
+.hero-social__item svg { width: 22px; height: 22px; display: block; fill: currentColor !important; }
+.hero-social__item svg path { fill: currentColor !important; }
 .hero-social__item--stroke svg { fill: none; stroke: currentColor; }
 
 /* Phone slide-out */
@@ -213,7 +214,8 @@ rec.setAttribute('data-animationappear','off');rec.style.opacity=1;});</script> 
   transition: background .25s ease, border-color .25s ease, box-shadow .25s ease;
   box-shadow: 0 4px 16px rgba(0,0,0,.12);
 }
-.hero-social__phone-btn svg { width: 22px; height: 22px; display: block; fill: currentColor; }
+.hero-social__phone-btn svg { width: 22px; height: 22px; display: block; fill: currentColor !important; }
+.hero-social__phone-btn svg path { fill: currentColor !important; }
 .hero-social__phone-panel {
   position: absolute;
   left: 0;
@@ -249,6 +251,7 @@ rec.setAttribute('data-animationappear','off');rec.style.opacity=1;});</script> 
   background: rgba(63, 68, 74, 0.95);
   border-color: rgba(255,255,255,0.28);
 }
+.hero-social__phone-panel, .hero-social__phone-panel:visited, .hero-social__phone-panel:hover { color: #fff !important; }
 .hero-social__phone-panel:focus-visible { outline: 2px solid rgba(255,255,255,.7); outline-offset: 3px; }
 .hero-social__phone-btn:focus-visible { outline: 2px solid rgba(255,255,255,.7); outline-offset: 3px; }
 
