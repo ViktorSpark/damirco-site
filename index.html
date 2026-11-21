@@ -551,8 +551,8 @@ const elements=record.querySelectorAll('.t1370 [data-vibeblock-anchor]');const a
     <h2 class="vb-k3p__heading" id="vb-k3p-title">О компании</h2>
     <div class="vb-k3p__grid">
       <figure class="vb-k3p__mascot">
-        <video id="vb-k3p-panda" class="vb-k3p__video" muted playsinline preload="metadata" width="832" height="1104" aria-label="Видео маскота ДАМИР ГРУПП — панда в строительной каске">
-          <source src="images/panda-damir.mp4" type="video/mp4">
+        <video id="vb-k3p-panda" class="vb-k3p__video" muted playsinline preload="auto" width="832" height="1104" aria-label="Видео маскота ДАМИР ГРУПП — панда в строительной каске">
+          <source src="images/panda-damir.mp4#t=0.001" type="video/mp4">
         </video>
       </figure>
       <div class="vb-k3p__content">
@@ -580,35 +580,36 @@ const video=record.querySelector('#vb-k3p-panda');
 if(video){
   let replayTimer=null;
   let wantsReplay=false;
-  const clearReplay=()=>{ if(replayTimer){ clearTimeout(replayTimer); replayTimer=null; } };
   const playVideo=()=>{ if(replayTimer) return; const p=video.play(); if(p&&p.catch) p.catch(()=>{}); };
   const scheduleReplay=()=>{
-    clearReplay();
+    if(replayTimer) clearTimeout(replayTimer);
     wantsReplay=true;
     replayTimer=setTimeout(()=>{
       replayTimer=null;
       if(!wantsReplay) return;
       wantsReplay=false;
-      video.currentTime=0;
+      try{ video.currentTime=0; }catch(e){}
       if(isVisible) playVideo();
     },3000);
   };
   let isVisible=false;
   video.addEventListener('ended',()=>{ scheduleReplay(); });
+  const tryStart=()=>{
+    if(!isVisible || replayTimer) return;
+    if(wantsReplay || video.ended){ wantsReplay=false; try{ video.currentTime=0; }catch(e){} }
+    if(video.paused) playVideo();
+  };
   if('IntersectionObserver' in window){
     const io=new IntersectionObserver((entries)=>{
       entries.forEach(entry=>{
         isVisible=entry.isIntersecting;
-        if(entry.isIntersecting){
-          if(wantsReplay && !replayTimer){ video.currentTime=0; playVideo(); wantsReplay=false; }
-          else if(video.paused && !replayTimer && video.currentTime===0){ playVideo(); }
-        }
+        if(entry.isIntersecting) tryStart();
       });
-    },{threshold:0.35});
+    },{threshold:0.2});
     io.observe(record);
   } else {
     isVisible=true;
-    playVideo();
+    tryStart();
   }
 }
 })();</script> </div> <div id="rec5557742201" class="r t-rec" style=" " data-record-type="1370"> <!-- T1370 --> <div class="t1370"> <!-- nominify begin --> <style>
