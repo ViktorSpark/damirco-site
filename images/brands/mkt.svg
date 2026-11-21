@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" role="img" aria-label="MKT">
+  <rect width="320" height="100" fill="none"/>
+  <g fill="#1a1a1a" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="86" letter-spacing="-2">
+    <text x="10" y="74">MKT</text>
+  </g>
+  <rect x="246" y="18" width="58" height="58" rx="4" fill="#c8102e"/>
+  <path d="M275 30 L292 66 L258 66 Z" fill="#fff"/>
+</svg>

@@ -720,13 +720,61 @@ if(video){
   @media (max-width: 1000px) {
     .ok-products__grid { grid-template-columns: repeat(2, 1fr); }
   }
+  .ok-products__brands {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 18px 28px;
+    margin: 28px auto 0;
+    max-width: 980px;
+  }
+  .ok-products__brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 64px;
+    min-width: 112px;
+    padding: 10px 18px;
+    background: #fff;
+    border: 1px solid #e6edf1;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px -10px rgba(22,32,43,.2);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .ok-products__brand:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px -14px rgba(22,32,43,.28);
+    border-color: #cfe7d8;
+  }
+  .ok-products__brand img {
+    display: block;
+    max-height: 40px;
+    max-width: 132px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
   @media (max-width: 620px) {
     .ok-products { padding: 56px 16px; }
     .ok-products__head { margin-bottom: 36px; }
+    .ok-products__brands { gap: 12px; margin-top: 22px; }
+    .ok-products__brand { height: 56px; min-width: 96px; padding: 8px 14px; border-radius: 12px; }
+    .ok-products__brand img { max-height: 34px; max-width: 112px; }
     .ok-products__grid { grid-template-columns: 1fr; gap: 16px; }
     .ok-products__card { padding: 26px 22px 22px; }
   }
-</style> <section class="ok-products" id="o-produkcii"> <div class="ok-products__head"> <div class="ok-products__badge">Крепёж и метизы</div> <h2 class="ok-products__title">О <span>Продукции</span></h2> <p class="ok-products__desc">
+</style> <section class="ok-products" id="o-produkcii"> <div class="ok-products__head"> <div class="ok-products__badge">Крепёж и метизы</div> <h2 class="ok-products__title">О <span>Продукции</span></h2>
+    <div class="ok-products__brands" aria-label="Бренды, с которыми мы работаем">
+      <div class="ok-products__brand"><img src="images/brands/graf.webp" alt="Graf" loading="lazy" decoding="async"></div>
+      <div class="ok-products__brand"><img src="images/brands/himtex.svg" alt="Himtex" loading="lazy" decoding="async"></div>
+      <div class="ok-products__brand"><img src="images/brands/fasty.svg" alt="Fasty" loading="lazy" decoding="async"></div>
+      <div class="ok-products__brand"><img src="images/brands/mkt.svg" alt="MKT" loading="lazy" decoding="async"></div>
+      <div class="ok-products__brand"><img src="images/brands/sormat.svg" alt="Sormat" loading="lazy" decoding="async"></div>
+      <div class="ok-products__brand"><img src="images/brands/fiksar.svg" alt="Фиксар" loading="lazy" decoding="async"></div>
+      <div class="ok-products__brand"><img src="images/brands/hilti.svg" alt="Hilti" loading="lazy" decoding="async"></div>
+    </div>
+    <p class="ok-products__desc">
       Ассортимент включает в себя широкий выбор крепежных изделий от известных брендов,
       таких как <b style="color:#16202b">Graf, Himtex, Fasty, MKT, Sormat, Фиксар и Hilti</b>,
       которые обладают основными характеристиками и важными преимуществами для удобства
