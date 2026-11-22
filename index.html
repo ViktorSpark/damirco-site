@@ -1717,9 +1717,9 @@ const elements=record.querySelectorAll('.t1370 [data-vibeblock-anchor]');const a
     #rec2617195001 .why2__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
     #rec2617195001 .why2__card{background:#f7faf8;border:1px solid #e3ece6;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;min-height:100%;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
     #rec2617195001 .why2__card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(22,32,43,.07);border-color:#cfe2d6}
-    #rec2617195001 .why2__media{aspect-ratio:4/3;overflow:hidden;background:#e9efeb}
-    #rec2617195001 .why2__media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
-    #rec2617195001 .why2__card:hover .why2__media img{transform:scale(1.03)}
+    #rec2617195001 .why2__icon{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;background:#fff;border-bottom:1px solid #edf3ef}
+    #rec2617195001 .why2__icon svg{width:min(112px,42%);height:auto;display:block;color:#2f7a57;transition:transform .25s ease,color .25s ease}
+    #rec2617195001 .why2__card:hover .why2__icon svg{transform:scale(1.04);color:#236246}
     #rec2617195001 .why2__body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:10px}
     #rec2617195001 .why2__name{margin:0;font:700 15px/1.3 Inter,system-ui,-apple-system,sans-serif;color:#16202b;letter-spacing:.01em}
     #rec2617195001 .why2__list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
@@ -1735,28 +1735,28 @@ const elements=record.querySelectorAll('.t1370 [data-vibeblock-anchor]');const a
     </div>
     <div class="why2__grid">
       <article class="why2__card">
-        <div class="why2__media"><img src="images/why/quality.jpg" alt="Контроль качества крепежа" loading="lazy" decoding="async"></div>
+        <div class="why2__icon" aria-hidden="true"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="18" y="28" width="84" height="64" rx="14" stroke="currentColor" stroke-width="5"/><path d="M34 72V48h7v24h-7Zm12 0V48h5.5l8.5 10.2c1.3 1.6 2.5 3.2 3.6 4.8V48H69v24h-5.4l-8.7-10.4c-1.3-1.5-2.4-3-3.4-4.5V72H46Zm27.5.4c-7 0-12-5.1-12-12.4s5-12.4 12-12.4c7 0 12 5.1 12 12.4s-5 12.4-12 12.4Zm0-5.4c3.7 0 6.2-2.8 6.2-7s-2.5-7-6.2-7-6.2 2.8-6.2 7 2.5 7 6.2 7Z" fill="currentColor"/></svg></div>
         <div class="why2__body">
           <h3 class="why2__name">Высокое качество</h3>
           <ul class="why2__list"><li>Проверенные бренды</li><li>Соблюдение стандартов</li><li>Подтверждение испытаниями</li></ul>
         </div>
       </article>
       <article class="why2__card">
-        <div class="why2__media"><img src="images/why/reliability.jpg" alt="Надёжные поставки и склад" loading="lazy" decoding="async"></div>
+        <div class="why2__icon" aria-hidden="true"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M52 23h16l2.2 8.1c2.3.8 4.5 1.8 6.6 3l7.3-4.2 11.3 11.3-4.2 7.3c1.2 2.1 2.2 4.3 3 6.6L102 57v16l-7.8 2.1c-.8 2.3-1.8 4.5-3 6.6l4.2 7.3-11.3 11.3-7.3-4.2c-2.1 1.2-4.3 2.2-6.6 3L68 107H52l-2.1-7.9c-2.3-.8-4.5-1.8-6.6-3l-7.3 4.2-11.3-11.3 4.2-7.3c-1.2-2.1-2.2-4.3-3-6.6L18 73V57l8-2.2c.8-2.3 1.8-4.5 3-6.6L24.8 41l11.3-11.3 7.3 4.2c2.1-1.2 4.3-2.2 6.6-3L52 23Z" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><circle cx="60" cy="65" r="14" stroke="currentColor" stroke-width="5"/><path d="M75 18h10l1.4 5c1.4.5 2.8 1.1 4.1 1.9l4.5-2.6 7.1 7.1-2.6 4.5c.8 1.3 1.4 2.7 1.9 4.1l5 1.4v10l-5 1.4c-.5 1.4-1.1 2.8-1.9 4.1l2.6 4.5-7.1 7.1-4.5-2.6c-1.3.8-2.7 1.4-4.1 1.9l-1.4 5H75l-1.4-5c-1.4-.5-2.8-1.1-4.1-1.9l-4.5 2.6-2.2-2.2" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></svg></div>
         <div class="why2__body">
           <h3 class="why2__name">Надёжность</h3>
           <ul class="why2__list"><li>Стабильность поставок</li><li>Долгосрочные отношения</li><li>Соблюдение гарантий</li></ul>
         </div>
       </article>
       <article class="why2__card">
-        <div class="why2__media"><img src="images/why/service.png" alt="Сервис и консультация специалистов" loading="lazy" decoding="async"></div>
+        <div class="why2__icon" aria-hidden="true"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M78.5 24a18.5 18.5 0 0 0-25.4 24.6L27 74.7A8 8 0 1 0 38.3 86l26.1-26.1A18.5 18.5 0 0 0 89 35.2l-12.8 12.8-10.2-2.7-2.7-10.2L76.1 22.3c.8-.2 1.6-.3 2.4-.3Z" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M34 80.5 39.5 75" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></div>
         <div class="why2__body">
           <h3 class="why2__name">Качественный сервис</h3>
           <ul class="why2__list"><li>Внимательные специалисты</li><li>Понимание продукта</li><li>Скорость доставки</li></ul>
         </div>
       </article>
       <article class="why2__card">
-        <div class="why2__media"><img src="images/why/price.jpg" alt="Выгодные условия и цены" loading="lazy" decoding="async"></div>
+        <div class="why2__icon" aria-hidden="true"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="60" cy="38" rx="28" ry="10" stroke="currentColor" stroke-width="5"/><path d="M32 38v14c0 5.5 12.5 10 28 10s28-4.5 28-10V38" stroke="currentColor" stroke-width="5"/><path d="M32 52v14c0 5.5 12.5 10 28 10s28-4.5 28-10V52" stroke="currentColor" stroke-width="5"/><path d="M32 66v14c0 5.5 12.5 10 28 10s28-4.5 28-10V66" stroke="currentColor" stroke-width="5"/></svg></div>
         <div class="why2__body">
           <h3 class="why2__name">Доступные цены</h3>
           <ul class="why2__list"><li>Соответствие рынку</li><li>Скидки на объёмы</li><li>Индивидуальный подход</li></ul>
