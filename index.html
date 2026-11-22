@@ -551,8 +551,8 @@ const elements=record.querySelectorAll('.t1370 [data-vibeblock-anchor]');const a
     <h2 class="vb-k3p__heading" id="vb-k3p-title">О компании</h2>
     <div class="vb-k3p__grid">
       <figure class="vb-k3p__mascot">
-        <video id="vb-k3p-panda" class="vb-k3p__video" muted playsinline preload="auto" width="832" height="1104" aria-label="Видео маскота ДАМИР ГРУПП — панда в строительной каске">
-          <source src="images/panda-damir.mp4#t=0.001" type="video/mp4">
+        <video id="vb-k3p-panda" class="vb-k3p__video" muted playsinline preload="auto" autoplay poster="images/panda-damir.png" width="832" height="1104" aria-label="Видео маскота ДАМИР ГРУПП — панда в строительной каске">
+          <source src="images/panda-damir.mp4" type="video/mp4">
         </video>
       </figure>
       <div class="vb-k3p__content">
@@ -578,9 +578,18 @@ const elements=record.querySelectorAll('.t1370 [data-vibeblock-anchor]');const a
 const elements=record.querySelectorAll('.t1370 [data-vibeblock-anchor]');const anchors=Array.from(elements,element=>({element,parentNode:element.parentNode,anchorName:element.getAttribute('data-vibeblock-anchor'),}));for(const {element,parentNode,anchorName} of anchors) {if(!anchorName) continue;const anchor=document.createElement('a');anchor.name=anchorName;anchor.setAttribute('style','font-size:0');parentNode.insertBefore(anchor,element);}}
 const video=record.querySelector('#vb-k3p-panda');
 if(video){
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  video.setAttribute('muted','');
+  video.setAttribute('playsinline','');
+  try { video.pause(); } catch(e) {}
   let replayTimer=null;
   let wantsReplay=false;
-  const playVideo=()=>{ if(replayTimer) return; const p=video.play(); if(p&&p.catch) p.catch(()=>{}); };
+  const playVideo=()=>{
+    if(replayTimer) return;
+    try { video.muted = true; const p = video.play(); if(p && p.catch) p.catch(()=>{}); } catch(e) {}
+  };
   const scheduleReplay=()=>{
     if(replayTimer) clearTimeout(replayTimer);
     wantsReplay=true;
@@ -594,6 +603,7 @@ if(video){
   };
   let isVisible=false;
   video.addEventListener('ended',()=>{ scheduleReplay(); });
+  video.addEventListener('canplay',()=>{ if(isVisible && video.paused && !replayTimer) playVideo(); });
   const tryStart=()=>{
     if(!isVisible || replayTimer) return;
     if(wantsReplay || video.ended){ wantsReplay=false; try{ video.currentTime=0; }catch(e){} }
@@ -605,11 +615,11 @@ if(video){
         isVisible=entry.isIntersecting;
         if(entry.isIntersecting) tryStart();
       });
-    },{threshold:0.2});
-    io.observe(record);
+    },{threshold:0.15});
+    io.observe(video);
   } else {
     isVisible=true;
-    tryStart();
+    playVideo();
   }
 }
 })();</script> </div> <div id="rec5557742201" class="r t-rec" style=" " data-record-type="1370"> <!-- T1370 --> <div class="t1370"> <!-- nominify begin --> <style>
