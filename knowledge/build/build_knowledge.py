@@ -74,6 +74,7 @@ def page_shell(title, description, base, body, active=''):
   <title>{esc(title)}</title>
   <meta name="description" content="{esc(description)}">
   <link rel="stylesheet" href="{base}assets/knowledge.css">
+  <link rel="stylesheet" href="{base}assets/editor.css">
 </head>
 <body>
 {nav}
@@ -88,6 +89,7 @@ def page_shell(title, description, base, body, active=''):
     <div><a href="../index.html">damirco.ru</a></div>
   </div>
 </footer>
+<script src="{base}assets/editor.js"></script>
 </body>
 </html>'''
 
@@ -348,6 +350,12 @@ def build():
   <div class="wk-lead">{desc_html}</div>
 </div>
 {table}
+<section class="wk-section" id="wk-sources">
+  <h2>Ссылки на источники</h2>
+  <ol class="wk-source-list" data-edit="sources">
+    <li class="wk-empty">Источники пока не добавлены.</li>
+  </ol>
+</section>
 '''
         (OUT/'items'/f"{type_slug[t['id']]}.html").write_text(page_shell(f"{t['name']} — База знаний", clean_desc(t.get('description'))[:160], '../', body, 'home'), encoding='utf-8')
 
