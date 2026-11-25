@@ -86,6 +86,93 @@ def _bolt_history():
     return """<p>Резьбовые крепёжные соединения известны с античности, но массовое производство стандартизированных болтов развилось в эпоху промышленной революции. Унификация резьб и размеров позволила сделать болты взаимозаменяемыми и широко применять их в машиностроении, строительстве и транспорте.</p>
 <p>В XX веке появились национальные и международные стандарты (DIN, ISO, ГОСТ), а также классы прочности и покрытия, что обеспечило предсказуемость работы болтовых соединений в ответственных конструкциях.</p>"""
 
+BOLT_TYPICAL_MATERIALS = 'Сталь кл.пр. 4.6/5.8/8.8; нерж. A2/A4'
+BOLT_TYPICAL_COATINGS = 'Без покрытия; цинк; горячий цинк'
+
+BOLT_VARIANT_TABLE = {
+    114: { # DIN 933
+        'rows': [
+            ['M6', '16–60 мм', 'Сталь 8.8 / A2 / A4', 'Цинк / без покрытия'],
+            ['M8', '16–80 мм', 'Сталь 8.8 / A2 / A4', 'Цинк / без покрытия'],
+            ['M10', '20–100 мм', 'Сталь 8.8 / 10.9 / A2', 'Цинк / горячий цинк'],
+            ['M12', '25–120 мм', 'Сталь 8.8 / 10.9 / A2', 'Цинк / горячий цинк'],
+            ['M16', '30–160 мм', 'Сталь 8.8 / 10.9', 'Цинк / горячий цинк'],
+            ['M20', '40–200 мм', 'Сталь 8.8 / 10.9', 'Цинк / горячий цинк'],
+            ['M24', '50–200 мм', 'Сталь 8.8 / 10.9', 'Цинк / горячий цинк'],
+        ],
+        'note': 'Типовой ряд по DIN 933 (полная резьба). Конкретные длины, класс прочности и покрытие уточняйте по спецификации.',
+    },
+    112: { # DIN 931
+        'rows': [
+            ['M6', '30–60 мм', 'Сталь 8.8 / A2', 'Цинк / без покрытия'],
+            ['M8', '40–80 мм', 'Сталь 8.8 / A2', 'Цинк / без покрытия'],
+            ['M10', '50–100 мм', 'Сталь 8.8 / 10.9', 'Цинк / горячий цинк'],
+            ['M12', '60–120 мм', 'Сталь 8.8 / 10.9', 'Цинк / горячий цинк'],
+            ['M16', '70–160 мм', 'Сталь 8.8 / 10.9', 'Цинк / горячий цинк'],
+            ['M20', '90–200 мм', 'Сталь 8.8 / 10.9', 'Цинк / горячий цинк'],
+        ],
+        'note': 'Типовой ряд по DIN 931 (неполная резьба). Длина резьбы зависит от длины болта по стандарту.',
+    },
+    98: { # DIN 603
+        'rows': [
+            ['M6', '20–100 мм', 'Сталь 4.8 / 8.8 / A2', 'Цинк / без покрытия'],
+            ['M8', '20–120 мм', 'Сталь 4.8 / 8.8 / A2', 'Цинк / без покрытия'],
+            ['M10', '30–150 мм', 'Сталь 4.8 / 8.8 / A2', 'Цинк / горячий цинк'],
+            ['M12', '40–150 мм', 'Сталь 4.8 / 8.8', 'Цинк / горячий цинк'],
+        ],
+        'note': 'Типовой ряд по DIN 603 (мебельный болт с полукруглой головкой и квадратным подголовком).',
+    },
+    102: { # DIN 607
+        'rows': [
+            ['M6', '20–80 мм', 'Сталь 4.8 / 8.8', 'Цинк / без покрытия'],
+            ['M8', '25–100 мм', 'Сталь 4.8 / 8.8', 'Цинк / без покрытия'],
+            ['M10', '30–120 мм', 'Сталь 4.8 / 8.8', 'Цинк / горячий цинк'],
+            ['M12', '40–150 мм', 'Сталь 4.8 / 8.8', 'Цинк / горячий цинк'],
+        ],
+        'note': 'Типовой ряд по DIN 607 (мебельный болт с усом).',
+    },
+    104: { # DIN 608
+        'rows': [
+            ['M6', '16–60 мм', 'Сталь 8.8 / 10.9', 'Цинк / без покрытия'],
+            ['M8', '20–80 мм', 'Сталь 8.8 / 10.9', 'Цинк / без покрытия'],
+            ['M10', '25–100 мм', 'Сталь 8.8 / 10.9', 'Цинк / без покрытия'],
+            ['M12', '30–120 мм', 'Сталь 8.8 / 10.9', 'Цинк / без покрытия'],
+        ],
+        'note': 'Типовой ряд по DIN 608 (болт лемешный с потайной головкой и квадратным подголовком).',
+    },
+    96: { # DIN 580
+        'rows': [
+            ['M6', '13 мм (резьба)', 'Сталь C15E / A2 / A4', 'Цинк / без покрытия'],
+            ['M8', '13 мм (резьба)', 'Сталь C15E / A2 / A4', 'Цинк / без покрытия'],
+            ['M10', '17 мм (резьба)', 'Сталь C15E / A2 / A4', 'Цинк / без покрытия'],
+            ['M12', '20.5 мм (резьба)', 'Сталь C15E / A2 / A4', 'Цинк / без покрытия'],
+            ['M16', '27 мм (резьба)', 'Сталь C15E / A2 / A4', 'Цинк / без покрытия'],
+            ['M20', '30 мм (резьба)', 'Сталь C15E / A2 / A4', 'Цинк / без покрытия'],
+        ],
+        'note': 'Типовой ряд по DIN 580 (рым-болт). Грузоподъёмность зависит от размера и направления нагрузки; проверяйте паспорт изделия.',
+    },
+}
+
+def bolt_variant_rows(t):
+    tid = t.get('id')
+    curated = BOLT_VARIANT_TABLE.get(tid)
+    if curated:
+        return curated['rows'], curated.get('note', '')
+    # fallback: parse M sizes from size_range_text or products
+    txt = (t.get('size_range_text') or '')
+    ms = re.findall(r'M\d+(?:[.,]\d+)?', txt, re.I)
+    # unique preserve order
+    seen=set(); sizes=[]
+    for m in ms:
+        m=m.upper().replace(',', '.')
+        if m not in seen:
+            seen.add(m); sizes.append(m)
+    if not sizes:
+        # try to get from name/standard common sizes
+        sizes = ['M6','M8','M10','M12']
+    rows = [[s, 'по стандарту/заказу', BOLT_TYPICAL_MATERIALS, BOLT_TYPICAL_COATINGS] for s in sizes[:12]]
+    return rows, 'Типовые значения. Точный размерный ряд, длины, класс прочности и покрытие уточняйте по стандарту и ТУ производителя.'
+
 def bolt_enrichment(t):
     name = t.get('name') or ''
     std = (t.get('standard') or '').strip()
@@ -680,7 +767,30 @@ def build():
 
         pitems = prods_by_type.get(t['id'], [])
         table=''
-        if pitems:
+        # for bolts, supplement poor DB data with curated/typical rows
+        use_bolt_fallback = False
+        if t.get('category_id') == 'bolts':
+            has_useful = any((p.get('length_mm') or p.get('material') or p.get('coating')) for p in pitems)
+            if not pitems or not has_useful:
+                use_bolt_fallback = True
+
+        if use_bolt_fallback:
+            vrows, note = bolt_variant_rows(t)
+            rows=[]
+            for r in vrows:
+                size, length, material, coating = (r + ['','','',''])[:4]
+                rows.append(f"<tr><td>{esc(t.get('name') or '')}</td><td>{esc(size)}</td><td>{esc(length)}</td><td>{esc(material)}</td><td>{esc(coating)}</td></tr>")
+            note_html = f'<p class="wk-muted">{esc(note)}</p>' if note else ''
+            table = f"""
+<section class="wk-section">
+  <h2>Размеры и варианты</h2>
+  <div class="wk-table-wrap"><table class="wikitable">
+    <thead><tr><th>Наименование</th><th>Размер</th><th>Длина, мм</th><th>Материал</th><th>Покрытие</th></tr></thead>
+    <tbody>{''.join(rows)}</tbody>
+  </table></div>
+  {note_html}
+</section>"""
+        elif pitems:
             rows=[]
             for p in pitems[:200]:
                 rows.append(f"<tr><td>{esc(p.get('name') or '')}</td><td>{esc(p.get('size') or '')}</td><td>{esc(p.get('length_mm') or '')}</td><td>{esc(p.get('material') or '')}</td><td>{esc(p.get('coating') or '')}</td></tr>")
@@ -702,11 +812,24 @@ def build():
 
         std_label = (t.get('standard') or t.get('gost') or t.get('iso') or '').strip()
         figure_html = ''
-        if img:
+        fig_img = img
+        fig_caption = f"{t['name']}{(' — ' + std_label) if std_label else ''}"
+        if t.get('category_id') == 'bolts':
+            low_name = (t.get('name') or '').lower()
+            if 'рым' in low_name or 'eye' in low_name:
+                fig_img = '../images/drawings/eye-bolt-drawing.svg'
+                fig_caption = f"Схема: {t['name']}"
+            elif any(x in low_name for x in ['t-образ', 'т-образ', 'паз', 'halfen', 'молотков']):
+                fig_img = '../images/drawings/t-bolt-drawing.svg'
+                fig_caption = f"Схема: {t['name']}"
+            else:
+                fig_img = '../images/drawings/hex-bolt-drawing.svg'
+                fig_caption = f"Схема: {t['name']}"
+        if fig_img:
             figure_html = f"""
   <figure class="wk-figure">
-    <img src="{esc(img)}" alt="{esc(t['name'])}" loading="lazy" decoding="async">
-    <figcaption>{esc(t['name'])}{(' — ' + esc(std_label)) if std_label else ''}</figcaption>
+    <img src="{esc(fig_img)}" alt="{esc(fig_caption)}" loading="lazy" decoding="async">
+    <figcaption>{esc(fig_caption)}</figcaption>
   </figure>"""
 
         body = f"""

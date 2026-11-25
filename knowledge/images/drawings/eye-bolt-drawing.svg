@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 220" font-family="Arial,sans-serif">
+<rect width="420" height="220" fill="#fff"/>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#333"/></marker><marker id="b" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 Z" fill="#333"/></marker></defs>
+<g stroke="#222" stroke-width="2" fill="none">
+  <circle cx="100" cy="85" r="30" fill="#f4f4f4"/>
+  <circle cx="100" cy="85" r="18" fill="#fff"/>
+  <rect x="130" y="75" width="90" height="20" fill="#fafafa"/>
+  <rect x="220" y="75" width="120" height="20" fill="#fafafa"/>
+  <g stroke="#555" stroke-width="1">
+    <path d="M225,75 l8,20 M238,75 l8,20 M251,75 l8,20 M264,75 l8,20 M277,75 l8,20 M290,75 l8,20 M303,75 l8,20 M316,75 l8,20 M329,75 l8,20"/>
+  </g>
+  <line x1="340" y1="75" x2="355" y2="85"/><line x1="355" y1="85" x2="340" y2="95"/>
+</g>
+<g stroke="#666" stroke-width="1" fill="#333" font-size="12">
+  <line x1="70" y1="45" x2="130" y2="45" marker-start="url(#b)" marker-end="url(#a)"/>
+  <text x="100" y="40" text-anchor="middle">d2</text>
+  <line x1="130" y1="115" x2="340" y2="115" marker-start="url(#b)" marker-end="url(#a)"/>
+  <text x="235" y="130" text-anchor="middle">l</text>
+  <line x1="130" y1="97" x2="130" y2="120"/><line x1="340" y1="97" x2="340" y2="120"/>
+  <line x1="365" y1="75" x2="365" y2="95" marker-start="url(#b)" marker-end="url(#a)"/>
+  <text x="378" y="89" text-anchor="middle">d</text>
+</g>
+<text x="210" y="170" text-anchor="middle" font-size="13" fill="#444">Схема рым-болта: d — диаметр резьбы, d2 — внутренний диаметр кольца, l — длина</text>
+</svg>
