@@ -337,10 +337,16 @@ def build():
     con.row_factory = sqlite3.Row
     cur = con.cursor()
 
+    EXCLUDED_CATEGORY_IDS = {'poisk.htm', 'proizvodstvo.html', 'spasibo.html'}
+    EXCLUDED_TYPE_NAMES = {
+        'Изготовление металлических изделий по чертежам',
+        'Поиск на сайте ТДМ Нева',
+        'Спасибо за заявку!',
+    }
     cur.execute('SELECT * FROM categories ORDER BY name')
-    categories = [dict(r) for r in cur.fetchall()]
+    categories = [dict(r) for r in cur.fetchall() if r['id'] not in EXCLUDED_CATEGORY_IDS and r['name'] not in EXCLUDED_CATEGORY_IDS]
     cur.execute('SELECT * FROM product_types ORDER BY category_id, name')
-    types = [dict(r) for r in cur.fetchall()]
+    types = [dict(r) for r in cur.fetchall() if r['category_id'] not in EXCLUDED_CATEGORY_IDS and r['name'] not in EXCLUDED_TYPE_NAMES]
     cur.execute('SELECT * FROM products ORDER BY product_type_id, name')
     products = [dict(r) for r in cur.fetchall()]
     cur.execute('SELECT * FROM gost_din_iso ORDER BY din, name')
