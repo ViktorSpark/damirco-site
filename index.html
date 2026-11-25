@@ -548,7 +548,7 @@ const elements=record.querySelectorAll('.t1370 [data-vibeblock-anchor]');const a
       .vb-k3p__item-text { font-size: 15px; }
       .vb-k3p__content { gap: 28px; }
     }
-    .vb-k3p__item.vb-k3p-reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1);will-change:opacity,transform}
+    .vb-k3p__item.vb-k3p-reveal{opacity:0;transform:translateY(56px);transition:opacity .85s ease,transform .85s cubic-bezier(.16,1,.3,1);will-change:opacity,transform}
     .vb-k3p__item.vb-k3p-reveal.is-visible{opacity:1;transform:translateY(0)}
     @media (prefers-reduced-motion: reduce){.vb-k3p__item.vb-k3p-reveal{opacity:1;transform:none;transition:none}}
   </style>
@@ -632,7 +632,7 @@ if (revealItems.length) {
   revealItems.forEach(item => item.classList.add('vb-k3p-reveal'));
   const reveal = () => {
     revealItems.forEach((item, i) => {
-      setTimeout(() => item.classList.add('is-visible'), i * 220);
+      setTimeout(() => item.classList.add('is-visible'), i * 380);
     });
   };
   if ('IntersectionObserver' in window) {
