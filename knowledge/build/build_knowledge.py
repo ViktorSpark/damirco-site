@@ -825,6 +825,10 @@ def build():
             else:
                 fig_img = '../images/drawings/hex-bolt-drawing.svg'
                 fig_caption = f"Схема: {t['name']}"
+        custom_drawing = OUT / 'images' / 'drawings' / 'items' / f"{type_slug[t['id']]}.png"
+        if custom_drawing.exists():
+            fig_img = f"../images/drawings/items/{type_slug[t['id']]}.png"
+            fig_caption = f"Чертёж: {t['name']}"
         if fig_img:
             figure_html = f"""
   <figure class="wk-figure">
