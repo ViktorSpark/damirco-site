@@ -88,7 +88,7 @@
   },
   "art-88933-bolt-so-stopornym-burtom": {
     "status": "rejected",
-    "reject_reason": "multiple_objects",
+    "reject_reason": "removed from KB page by request",
     "segments": [
       {
         "name": "Головка",
@@ -411,8 +411,8 @@
     "notes": ""
   },
   "art-88912-bolt-s-flantsem-s-nasechkami": {
-    "status": "ok",
-    "reject_reason": "",
+    "status": "rejected",
+    "reject_reason": "removed from KB page by request",
     "segments": [
       {
         "name": "Головка",
@@ -780,8 +780,8 @@
     "notes": ""
   },
   "art-88913-bolt-shestigrannyy-s-flantsem": {
-    "status": "ok",
-    "reject_reason": "",
+    "status": "rejected",
+    "reject_reason": "removed from KB page by request",
     "segments": [
       {
         "name": "Головка",
