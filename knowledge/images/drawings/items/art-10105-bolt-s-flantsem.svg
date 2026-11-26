@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 230" font-family="Arial, sans-serif">
+  <rect width="800" height="230" fill="#ffffff"/>
+  <defs>
+    <marker id="ah" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#555"/></marker>
+    <marker id="ahb" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 Z" fill="#555"/></marker>
+  </defs>
+  <style>
+    .s{stroke:#1f2937;stroke-width:2;fill:none}
+    .f{fill:#f6f7f9;stroke:#1f2937;stroke-width:2}
+    .th{stroke:#4b5563;stroke-width:1}
+    .dim{stroke:#6b7280;stroke-width:1;fill:#374151;font-size:13px}
+  </style>
+  
+  <polygon class="f" points="120,72 140,58 190,58 210,72 210,92 190,92 140,92 120,92"/>
+  <ellipse class="f" cx="165" cy="100" rx="55" ry="10"/>
+  <rect class="f" x="150" y="92" width="30" height="8"/>
+  <rect class="f" x="210" y="82" width="160" height="20"/>
+  <rect class="f" x="370" y="82" width="260" height="20"/>
+  <g class="th"><line x1="375" y1="82" x2="383" y2="102"/><line x1="389" y1="82" x2="397" y2="102"/><line x1="403" y1="82" x2="411" y2="102"/><line x1="417" y1="82" x2="425" y2="102"/><line x1="431" y1="82" x2="439" y2="102"/><line x1="445" y1="82" x2="453" y2="102"/><line x1="459" y1="82" x2="467" y2="102"/><line x1="473" y1="82" x2="481" y2="102"/><line x1="487" y1="82" x2="495" y2="102"/><line x1="501" y1="82" x2="509" y2="102"/><line x1="515" y1="82" x2="523" y2="102"/><line x1="529" y1="82" x2="537" y2="102"/><line x1="543" y1="82" x2="551" y2="102"/><line x1="557" y1="82" x2="565" y2="102"/><line x1="571" y1="82" x2="579" y2="102"/><line x1="585" y1="82" x2="593" y2="102"/><line x1="599" y1="82" x2="607" y2="102"/><line x1="613" y1="82" x2="621" y2="102"/></g>
+  <path class="s" d="M630,82 L650,92 L630,102"/>
+  <line class="s" stroke-dasharray="10,6,2,6" x1="95" y1="92" x2="670" y2="92"/>
+  <g class="dim">
+  <line x1="110" y1="100" x2="110" y2="45"/><line x1="220" y1="100" x2="220" y2="45"/>
+  <line x1="110" y1="45" x2="220" y2="45" marker-start="url(#ahb)" marker-end="url(#ah)"/>
+  <text x="165.0" y="40" text-anchor="middle" stroke="none">df</text>
+</g>
+  <g class="dim">
+  <line x1="210" y1="102" x2="210" y2="150"/><line x1="630" y1="102" x2="630" y2="150"/>
+  <line x1="210" y1="150" x2="630" y2="150" marker-start="url(#ahb)" marker-end="url(#ah)"/>
+  <text x="420.0" y="145" text-anchor="middle" stroke="none">l</text>
+</g>
+  <g class="dim">
+  <line x1="652" y1="82" x2="665" y2="82"/><line x1="652" y1="102" x2="665" y2="102"/>
+  <line x1="665" y1="82" x2="665" y2="102" marker-start="url(#ahb)" marker-end="url(#ah)"/>
+  <text x="673" y="96.0" text-anchor="start" stroke="none">d</text>
+</g>
+  <g class="dim">
+  <line x1="118" y1="58" x2="95" y2="58"/><line x1="118" y1="92" x2="95" y2="92"/>
+  <line x1="95" y1="58" x2="95" y2="92" marker-start="url(#ahb)" marker-end="url(#ah)"/>
+  <text x="103" y="79.0" text-anchor="start" stroke="none">k</text>
+</g>
+
+  <text x="400" y="190" text-anchor="middle" font-size="13" fill="#374151">Схема: ART 10105 Болт с фланцем</text>
+  <text x="400" y="205" text-anchor="middle" font-size="12" fill="#556"> df — диаметр фланца, k — высота головки, d — диаметр, l — длина</text>
+</svg>

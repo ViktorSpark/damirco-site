@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 230" font-family="Arial, sans-serif">
+  <rect width="800" height="230" fill="#ffffff"/>
+  <defs>
+    <marker id="ah" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#555"/></marker>
+    <marker id="ahb" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 Z" fill="#555"/></marker>
+  </defs>
+  <style>
+    .s{stroke:#1f2937;stroke-width:2;fill:none}
+    .f{fill:#f6f7f9;stroke:#1f2937;stroke-width:2}
+    .th{stroke:#4b5563;stroke-width:1}
+    .dim{stroke:#6b7280;stroke-width:1;fill:#374151;font-size:13px}
+  </style>
+  
+  <rect class="f" x="110" y="70" width="90" height="30"/>
+  <rect class="f" x="140" y="70" width="30" height="30" fill="#eef0f3"/>
+  <rect x="95" y="58" width="120" height="10" fill="none" stroke="#9ca3af" stroke-dasharray="4,3"/>
+  <rect x="95" y="102" width="120" height="10" fill="none" stroke="#9ca3af" stroke-dasharray="4,3"/>
+  <rect class="f" x="200" y="83" width="150" height="20"/>
+  <rect class="f" x="350" y="83" width="270" height="20"/>
+  <g class="th"><line x1="355" y1="83" x2="363" y2="103"/><line x1="369" y1="83" x2="377" y2="103"/><line x1="383" y1="83" x2="391" y2="103"/><line x1="397" y1="83" x2="405" y2="103"/><line x1="411" y1="83" x2="419" y2="103"/><line x1="425" y1="83" x2="433" y2="103"/><line x1="439" y1="83" x2="447" y2="103"/><line x1="453" y1="83" x2="461" y2="103"/><line x1="467" y1="83" x2="475" y2="103"/><line x1="481" y1="83" x2="489" y2="103"/><line x1="495" y1="83" x2="503" y2="103"/><line x1="509" y1="83" x2="517" y2="103"/><line x1="523" y1="83" x2="531" y2="103"/><line x1="537" y1="83" x2="545" y2="103"/><line x1="551" y1="83" x2="559" y2="103"/><line x1="565" y1="83" x2="573" y2="103"/><line x1="579" y1="83" x2="587" y2="103"/><line x1="593" y1="83" x2="601" y2="103"/><line x1="607" y1="83" x2="615" y2="103"/></g>
+  <path class="s" d="M620,83 L640,93 L620,103"/>
+  <g class="dim">
+  <line x1="110" y1="70" x2="110" y2="45"/><line x1="200" y1="70" x2="200" y2="45"/>
+  <line x1="110" y1="45" x2="200" y2="45" marker-start="url(#ahb)" marker-end="url(#ah)"/>
+  <text x="155.0" y="40" text-anchor="middle" stroke="none">a</text>
+</g>
+  <g class="dim">
+  <line x1="200" y1="103" x2="200" y2="150"/><line x1="620" y1="103" x2="620" y2="150"/>
+  <line x1="200" y1="150" x2="620" y2="150" marker-start="url(#ahb)" marker-end="url(#ah)"/>
+  <text x="410.0" y="145" text-anchor="middle" stroke="none">l</text>
+</g>
+  <g class="dim">
+  <line x1="642" y1="83" x2="655" y2="83"/><line x1="642" y1="103" x2="655" y2="103"/>
+  <line x1="655" y1="83" x2="655" y2="103" marker-start="url(#ahb)" marker-end="url(#ah)"/>
+  <text x="663" y="97.0" text-anchor="start" stroke="none">d</text>
+</g>
+
+  <text x="400" y="190" text-anchor="middle" font-size="13" fill="#374151">Схема: ART 88940 болт Halfen для профиля</text>
+  <text x="400" y="205" text-anchor="middle" font-size="12" fill="#556"> a — ширина головки, головка фиксируется в Т-пазу поворотом, d — диаметр, l — длина</text>
+</svg>

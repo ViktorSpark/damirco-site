@@ -825,9 +825,13 @@ def build():
             else:
                 fig_img = '../images/drawings/hex-bolt-drawing.svg'
                 fig_caption = f"Схема: {t['name']}"
-        custom_drawing = OUT / 'images' / 'drawings' / 'items' / f"{type_slug[t['id']]}.png"
-        if custom_drawing.exists():
+        custom_drawing_png = OUT / 'images' / 'drawings' / 'items' / f"{type_slug[t['id']]}.png"
+        custom_drawing_svg = OUT / 'images' / 'drawings' / 'items' / f"{type_slug[t['id']]}.svg"
+        if custom_drawing_png.exists():
             fig_img = f"../images/drawings/items/{type_slug[t['id']]}.png"
+            fig_caption = f"Чертёж: {t['name']}"
+        elif custom_drawing_svg.exists():
+            fig_img = f"../images/drawings/items/{type_slug[t['id']]}.svg"
             fig_caption = f"Чертёж: {t['name']}"
         if fig_img:
             figure_html = f"""

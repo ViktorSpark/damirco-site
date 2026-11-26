@@ -470,9 +470,8 @@
     S.objects=[]; S.undo=[]; S.bbox=null; S.contourPoints=[]; S.angle=0; S.flip=false; $('angle').value=0; $('angleVal').textContent='0';
     $('srcInfo').innerHTML = `<b>${S.current.title}</b><br><span class="small">${S.current.file}</span><br><a href="/knowledge/items/${S.current.slug}.html" target="_blank">Открыть статью</a>`;
     const img = new Image();
-    img.crossOrigin='anonymous';
-    img.onload=()=>{ S.img=img; drawImage(); status('Изображение загружено. Можно строить чертёж.'); };
-    img.onerror=()=>{ S.img=null; clearBase(); render(); status('Не удалось загрузить изображение: '+S.current.infobox_img); };
+    img.onload=()=>{ S.img=img; drawImage(); status('Изображение загружено: ' + img.naturalWidth + '×' + img.naturalHeight); };
+    img.onerror=()=>{ S.img=null; clearBase(); render(); status('Не удалось загрузить изображение: ' + src + ' (исходный: ' + S.current.infobox_img + ')'); };
     // infobox_img is relative like ../images/... from item page; convert to root path
     let src=S.current.infobox_img;
     if(src.startsWith('../')) src='/knowledge/' + src.replace(/^\.\.\//,'');

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 230" font-family="Arial, sans-serif">
+  <rect width="800" height="230" fill="#ffffff"/>
+  <defs>
+    <marker id="ah" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#555"/></marker>
+    <marker id="ahb" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 Z" fill="#555"/></marker>
+  </defs>
+  <style>
+    .s{stroke:#1f2937;stroke-width:2;fill:none}
+    .f{fill:#f6f7f9;stroke:#1f2937;stroke-width:2}
+    .th{stroke:#4b5563;stroke-width:1}
+    .dim{stroke:#6b7280;stroke-width:1;fill:#374151;font-size:13px}
+  </style>
+  
+  <path class="f" d="M120,95 L210,75 L210,115 Z"/>
+  <rect class="f" x="210" y="86" width="150" height="18"/>
+  <rect class="f" x="360" y="86" width="250" height="18"/>
+  <g class="th"><line x1="365" y1="86" x2="372" y2="104"/><line x1="378" y1="86" x2="385" y2="104"/><line x1="391" y1="86" x2="398" y2="104"/><line x1="404" y1="86" x2="411" y2="104"/><line x1="417" y1="86" x2="424" y2="104"/><line x1="430" y1="86" x2="437" y2="104"/><line x1="443" y1="86" x2="450" y2="104"/><line x1="456" y1="86" x2="463" y2="104"/><line x1="469" y1="86" x2="476" y2="104"/><line x1="482" y1="86" x2="489" y2="104"/><line x1="495" y1="86" x2="502" y2="104"/><line x1="508" y1="86" x2="515" y2="104"/><line x1="521" y1="86" x2="528" y2="104"/><line x1="534" y1="86" x2="541" y2="104"/><line x1="547" y1="86" x2="554" y2="104"/><line x1="560" y1="86" x2="567" y2="104"/><line x1="573" y1="86" x2="580" y2="104"/><line x1="586" y1="86" x2="593" y2="104"/><line x1="599" y1="86" x2="606" y2="104"/></g>
+  <path class="s" d="M610,86 L630,95 L610,104"/>
+  <rect x="225" y="104" width="16" height="8" fill="#e5e7eb" stroke="#374151"/>
+  <g class="dim">
+  <line x1="120" y1="95" x2="120" y2="55"/><line x1="210" y1="75" x2="210" y2="55"/>
+  <line x1="120" y1="55" x2="210" y2="55" marker-start="url(#ahb)" marker-end="url(#ah)"/>
+  <text x="165.0" y="50" text-anchor="middle" stroke="none">dk</text>
+</g>
+  <g class="dim">
+  <line x1="210" y1="104" x2="210" y2="150"/><line x1="610" y1="104" x2="610" y2="150"/>
+  <line x1="210" y1="150" x2="610" y2="150" marker-start="url(#ahb)" marker-end="url(#ah)"/>
+  <text x="410.0" y="145" text-anchor="middle" stroke="none">l</text>
+</g>
+  <g class="dim">
+  <line x1="632" y1="86" x2="645" y2="86"/><line x1="632" y1="104" x2="645" y2="104"/>
+  <line x1="645" y1="86" x2="645" y2="104" marker-start="url(#ahb)" marker-end="url(#ah)"/>
+  <text x="653" y="99.0" text-anchor="start" stroke="none">d</text>
+</g>
+
+  <text x="400" y="190" text-anchor="middle" font-size="13" fill="#374151">Схема: DIN 15237 болт норийный</text>
+  <text x="400" y="205" text-anchor="middle" font-size="12" fill="#556"> Норийный/транспортёрный болт: увеличенная потайная головка, d — диаметр, l — длина</text>
+</svg>
