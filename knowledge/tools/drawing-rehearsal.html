@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Репетиция разметки болтов — корректировка</title>
+  <style>
+    :root{--bg:#f3f4f6;--panel:#fff;--line:#d1d5db;--text:#111827;--muted:#6b7280;--accent:#1f6b3b;--danger:#b91c1c;--warn:#b45309}
+    *{box-sizing:border-box} body{margin:0;font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--text)}
+    .top{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 16px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+    .top h1{font-size:18px;margin:0} .sub{color:var(--muted);font-size:12px}
+    .layout{display:grid;grid-template-columns:320px 1fr;gap:12px;padding:12px}
+    .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px}
+    .panel h2{font-size:13px;margin:0 0 8px;text-transform:uppercase;letter-spacing:.04em;color:#374151}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:8px 10px;border:1px solid var(--line);background:#fff;border-radius:8px;cursor:pointer;font:inherit}
+    .btn:hover{border-color:#9ca3af}.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)} .btn.danger{color:var(--danger);border-color:#fca5a5;background:#fff5f5}
+    .row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+    .list{display:flex;flex-direction:column;gap:6px;max-height:60vh;overflow:auto}
+    .item{padding:8px;border:1px solid var(--line);border-radius:8px;cursor:pointer}
+    .item:hover{border-color:#9ca3af}.item.active{border-color:var(--accent);background:#f0faf3}
+    .item .t{font-size:13px;font-weight:600}.item .m{font-size:11px;color:var(--muted)}
+    .badge{display:inline-block;font-size:11px;padding:1px 6px;border-radius:999px;margin-left:6px}
+    .b-ok{background:#dcfce7;color:#166534}.b-rej{background:#fee2e2;color:#991b1b}.b-warn{background:#fef3c7;color:#92400e}
+    .stage{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px}
+    .img-wrap{position:relative;display:inline-block;width:100%;max-width:100%;overflow:auto;border:1px solid #e5e7eb;background:#fff;padding-top:28px}
+    .img-wrap img{display:block;width:min(100%, 1100px);min-width:700px;height:auto;user-select:none;pointer-events:none}
+    .overlay{position:absolute;left:0;top:28px;right:0;bottom:0;overflow:visible}
+    .seg{position:absolute;top:0;bottom:0;border:2px solid; border-bottom:none;border-top:none;background:rgba(255,255,255,0.02);overflow:visible}
+    .seg .label{position:absolute;top:-24px;left:0;min-width:100%;font-size:12px;color:#fff;padding:2px 4px;border-radius:4px 4px 0 0;white-space:nowrap;display:flex;gap:4px;align-items:center;justify-content:space-between;z-index:6;overflow:visible}
+    .seg .label span{overflow:hidden;text-overflow:ellipsis;max-width:120px}
+    .seg .label button{border:none;background:rgba(0,0,0,.28);color:#fff;cursor:pointer;border-radius:3px;font-size:12px;line-height:1;padding:2px 6px;flex:0 0 auto;pointer-events:auto}
+    .seg .label button:hover{background:rgba(0,0,0,.5)}
+    .handle{position:absolute;top:0;bottom:0;width:10px;margin-left:-5px;cursor:ew-resize;z-index:5}
+    .handle::after{content:'';position:absolute;left:4px;top:0;bottom:0;width:2px;background:rgba(17,24,39,.75)}
+    .handle:hover::after{background:#111827;width:3px;left:3px}
+    .vhandle{position:absolute;left:50%;top:-6px;width:28px;height:12px;margin-left:-14px;cursor:ns-resize;z-index:7;background:rgba(17,24,39,.65);border-radius:3px}
+    .vhandle::after{content:'';position:absolute;left:5px;right:5px;top:5px;height:2px;background:#fff;border-radius:2px}
+    .vhandle:hover{background:#111827}
+    .pop{position:fixed;z-index:50;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:10px 12px;font-size:13px;display:none}
+    .pop label{display:flex;gap:8px;align-items:center;cursor:pointer}
+    .info{font-size:13px;color:#374151;margin:8px 0}
+    .warn{background:#fff7ed;border:1px solid #fdba74;color:#9a3412;padding:8px 10px;border-radius:8px;margin:8px 0;font-size:13px}
+    .field{margin-bottom:10px}.field label{display:block;font-size:12px;color:#374151;margin-bottom:4px}
+    .field textarea,.field select,.field input[type=text]{width:100%;padding:7px 8px;border:1px solid var(--line);border-radius:8px;font:inherit}
+    .checks label{display:block;font-size:13px;margin:4px 0}
+    .status{font-size:12px;color:var(--muted);white-space:pre-wrap;margin-top:8px}
+    .legend span{display:inline-block;margin:2px 8px 2px 0;font-size:12px}
+    .sw{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:middle;margin-right:4px}
+    @media (max-width:1000px){.layout{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="top">
+    <div>
+      <h1>Репетиция разметки болтов — Этап 0/1/2</h1>
+      <div class="sub">Этап 0: пригодность фото. Этап 1: ориентация. Этап 2: корректировка границ конструктивных элементов.</div>
+    </div>
+    <div class="row" style="margin:0">
+      <a class="btn" id="toDrawings" href="/knowledge/tools/drawing-rehearsal-drawings.html">Чертежи</a>
+      <button class="btn" id="prev">← Пред.</button>
+      <button class="btn" id="next">След. →</button>
+      <button class="btn primary" id="save">Сохранить разметку</button>
+    </div>
+  </div>
+  <div class="layout">
+    <div class="panel">
+      <h2 id="listTitle">Список</h2>
+      <div class="list" id="list"></div>
+      <div class="status" id="listStatus"></div>
+    </div>
+    <div class="stage">
+      <div id="title" style="font-size:16px;font-weight:600;margin-bottom:4px"></div>
+      <div id="meta" class="info"></div>
+
+      <div class="panel" style="margin:10px 0;background:#fafafa">
+        <h2>Этап 0 — пригодность изображения</h2>
+        <div id="stage0Warn" class="warn" style="display:none"></div>
+        <div class="checks">
+          <label><input type="radio" name="suit" value="ok" checked> Изображение пригодно для алгоритмической разметки</label>
+          <label><input type="radio" name="suit" value="rejected"> Отбраковать изображение</label>
+        </div>
+        <div id="rejectBox" style="display:none;margin-top:8px">
+          <div class="field"><label>Причина отбраковки</label>
+            <select id="rejectReason">
+              <option value="multiple_objects">На изображении несколько болтов / болт рядом с гайкой</option>
+              <option value="other_elements">Другие конструктивные элементы (рым-болт, крюк, кольцо, нестандартная форма)</option>
+              <option value="bad_quality">Плохое качество / ракурс / фон не позволяет выделить контур</option>
+              <option value="other">Другое</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="legend" id="legend"></div>
+      <div class="info">Перетаскивайте вертикальные границы между блоками для корректировки авто-разметки. Кнопка × на блоке удаляет блок (для болтов без подголовника и т.п.).</div>
+      <div class="img-wrap" id="imgWrap">
+        <img id="img" alt="">
+        <div class="overlay" id="overlay"></div>
+      </div>
+      <div class="field" style="margin-top:10px"><label>Примечание</label><textarea id="notes" rows="2" placeholder="Комментарий по разметке..."></textarea></div>
+      <div class="status" id="status"></div>
+    </div>
+  </div>
+
+<div class="pop" id="headTypePop">
+  <div style="font-weight:600;margin-bottom:6px">Тип/форма головки</div>
+  <label><input type="checkbox" id="headTypeHex"> шестигранник</label>
+  <label style="margin-top:4px"><input type="checkbox" id="headRound"> скругление</label>
+  <label style="margin-top:4px"><input type="checkbox" id="headCountersunk"> потайной</label>
+</div>
+<div class="pop" id="segNamePop"><div style="font-weight:600;margin-bottom:6px">Тип блока</div><div id="segNameOpts"></div></div>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  let items=[], idx=0, cur=null, drag=null;
+  const COLORS = {'Головка':'#e53935','Подголовник':'#fb8c00','Гладкая часть':'#43a047','Резьбовая часть':'#1e88e5','Фаска (сбег)':'#8e24aa','Гайка':'#00897b'};
+
+  function status(m){$('status').textContent=m||''}
+  function listStatus(m){$('listStatus').textContent=m||''}
+
+  function getSlug(){ return new URLSearchParams(location.search).get('slug')||''; }
+  function setSlug(slug){ const u=new URL(location.href); u.searchParams.set('slug',slug); history.replaceState(null,'',u); const a=$('toDrawings'); if(a) a.href='/knowledge/tools/drawing-rehearsal-drawings.html?slug='+encodeURIComponent(slug); }
+  async function load(){
+    listStatus('Загрузка...');
+    const r = await fetch('/api/rehearsal/items');
+    const d = await r.json();
+    items = d.items || [];
+    listStatus(`Загружено: ${items.length}`); $('listTitle').textContent=`Список (${items.length})`; 
+    renderList();
+    const want=getSlug();
+    const wi=items.findIndex(x=>x.slug===want);
+    select(wi>=0?wi:0);
+  }
+
+  function badge(it){
+    const c = it.correction || {};
+    if(c.status==='rejected') return '<span class="badge b-rej">отбраковано</span>';
+    if(c.status==='ok') return '<span class="badge b-ok">сохранено</span>';
+    if((it.stage0_warnings||[]).length) return '<span class="badge b-warn">проверить</span>';
+    return '';
+  }
+
+  function renderList(){
+    const el=$('list'); el.innerHTML='';
+    items.forEach((it,i)=>{
+      const d=document.createElement('div');
+      d.className='item'+(i===idx?' active':'');
+      d.innerHTML=`<div class="t">${i+1}. ${it.slug}${badge(it)}</div><div class="m">${it.family} · ${it.title||''}</div>`;
+      d.onclick=()=>select(i);
+      el.appendChild(d);
+    });
+  }
+
+  function select(i){
+    if(!items.length) return;
+    idx=Math.max(0,Math.min(items.length-1,i));
+    cur = JSON.parse(JSON.stringify(items[idx])); // work copy
+    // apply saved correction
+    const c = cur.correction || {};
+    if(c.status==='rejected'){
+      document.querySelector('input[name="suit"][value="rejected"]').checked=true;
+      $('rejectBox').style.display='block';
+      $('rejectReason').value=c.reject_reason||'multiple_objects';
+    } else {
+      document.querySelector('input[name="suit"][value="ok"]').checked=true;
+      $('rejectBox').style.display='none';
+    }
+    $('notes').value=c.notes||'';
+    if(c.segments && c.segments.length) cur.segments=c.segments;
+    renderList();
+    renderCurrent();
+    if(cur) setSlug(cur.slug);
+  }
+
+  function renderCurrent(){
+    if(!cur) return;
+    $('title').textContent = `${idx+1}/${items.length} — ${cur.title}`;
+    $('meta').textContent = `slug: ${cur.slug} | family: ${cur.family} | angle: ${cur.angle}° | flipped: ${cur.flipped} | size: ${cur.width}×${cur.height}`;
+    const warns = cur.stage0_warnings||[];
+    const sw=$('stage0Warn');
+    if(warns.length){
+      sw.style.display='block';
+      const map={multiple_objects:'Авто-подсказка: возможно несколько объектов/зазоры в маске.', other_elements:'Авто-подсказка: нестандартные элементы (рым/кольцо/откидной/крюк) — проверьте пригодность.'};
+      sw.textContent = warns.map(w=>map[w]||w).join(' ');
+    } else { sw.style.display='none'; sw.textContent=''; }
+
+    // legend
+    const leg=$('legend'); leg.innerHTML='';
+    (cur.segments||[]).forEach(s=>{
+      const col=s.color||COLORS[s.name]||'#666';
+      leg.innerHTML += `<span><i class="sw" style="background:${col}"></i>${s.name}</span>`;
+    });
+
+    const img=$('img');
+    img.onload=()=>{ layoutOverlay(); };
+    img.src=cur.image;
+  }
+
+  function imgScale(){
+    const img=$('img');
+    const nw=cur.width, nh=cur.height;
+    const dw=img.clientWidth, dh=img.clientHeight;
+    return {sx:dw/nw, sy:dh/nh, dw, dh};
+  }
+
+  let headPopSeg = null;
+  function openHeadTypePop(btn, si){
+    headPopSeg = si;
+    const pop=$('headTypePop');
+    const seg=cur.segments[si];
+    $('headTypeHex').checked = (seg.head_type||'')==='hex';
+    $('headRound').checked = !!seg.head_round;
+    $('headCountersunk').checked = !!seg.head_countersunk;
+    const r=btn.getBoundingClientRect();
+    pop.style.display='block';
+    pop.style.left=Math.min(window.innerWidth-200, r.left)+'px';
+    pop.style.top=(r.bottom+6)+'px';
+  }
+  function applyHeadPop(){
+    if(headPopSeg==null || !cur) return;
+    const seg=cur.segments[headPopSeg];
+    seg.head_type = $('headTypeHex').checked ? 'hex' : '';
+    seg.head_round = $('headRound').checked;
+    seg.head_countersunk = $('headCountersunk').checked;
+    status('Форма головки обновлена');
+    layoutOverlay();
+  }
+  $('headTypeHex').addEventListener('change', applyHeadPop);
+  $('headRound').addEventListener('change', applyHeadPop);
+  $('headCountersunk').addEventListener('change', applyHeadPop);
+  document.addEventListener('mousedown', (e)=>{
+    const pop=$('headTypePop');
+    if(pop.style.display==='block' && !pop.contains(e.target) && !e.target.classList.contains('ht')) pop.style.display='none';
+  });
+
+  function deleteSegment(i){
+    const segs=cur.segments||[];
+    if(segs.length<=1) return;
+    if(i>0){ segs[i-1].x2 = segs[i].x2; }
+    else if(segs.length>1){ segs[1].x1 = segs[0].x1; }
+    segs.splice(i,1);
+    layoutOverlay();
+  }
+  function splitSegment(i){
+    const segs=cur.segments||[];
+    const s=segs[i];
+    const mid=Math.round((s.x1+s.x2)/2);
+    if(mid<=s.x1+2 || mid>=s.x2-2) return;
+    const right={...s, x1:mid, x2:s.x2, name:s.name};
+    s.x2=mid;
+    segs.splice(i+1,0,right);
+    layoutOverlay();
+    status('Блок разделён — нажмите на название, чтобы задать тип');
+  }
+  let namePopSeg=null;
+  function openNamePop(btn, si){
+    namePopSeg=si;
+    const pop=$('segNamePop');
+    const box=$('segNameOpts');
+    const names=Object.keys(COLORS);
+    box.innerHTML=names.map(n=>`<label style="display:flex;gap:8px;align-items:center;margin:4px 0;cursor:pointer"><input type="radio" name="segName" value="${n}" ${cur.segments[si].name===n?'checked':''}> <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${COLORS[n]}"></span>${n}</label>`).join('');
+    box.querySelectorAll('input').forEach(inp=>inp.addEventListener('change',()=>{
+      if(namePopSeg==null||!cur) return;
+      const seg=cur.segments[namePopSeg];
+      seg.name=inp.value;
+      seg.color=COLORS[inp.value]||seg.color; // update color to match type
+      status('Тип блока: '+inp.value);
+      layoutOverlay();
+      $('segNamePop').style.display='none';
+    }));
+    const r=btn.getBoundingClientRect();
+    pop.style.display='block';
+    pop.style.left=Math.min(window.innerWidth-220,r.left)+'px';
+    pop.style.top=(r.bottom+6)+'px';
+  }
+  document.addEventListener('mousedown',(e)=>{
+    const pop=$('segNamePop');
+    if(pop.style.display==='block' && !pop.contains(e.target) && !e.target.classList.contains('seg-name')) pop.style.display='none';
+  });
+
+  function layoutOverlay(){
+    const ov=$('overlay'); ov.innerHTML='';
+    const img=$('img');
+    ov.style.width=img.clientWidth+'px';
+    ov.style.height=img.clientHeight+'px';
+    ov.style.left=img.offsetLeft+'px';
+    ov.style.top=img.offsetTop+'px';
+    const {sx,sy,dw,dh}=imgScale();
+    const segs=cur.segments||[];
+    // segments
+    segs.forEach((s,i)=>{
+      const col=s.color||COLORS[s.name]||'#666';
+      const d=document.createElement('div');
+      d.className='seg';
+      d.style.left=(s.x1*sx)+'px';
+      d.style.width=Math.max(2,(s.x2-s.x1)*sx)+'px';
+      d.style.top=(s.y1*sy)+'px';
+      d.style.height=Math.max(2,(s.y2-s.y1)*sy)+'px';
+      d.style.borderColor=col;
+      d.style.background=col+'22';
+      const lab=document.createElement('div');
+      lab.className='label'; lab.style.background=col;
+      const isHead = s.name==='Головка';
+      const ht = s.head_type||'';
+      const hasHeadOpts = ht==='hex' || s.head_round || s.head_countersunk;
+      const typeBtn = isHead ? `<button class="ht" title="Форма головки (нажмите для выбора)">${hasHeadOpts?'●':'○'}</button>` : '';
+      lab.innerHTML=`<span class="seg-name" title="Изменить тип блока" style="cursor:pointer;text-decoration:underline dotted">${s.name}</span>${typeBtn}<button class="split" title="Разделить блок">✂</button><button class="del" title="Удалить блок">×</button>`;
+      lab.querySelector('.seg-name').addEventListener('mousedown',(ev)=>{ev.stopPropagation(); ev.preventDefault(); openNamePop(ev.currentTarget,i);});
+      if(isHead){
+        lab.querySelector('.ht').addEventListener('mousedown',(ev)=>{
+          ev.stopPropagation(); ev.preventDefault();
+          openHeadTypePop(ev.currentTarget, i);
+        });
+      }
+      lab.querySelector('.split').addEventListener('mousedown', (ev)=>{ev.stopPropagation(); ev.preventDefault(); splitSegment(i);});
+      lab.querySelector('.del').addEventListener('mousedown', (ev)=>{ev.stopPropagation(); ev.preventDefault(); deleteSegment(i);});
+      d.appendChild(lab);
+      const vh=document.createElement('div');
+      vh.className='vhandle'; vh.title='Изменить высоту (симметрично от оси)';
+      vh.dataset.si=i;
+      vh.addEventListener('mousedown', onVDragStart);
+      d.appendChild(vh);
+      ov.appendChild(d);
+    });
+    // boundaries (between segments)
+    for(let i=0;i<segs.length-1;i++){
+      const x = segs[i].x2;
+      const hndl=document.createElement('div');
+      hndl.className='handle';
+      hndl.style.left=(x*sx)+'px';
+      hndl.dataset.bi=i;
+      hndl.addEventListener('mousedown', onDragStart);
+      ov.appendChild(hndl);
+    }
+  }
+
+  function onDragStart(e){
+    e.preventDefault();
+    const bi=+e.target.dataset.bi;
+    drag={type:'h', bi, startX:e.clientX, origX:cur.segments[bi].x2};
+    window.addEventListener('mousemove', onDragMove);
+    window.addEventListener('mouseup', onDragEnd);
+  }
+  function onVDragStart(e){
+    e.preventDefault(); e.stopPropagation();
+    const si=+e.target.dataset.si;
+    const seg=cur.segments[si];
+    drag={type:'v', si, startY:e.clientY, origY1:seg.y1, origY2:seg.y2, cy:(seg.y1+seg.y2)/2};
+    window.addEventListener('mousemove', onDragMove);
+    window.addEventListener('mouseup', onDragEnd);
+  }
+  function onDragMove(e){
+    if(!drag) return;
+    const {sx,sy}=imgScale();
+    const segs=cur.segments;
+    if(drag.type==='h'){
+      const dx=(e.clientX-drag.startX)/sx;
+      let nx=drag.origX+dx;
+      const leftBound=segs[drag.bi].x1+5;
+      const rightBound=segs[drag.bi+1].x2-5;
+      nx=Math.max(leftBound, Math.min(rightBound, nx));
+      segs[drag.bi].x2=Math.round(nx);
+      segs[drag.bi+1].x1=Math.round(nx);
+    } else if(drag.type==='v'){
+      const dy=(e.clientY-drag.startY)/sy;
+      let ny1 = drag.origY1 + dy;
+      const cy = drag.cy;
+      let hw = Math.abs(cy - ny1);
+      hw = Math.max(4, Math.min(cy-1, (cur.height-cy-1), hw));
+      segs[drag.si].y1 = Math.round(cy-hw);
+      segs[drag.si].y2 = Math.round(cy+hw);
+    }
+    layoutOverlay();
+  }
+  function onDragEnd(){
+    drag=null;
+    window.removeEventListener('mousemove', onDragMove);
+    window.removeEventListener('mouseup', onDragEnd);
+  }
+
+  document.querySelectorAll('input[name="suit"]').forEach(r=>r.addEventListener('change',()=>{
+    $('rejectBox').style.display = document.querySelector('input[name="suit"]:checked').value==='rejected' ? 'block':'none';
+  }));
+
+  $('prev').onclick=()=>select(idx-1);
+  $('next').onclick=()=>select(idx+1);
+  window.addEventListener('resize', ()=>{ if(cur) layoutOverlay(); });
+
+  $('save').onclick=async()=>{
+    if(!cur) return;
+    const suit=document.querySelector('input[name="suit"]:checked').value;
+    const payload={
+      slug:cur.slug,
+      status:suit,
+      reject_reason: suit==='rejected' ? $('rejectReason').value : '',
+      segments:cur.segments,
+      notes:$('notes').value||''
+    };
+    const saveBtn=$('save');
+    const oldTxt=saveBtn.textContent;
+    saveBtn.textContent='Сохранение...'; saveBtn.disabled=true;
+    status('Сохранение...');
+    try{
+      const r=await fetch('/api/rehearsal/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      const d=await r.json();
+      if(d.ok){
+        cur.correction={status:payload.status,reject_reason:payload.reject_reason,segments:payload.segments,notes:payload.notes};
+        items[idx].correction=cur.correction;
+        if(payload.status==='ok') items[idx].segments=payload.segments;
+        status('Сохранено: '+cur.slug);
+        saveBtn.textContent='Сохранено ✓'; saveBtn.style.background='#166534';
+        setTimeout(()=>{ saveBtn.textContent=oldTxt; saveBtn.style.background=''; saveBtn.disabled=false; }, 1500);
+        if(payload.status==='rejected'){
+          // reload list excluding rejected
+          await load();
+          return;
+        }
+        renderList();
+      } else { status('Ошибка: '+(d.error||'unknown')); saveBtn.textContent=oldTxt; saveBtn.disabled=false; }
+    }catch(e){ status('Ошибка: '+e.message); saveBtn.textContent=oldTxt; saveBtn.disabled=false; }
+  };
+
+  load().catch(e=>{listStatus('Ошибка: '+e.message); console.error(e)});
+})();
+</script>
+</body>
+</html>

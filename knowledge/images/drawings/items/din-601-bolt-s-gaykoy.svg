@@ -1,49 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 230" font-family="Arial, sans-serif">
-  <rect width="800" height="230" fill="#ffffff"/>
-  <defs>
-    <marker id="ah" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#555"/></marker>
-    <marker id="ahb" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 Z" fill="#555"/></marker>
-  </defs>
-  <style>
-    .s{stroke:#1f2937;stroke-width:2;fill:none}
-    .f{fill:#f6f7f9;stroke:#1f2937;stroke-width:2}
-    .th{stroke:#4b5563;stroke-width:1}
-    .dim{stroke:#6b7280;stroke-width:1;fill:#374151;font-size:13px}
-  </style>
-  
-  <g class="f"><polygon points="120,70 140,55 190,55 210,70 210,110 190,125 140,125 120,110"/></g>
-  <g class="s"><line x1="140" y1="55" x2="140" y2="125"/><line x1="190" y1="55" x2="190" y2="125"/></g>
-  <rect class="f" x="210" y="78" width="170" height="24"/>
-  <rect class="f" x="380" y="78" width="260" height="24"/>
-  <g class="th"><line x1="385" y1="78" x2="393" y2="102"/><line x1="399" y1="78" x2="407" y2="102"/><line x1="413" y1="78" x2="421" y2="102"/><line x1="427" y1="78" x2="435" y2="102"/><line x1="441" y1="78" x2="449" y2="102"/><line x1="455" y1="78" x2="463" y2="102"/><line x1="469" y1="78" x2="477" y2="102"/><line x1="483" y1="78" x2="491" y2="102"/><line x1="497" y1="78" x2="505" y2="102"/><line x1="511" y1="78" x2="519" y2="102"/><line x1="525" y1="78" x2="533" y2="102"/><line x1="539" y1="78" x2="547" y2="102"/><line x1="553" y1="78" x2="561" y2="102"/><line x1="567" y1="78" x2="575" y2="102"/><line x1="581" y1="78" x2="589" y2="102"/><line x1="595" y1="78" x2="603" y2="102"/><line x1="609" y1="78" x2="617" y2="102"/><line x1="623" y1="78" x2="631" y2="102"/></g>
-  <path class="s" d="M640,78 L660,90 L640,102"/>
-  <line class="s" stroke-dasharray="10,6,2,6" x1="90" y1="90" x2="680" y2="90"/>
-  <g class="dim">
-  <line x1="120" y1="55" x2="120" y2="45"/><line x1="210" y1="55" x2="210" y2="45"/>
-  <line x1="120" y1="45" x2="210" y2="45" marker-start="url(#ahb)" marker-end="url(#ah)"/>
-  <text x="165.0" y="40" text-anchor="middle" stroke="none">s</text>
-</g>
-  <g class="dim">
-  <line x1="210" y1="102" x2="210" y2="150"/><line x1="640" y1="102" x2="640" y2="150"/>
-  <line x1="210" y1="150" x2="640" y2="150" marker-start="url(#ahb)" marker-end="url(#ah)"/>
-  <text x="425.0" y="145" text-anchor="middle" stroke="none">l</text>
-</g>
-  <g class="dim">
-  <line x1="380" y1="102" x2="380" y2="165"/><line x1="640" y1="102" x2="640" y2="165"/>
-  <line x1="380" y1="165" x2="640" y2="165" marker-start="url(#ahb)" marker-end="url(#ah)"/>
-  <text x="510.0" y="160" text-anchor="middle" stroke="none">b</text>
-</g>
-  <g class="dim">
-  <line x1="662" y1="78" x2="680" y2="78"/><line x1="662" y1="102" x2="680" y2="102"/>
-  <line x1="680" y1="78" x2="680" y2="102" marker-start="url(#ahb)" marker-end="url(#ah)"/>
-  <text x="688" y="94.0" text-anchor="start" stroke="none">d</text>
-</g>
-  <g class="dim">
-  <line x1="118" y1="55" x2="95" y2="55"/><line x1="118" y1="125" x2="95" y2="125"/>
-  <line x1="95" y1="55" x2="95" y2="125" marker-start="url(#ahb)" marker-end="url(#ah)"/>
-  <text x="103" y="94.0" text-anchor="start" stroke="none">k</text>
-</g>
-
-  <text x="400" y="190" text-anchor="middle" font-size="13" fill="#374151">Схема: DIN 601 болт с гайкой</text>
-  <text x="400" y="205" text-anchor="middle" font-size="12" fill="#556"> s — размер под ключ, k — высота головки, d — диаметр, l — длина, b — длина резьбы</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 595 284" width="595" height="284" font-family="Arial,sans-serif">
+  <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" fill="#555"/></marker><marker id="arrc_0" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto-start-reverse"><path d="M0,0 L7,3.5 L0,7 z" fill="#e53935"/></marker><marker id="arrc_1" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto-start-reverse"><path d="M0,0 L7,3.5 L0,7 z" fill="#43a047"/></marker><marker id="arrc_2" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto-start-reverse"><path d="M0,0 L7,3.5 L0,7 z" fill="#1e88e5"/></marker><marker id="arrc_3" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto-start-reverse"><path d="M0,0 L7,3.5 L0,7 z" fill="#8e24aa"/></marker></defs>
+  <rect width="595" height="284" fill="#fff"/>
+  <text x="297.5" y="24" text-anchor="middle" font-size="14" fill="#222">DIN 601 болт с гайкой</text>
+  <text x="297.5" y="40" text-anchor="middle" font-size="11" fill="#666">din-601-bolt-s-gaykoy · hex</text>
+  <g clip-path="url(#hatch_din_601_bolt_s_gayko)" stroke="#6b7280" stroke-width="0.8"><line x1="375.0" y1="146.5" x2="384.1" y2="121.5" /><line x1="383.0" y1="146.5" x2="392.1" y2="121.5" /><line x1="391.0" y1="146.5" x2="400.1" y2="121.5" /><line x1="399.0" y1="146.5" x2="408.1" y2="121.5" /><line x1="407.0" y1="146.5" x2="416.1" y2="121.5" /><line x1="415.0" y1="146.5" x2="424.1" y2="121.5" /><line x1="423.0" y1="146.5" x2="432.1" y2="121.5" /><line x1="431.0" y1="146.5" x2="440.1" y2="121.5" /><line x1="439.0" y1="146.5" x2="448.1" y2="121.5" /><line x1="447.0" y1="146.5" x2="456.1" y2="121.5" /><line x1="455.0" y1="146.5" x2="464.1" y2="121.5" /><line x1="463.0" y1="146.5" x2="472.1" y2="121.5" /><line x1="471.0" y1="146.5" x2="480.1" y2="121.5" /><line x1="479.0" y1="146.5" x2="488.1" y2="121.5" /><line x1="487.0" y1="146.5" x2="496.1" y2="121.5" /><line x1="495.0" y1="146.5" x2="504.1" y2="121.5" /></g><defs><clipPath id="hatch_din_601_bolt_s_gayko"><rect x="387" y="121.5" width="101" height="25.0"/></clipPath></defs>
+  <path d="M 102.0,106.5 L 123.0,106.5 L 123.0,121.5 L 387.0,121.5 L 387.0,121.5 L 488.0,121.5 L 488.0,122.5 L 493.0,130.0 L 493.0,138.0 L 488.0,145.5 L 488.0,146.5 L 387.0,146.5 L 387.0,146.5 L 123.0,146.5 L 123.0,161.5 L 102.0,161.5 Z" fill="#f8fafc" stroke="#111827" stroke-width="2.4"/>
+  <g class="thread-inner"><line x1="387.0" y1="130.5" x2="488.0" y2="130.5" stroke="#374151" stroke-width="1"/><line x1="387.0" y1="137.5" x2="488.0" y2="137.5" stroke="#374151" stroke-width="1"/></g>
+  <g class="hex-dividers" stroke="#111827" stroke-width="2"><line x1="102.0" y1="120.2" x2="123.0" y2="120.2"/><line x1="102.0" y1="147.8" x2="123.0" y2="147.8"/></g>
+  <rect x="102" y="106.5" width="21" height="55.0" fill="#e53935" fill-opacity="0.08" stroke="#e53935" stroke-opacity="0.45" stroke-width="1.5"/><rect x="123" y="121.5" width="264" height="25.0" fill="#43a047" fill-opacity="0.08" stroke="#43a047" stroke-opacity="0.45" stroke-width="1.5"/><rect x="387" y="121.5" width="101" height="25.0" fill="#1e88e5" fill-opacity="0.08" stroke="#1e88e5" stroke-opacity="0.45" stroke-width="1.5"/><rect x="488" y="122.5" width="5" height="23.0" fill="#8e24aa" fill-opacity="0.08" stroke="#8e24aa" stroke-opacity="0.45" stroke-width="1.5"/>
+  <g class="seg-separators" stroke="#111827" stroke-width="2.2"><line x1="102.0" y1="106.5" x2="102.0" y2="161.5"/><line x1="123.0" y1="106.5" x2="123.0" y2="161.5"/><line x1="123.0" y1="121.5" x2="123.0" y2="146.5"/><line x1="387.0" y1="121.5" x2="387.0" y2="146.5"/><line x1="387.0" y1="121.5" x2="387.0" y2="146.5"/><line x1="488.0" y1="121.5" x2="488.0" y2="146.5"/><line x1="488.0" y1="122.5" x2="488.0" y2="145.5"/><line x1="493.0" y1="130.0" x2="493.0" y2="138.0"/></g>
+  <line x1="87" y1="134.0" x2="507" y2="134.0" stroke="#2563eb" stroke-width="1" stroke-dasharray="12,6,2,6"/>
+  <line x1="112.5" y1="106.5" x2="112.5" y2="97.0" stroke="#e53935" stroke-width="1"/><text x="112.5" y="85.0" text-anchor="middle" font-size="11" fill="#e53935" font-family="Arial">Головка</text><line x1="255.0" y1="121.5" x2="255.0" y2="81.0" stroke="#43a047" stroke-width="1"/><text x="255.0" y="69.0" text-anchor="middle" font-size="11" fill="#43a047" font-family="Arial">Гладкая часть</text><line x1="437.5" y1="121.5" x2="437.5" y2="97.0" stroke="#1e88e5" stroke-width="1"/><text x="437.5" y="85.0" text-anchor="middle" font-size="11" fill="#1e88e5" font-family="Arial">Резьбовая часть</text><line x1="490.5" y1="122.5" x2="490.5" y2="81.0" stroke="#8e24aa" stroke-width="1"/><text x="490.5" y="69.0" text-anchor="middle" font-size="11" fill="#8e24aa" font-family="Arial">Фаска (сбег)</text>
+  <line x1="102.0" y1="165.5" x2="102.0" y2="209.0" stroke="#e53935" stroke-width="0.9"/><line x1="123.0" y1="165.5" x2="123.0" y2="209.0" stroke="#e53935" stroke-width="0.9"/><line x1="102.0" y1="204.0" x2="123.0" y2="204.0" stroke="#e53935" stroke-width="1" marker-start="url(#arrc_0)" marker-end="url(#arrc_0)"/><text x="112.5" y="201.0" text-anchor="middle" font-size="11" fill="#e53935" font-family="Arial">l1</text><line x1="123.0" y1="150.5" x2="123.0" y2="227.0" stroke="#43a047" stroke-width="0.9"/><line x1="387.0" y1="150.5" x2="387.0" y2="227.0" stroke="#43a047" stroke-width="0.9"/><line x1="123.0" y1="222.0" x2="387.0" y2="222.0" stroke="#43a047" stroke-width="1" marker-start="url(#arrc_1)" marker-end="url(#arrc_1)"/><text x="255.0" y="219.0" text-anchor="middle" font-size="11" fill="#43a047" font-family="Arial">l2</text><line x1="387.0" y1="150.5" x2="387.0" y2="245.0" stroke="#1e88e5" stroke-width="0.9"/><line x1="488.0" y1="150.5" x2="488.0" y2="245.0" stroke="#1e88e5" stroke-width="0.9"/><line x1="387.0" y1="240.0" x2="488.0" y2="240.0" stroke="#1e88e5" stroke-width="1" marker-start="url(#arrc_2)" marker-end="url(#arrc_2)"/><text x="437.5" y="237.0" text-anchor="middle" font-size="11" fill="#1e88e5" font-family="Arial">l3</text><line x1="488.0" y1="149.5" x2="488.0" y2="209.0" stroke="#8e24aa" stroke-width="0.9"/><line x1="493.0" y1="149.5" x2="493.0" y2="209.0" stroke="#8e24aa" stroke-width="0.9"/><line x1="488.0" y1="204.0" x2="493.0" y2="204.0" stroke="#8e24aa" stroke-width="1" marker-start="url(#arrc_3)" marker-end="url(#arrc_3)"/><text x="490.5" y="201.0" text-anchor="middle" font-size="11" fill="#8e24aa" font-family="Arial">l4</text>
+  <g stroke="#111" stroke-width="1" font-family="Arial" font-size="13" fill="#111">
+      <line x1="102" y1="171.5" x2="102" y2="244"/>
+      <line x1="492" y1="171.5" x2="492" y2="244"/>
+      <line x1="102" y1="239" x2="492" y2="239" marker-start="url(#arr)" marker-end="url(#arr)"/>
+      <text x="297.0" y="234" text-anchor="middle">l</text>
+    </g>
+  <g stroke="#374151" stroke-width="1" font-family="Arial" font-size="12" fill="#111">
+      <line x1="97" y1="106.5" x2="70" y2="106.5"/>
+      <line x1="97" y1="161.5" x2="70" y2="161.5"/>
+      <line x1="75" y1="106.5" x2="75" y2="161.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+      <text x="68" y="138.0" text-anchor="end">D</text>
+    </g>
+  <g stroke="#374151" stroke-width="1" font-family="Arial" font-size="12" fill="#111">
+      <line x1="497" y1="121.5" x2="525" y2="121.5"/>
+      <line x1="497" y1="146.5" x2="525" y2="146.5"/>
+      <line x1="520" y1="121.5" x2="520" y2="146.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+      <text x="527" y="138.0" text-anchor="start">d</text>
+    </g>
 </svg>

@@ -1,38 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 230" font-family="Arial, sans-serif">
-  <rect width="800" height="230" fill="#ffffff"/>
-  <defs>
-    <marker id="ah" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#555"/></marker>
-    <marker id="ahb" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 Z" fill="#555"/></marker>
-  </defs>
-  <style>
-    .s{stroke:#1f2937;stroke-width:2;fill:none}
-    .f{fill:#f6f7f9;stroke:#1f2937;stroke-width:2}
-    .th{stroke:#4b5563;stroke-width:1}
-    .dim{stroke:#6b7280;stroke-width:1;fill:#374151;font-size:13px}
-  </style>
-  
-  <path class="f" d="M120,95 L210,70 L210,120 Z"/>
-  <rect class="f" x="210" y="84" width="150" height="22"/>
-  <rect class="f" x="360" y="84" width="270" height="22"/>
-  <g class="th"><line x1="365" y1="84" x2="373" y2="106"/><line x1="379" y1="84" x2="387" y2="106"/><line x1="393" y1="84" x2="401" y2="106"/><line x1="407" y1="84" x2="415" y2="106"/><line x1="421" y1="84" x2="429" y2="106"/><line x1="435" y1="84" x2="443" y2="106"/><line x1="449" y1="84" x2="457" y2="106"/><line x1="463" y1="84" x2="471" y2="106"/><line x1="477" y1="84" x2="485" y2="106"/><line x1="491" y1="84" x2="499" y2="106"/><line x1="505" y1="84" x2="513" y2="106"/><line x1="519" y1="84" x2="527" y2="106"/><line x1="533" y1="84" x2="541" y2="106"/><line x1="547" y1="84" x2="555" y2="106"/><line x1="561" y1="84" x2="569" y2="106"/><line x1="575" y1="84" x2="583" y2="106"/><line x1="589" y1="84" x2="597" y2="106"/><line x1="603" y1="84" x2="611" y2="106"/><line x1="617" y1="84" x2="625" y2="106"/></g>
-  <path class="s" d="M630,84 L650,95 L630,106"/>
-  <line class="s" stroke-dasharray="10,6,2,6" x1="100" y1="95" x2="670" y2="95"/>
-  <g class="dim">
-  <line x1="120" y1="95" x2="120" y2="50"/><line x1="210" y1="70" x2="210" y2="50"/>
-  <line x1="120" y1="50" x2="210" y2="50" marker-start="url(#ahb)" marker-end="url(#ah)"/>
-  <text x="165.0" y="45" text-anchor="middle" stroke="none">k</text>
-</g>
-  <g class="dim">
-  <line x1="210" y1="106" x2="210" y2="150"/><line x1="630" y1="106" x2="630" y2="150"/>
-  <line x1="210" y1="150" x2="630" y2="150" marker-start="url(#ahb)" marker-end="url(#ah)"/>
-  <text x="420.0" y="145" text-anchor="middle" stroke="none">l</text>
-</g>
-  <g class="dim">
-  <line x1="652" y1="84" x2="665" y2="84"/><line x1="652" y1="106" x2="665" y2="106"/>
-  <line x1="665" y1="84" x2="665" y2="106" marker-start="url(#ahb)" marker-end="url(#ah)"/>
-  <text x="673" y="99.0" text-anchor="start" stroke="none">d</text>
-</g>
-
-  <text x="400" y="190" text-anchor="middle" font-size="13" fill="#374151">Схема: ГОСТ 7786-81 Болт лемешный</text>
-  <text x="400" y="205" text-anchor="middle" font-size="12" fill="#556"> Потайная головка/подголовок; d — диаметр, l — длина, k — размер головки</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 402 328" width="402" height="328" font-family="Arial,sans-serif">
+  <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" fill="#555"/></marker><marker id="arrc_0" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto-start-reverse"><path d="M0,0 L7,3.5 L0,7 z" fill="#e53935"/></marker><marker id="arrc_1" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto-start-reverse"><path d="M0,0 L7,3.5 L0,7 z" fill="#43a047"/></marker><marker id="arrc_2" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto-start-reverse"><path d="M0,0 L7,3.5 L0,7 z" fill="#1e88e5"/></marker><marker id="arrc_3" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto-start-reverse"><path d="M0,0 L7,3.5 L0,7 z" fill="#8e24aa"/></marker></defs>
+  <rect width="402" height="328" fill="#fff"/>
+  <text x="201.0" y="24" text-anchor="middle" font-size="14" fill="#222">ГОСТ 7786-81 Болт лемешный</text>
+  <text x="201.0" y="40" text-anchor="middle" font-size="11" fill="#666">gost-7786-81-bolt-lemeshnyy · countersunk</text>
+  <g clip-path="url(#hatch_gost_7786_81_bolt_le)" stroke="#6b7280" stroke-width="0.8"><line x1="167.0" y1="176.5" x2="181.9" y2="135.5" /><line x1="175.0" y1="176.5" x2="189.9" y2="135.5" /><line x1="183.0" y1="176.5" x2="197.9" y2="135.5" /><line x1="191.0" y1="176.5" x2="205.9" y2="135.5" /><line x1="199.0" y1="176.5" x2="213.9" y2="135.5" /><line x1="207.0" y1="176.5" x2="221.9" y2="135.5" /><line x1="215.0" y1="176.5" x2="229.9" y2="135.5" /><line x1="223.0" y1="176.5" x2="237.9" y2="135.5" /><line x1="231.0" y1="176.5" x2="245.9" y2="135.5" /><line x1="239.0" y1="176.5" x2="253.9" y2="135.5" /><line x1="247.0" y1="176.5" x2="261.9" y2="135.5" /><line x1="255.0" y1="176.5" x2="269.9" y2="135.5" /><line x1="263.0" y1="176.5" x2="277.9" y2="135.5" /><line x1="271.0" y1="176.5" x2="285.9" y2="135.5" /><line x1="279.0" y1="176.5" x2="293.9" y2="135.5" /><line x1="287.0" y1="176.5" x2="301.9" y2="135.5" /><line x1="295.0" y1="176.5" x2="309.9" y2="135.5" /><line x1="303.0" y1="176.5" x2="317.9" y2="135.5" /></g><defs><clipPath id="hatch_gost_7786_81_bolt_le"><rect x="187" y="135.5" width="103" height="41.0"/></clipPath></defs>
+  <path d="M 102.0,106.5 L 129.0,135.5 L 129.0,135.5 L 187.0,135.5 L 187.0,135.5 L 290.0,135.5 L 290.0,134.5 L 300.0,148.5 L 300.0,163.5 L 290.0,177.5 L 290.0,176.5 L 187.0,176.5 L 187.0,176.5 L 129.0,176.5 L 129.0,176.5 L 102.0,205.5 Z" fill="#f8fafc" stroke="#111827" stroke-width="2.4"/>
+  <g class="thread-inner"><line x1="187.0" y1="144.5" x2="290.0" y2="144.5" stroke="#374151" stroke-width="1"/><line x1="187.0" y1="167.5" x2="290.0" y2="167.5" stroke="#374151" stroke-width="1"/></g>
+  <g class="hex-dividers" stroke="#111827" stroke-width="2"></g>
+  <rect x="102" y="106.5" width="27" height="99.0" fill="#e53935" fill-opacity="0.08" stroke="#e53935" stroke-opacity="0.45" stroke-width="1.5"/><rect x="129" y="135.5" width="58" height="41.0" fill="#43a047" fill-opacity="0.08" stroke="#43a047" stroke-opacity="0.45" stroke-width="1.5"/><rect x="187" y="135.5" width="103" height="41.0" fill="#1e88e5" fill-opacity="0.08" stroke="#1e88e5" stroke-opacity="0.45" stroke-width="1.5"/><rect x="290" y="134.5" width="10" height="43.0" fill="#8e24aa" fill-opacity="0.08" stroke="#8e24aa" stroke-opacity="0.45" stroke-width="1.5"/>
+  <g class="seg-separators" stroke="#111827" stroke-width="2.2"><line x1="102.0" y1="106.5" x2="102.0" y2="205.5"/><line x1="129.0" y1="135.5" x2="129.0" y2="176.5"/><line x1="129.0" y1="135.5" x2="129.0" y2="176.5"/><line x1="187.0" y1="135.5" x2="187.0" y2="176.5"/><line x1="187.0" y1="135.5" x2="187.0" y2="176.5"/><line x1="290.0" y1="135.5" x2="290.0" y2="176.5"/><line x1="290.0" y1="134.5" x2="290.0" y2="177.5"/><line x1="300.0" y1="148.5" x2="300.0" y2="163.5"/></g>
+  <line x1="87" y1="156.0" x2="314" y2="156.0" stroke="#2563eb" stroke-width="1" stroke-dasharray="12,6,2,6"/>
+  <line x1="115.5" y1="106.5" x2="115.5" y2="97.0" stroke="#e53935" stroke-width="1"/><text x="115.5" y="85.0" text-anchor="middle" font-size="11" fill="#e53935" font-family="Arial">Головка</text><line x1="158.0" y1="135.5" x2="158.0" y2="81.0" stroke="#43a047" stroke-width="1"/><text x="158.0" y="69.0" text-anchor="middle" font-size="11" fill="#43a047" font-family="Arial">Гладкая часть</text><line x1="238.5" y1="135.5" x2="238.5" y2="97.0" stroke="#1e88e5" stroke-width="1"/><text x="238.5" y="85.0" text-anchor="middle" font-size="11" fill="#1e88e5" font-family="Arial">Резьбовая часть</text><line x1="295.0" y1="134.5" x2="295.0" y2="81.0" stroke="#8e24aa" stroke-width="1"/><text x="295.0" y="69.0" text-anchor="middle" font-size="11" fill="#8e24aa" font-family="Arial">Фаска (сбег)</text>
+  <line x1="102.0" y1="209.5" x2="102.0" y2="253.0" stroke="#e53935" stroke-width="0.9"/><line x1="129.0" y1="209.5" x2="129.0" y2="253.0" stroke="#e53935" stroke-width="0.9"/><line x1="102.0" y1="248.0" x2="129.0" y2="248.0" stroke="#e53935" stroke-width="1" marker-start="url(#arrc_0)" marker-end="url(#arrc_0)"/><text x="115.5" y="245.0" text-anchor="middle" font-size="11" fill="#e53935" font-family="Arial">l1</text><line x1="129.0" y1="180.5" x2="129.0" y2="271.0" stroke="#43a047" stroke-width="0.9"/><line x1="187.0" y1="180.5" x2="187.0" y2="271.0" stroke="#43a047" stroke-width="0.9"/><line x1="129.0" y1="266.0" x2="187.0" y2="266.0" stroke="#43a047" stroke-width="1" marker-start="url(#arrc_1)" marker-end="url(#arrc_1)"/><text x="158.0" y="263.0" text-anchor="middle" font-size="11" fill="#43a047" font-family="Arial">l2</text><line x1="187.0" y1="180.5" x2="187.0" y2="289.0" stroke="#1e88e5" stroke-width="0.9"/><line x1="290.0" y1="180.5" x2="290.0" y2="289.0" stroke="#1e88e5" stroke-width="0.9"/><line x1="187.0" y1="284.0" x2="290.0" y2="284.0" stroke="#1e88e5" stroke-width="1" marker-start="url(#arrc_2)" marker-end="url(#arrc_2)"/><text x="238.5" y="281.0" text-anchor="middle" font-size="11" fill="#1e88e5" font-family="Arial">l3</text><line x1="290.0" y1="181.5" x2="290.0" y2="253.0" stroke="#8e24aa" stroke-width="0.9"/><line x1="300.0" y1="181.5" x2="300.0" y2="253.0" stroke="#8e24aa" stroke-width="0.9"/><line x1="290.0" y1="248.0" x2="300.0" y2="248.0" stroke="#8e24aa" stroke-width="1" marker-start="url(#arrc_3)" marker-end="url(#arrc_3)"/><text x="295.0" y="245.0" text-anchor="middle" font-size="11" fill="#8e24aa" font-family="Arial">l4</text>
+  <g stroke="#111" stroke-width="1" font-family="Arial" font-size="13" fill="#111">
+      <line x1="102" y1="215.5" x2="102" y2="288"/>
+      <line x1="299" y1="215.5" x2="299" y2="288"/>
+      <line x1="102" y1="283" x2="299" y2="283" marker-start="url(#arr)" marker-end="url(#arr)"/>
+      <text x="200.5" y="278" text-anchor="middle">l</text>
+    </g>
+  <g stroke="#374151" stroke-width="1" font-family="Arial" font-size="12" fill="#111">
+      <line x1="97" y1="106.5" x2="70" y2="106.5"/>
+      <line x1="97" y1="205.5" x2="70" y2="205.5"/>
+      <line x1="75" y1="106.5" x2="75" y2="205.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+      <text x="68" y="160.0" text-anchor="end">D</text>
+    </g>
+  <g stroke="#374151" stroke-width="1" font-family="Arial" font-size="12" fill="#111">
+      <line x1="304" y1="135.5" x2="332" y2="135.5"/>
+      <line x1="304" y1="176.5" x2="332" y2="176.5"/>
+      <line x1="327" y1="135.5" x2="327" y2="176.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+      <text x="334" y="160.0" text-anchor="start">d</text>
+    </g>
 </svg>

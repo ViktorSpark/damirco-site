@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Чертежи болтов по разметке</title>
+  <style>
+    :root{--bg:#f3f4f6;--line:#d1d5db;--text:#111827;--muted:#6b7280}
+    *{box-sizing:border-box} body{margin:0;font:14px/1.45 system-ui,sans-serif;background:var(--bg);color:var(--text)}
+    .top{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 16px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+    .top h1{font-size:18px;margin:0}.sub{color:var(--muted);font-size:12px}
+    .btn{display:inline-flex;padding:8px 10px;border:1px solid var(--line);background:#fff;border-radius:8px;cursor:pointer;text-decoration:none;color:inherit}
+    .layout{display:grid;grid-template-columns:300px 1fr;gap:12px;padding:12px}
+    .panel{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px}
+    .list{display:flex;flex-direction:column;gap:6px;max-height:75vh;overflow:auto}
+    .item{padding:8px;border:1px solid var(--line);border-radius:8px;cursor:pointer}.item.active{border-color:#1f6b3b;background:#f0faf3}
+    .t{font-size:13px;font-weight:600}.m{font-size:11px;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;overflow:auto}
+    .card h3{margin:0 0 8px;font-size:14px}
+    .img-wrap{position:relative;display:inline-block;padding-top:24px}
+    .img-wrap img{display:block;max-width:100%;height:auto}
+    .overlay{position:absolute;left:0;top:24px;right:0;bottom:0;pointer-events:none}
+    .seg{position:absolute;border:2px solid;background:rgba(255,255,255,0.03)}
+    .seg .label{position:absolute;top:-20px;left:0;font-size:11px;color:#fff;padding:1px 4px;border-radius:3px;white-space:nowrap}
+    svg{max-width:100%;height:auto;border:1px solid #eee;background:#fff}
+    @media(max-width:1100px){.layout{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="top">
+    <div><h1>Чертежи болтов по разметке</h1><div class="sub">Оригинал (с цветной разметкой) и построенный чертёж (вертикальные выноски названий, буквенные выноски размеров, D/d/l).</div></div>
+    <div style="display:flex;gap:8px"><a class="btn" id="toMarkup" href="/knowledge/tools/drawing-rehearsal.html">← К разметке</a><button class="btn" id="reload">Обновить</button></div>
+  </div>
+  <div class="layout">
+    <div class="panel"><h3 style="margin:0 0 8px">Болты (ok)</h3><div class="list" id="list"></div><div id="status" class="sub" style="margin-top:8px"></div></div>
+    <div>
+      <div id="title" style="font-size:16px;font-weight:600;margin:0 0 8px"></div>
+      <div class="grid">
+        <div class="card"><h3>Оригинал (обработанный) + разметка</h3><div class="img-wrap" id="origWrap"><img id="orig" alt=""><div class="overlay" id="overlay"></div></div></div>
+        <div class="card"><h3>Чертёж <span style="float:right;font-weight:normal"><button class="btn" id="zOut" style="padding:2px 8px">−</button> <span id="zVal">100%</span> <button class="btn" id="zIn" style="padding:2px 8px">+</button> <button class="btn" id="zReset" style="padding:2px 8px">Сброс</button></span></h3><div style="overflow:auto;max-height:80vh;border:1px solid #eee"><div id="drawingWrap" style="transform-origin:top left"><div id="drawing"></div></div></div></div>
+      </div>
+    </div>
+  </div>
+<script>
+(() => {
+  const $=id=>document.getElementById(id);
+  let items=[], idx=0, zoom=1;
+  function applyZoom(){ $('drawingWrap').style.transform=`scale(${zoom})`; $('drawingWrap').style.width=(100/zoom)+'%'; $('zVal').textContent=Math.round(zoom*100)+'%'; }
+
+  function renderList(){
+    const el=$('list'); el.innerHTML='';
+    items.forEach((it,i)=>{
+      const d=document.createElement('div'); d.className='item'+(i===idx?' active':'');
+      d.innerHTML=`<div class="t">${i+1}. ${it.slug}</div><div class="m">${it.family} · ${(it.segments||[]).length} блоков</div>`;
+      d.onclick=()=>select(i); el.appendChild(d);
+    });
+  }
+  function select(i){ idx=Math.max(0,Math.min(items.length-1,i)); renderList(); renderCurrent(); if(items[idx]) setSlug(items[idx].slug); }
+  function renderCurrent(){
+    const it=items[idx]; if(!it) return;
+    $('title').textContent = `${idx+1}/${items.length} — ${it.title}`;
+    $('drawing').innerHTML = it.svg || `<div class="sub">Ошибка: ${it.error||'нет svg'}</div>`;
+    const img=$('orig');
+    img.onload=()=>layoutOverlay(it);
+    img.src=it.image;
+  }
+  function layoutOverlay(it){
+    const img=$('orig'), ov=$('overlay');
+    ov.innerHTML='';
+    ov.style.width=img.clientWidth+'px';
+    ov.style.height=img.clientHeight+'px';
+    ov.style.left=img.offsetLeft+'px';
+    ov.style.top=img.offsetTop+'px';
+    const sx=img.clientWidth/it.width, sy=img.clientHeight/it.height;
+    (it.segments||[]).forEach(s=>{
+      const col=s.color||'#666';
+      const d=document.createElement('div'); d.className='seg';
+      d.style.left=(s.x1*sx)+'px'; d.style.top=(s.y1*sy)+'px';
+      d.style.width=Math.max(2,(s.x2-s.x1)*sx)+'px'; d.style.height=Math.max(2,(s.y2-s.y1)*sy)+'px';
+      d.style.borderColor=col; d.style.background=col+'18';
+      const lab=document.createElement('div'); lab.className='label'; lab.style.background=col; lab.textContent=s.name;
+      d.appendChild(lab); ov.appendChild(d);
+    });
+  }
+  function getSlug(){ return new URLSearchParams(location.search).get('slug')||''; }
+  function setSlug(slug){ const u=new URL(location.href); u.searchParams.set('slug',slug); history.replaceState(null,'',u); $('toMarkup').href='/knowledge/tools/drawing-rehearsal.html?slug='+encodeURIComponent(slug); }
+  async function load(){
+    $('status').textContent='Загрузка...';
+    const r=await fetch('/api/rehearsal/drawings');
+    const d=await r.json();
+    items=d.items||[];
+    $('status').textContent=`Готово: ${items.length}`;
+    renderList();
+    const want=getSlug();
+    const wi=items.findIndex(x=>x.slug===want);
+    select(wi>=0?wi:0);
+  }
+  $('reload').onclick=load;
+  $('zIn').onclick=()=>{ zoom=Math.min(4,zoom+0.15); applyZoom(); };
+  $('zOut').onclick=()=>{ zoom=Math.max(0.3,zoom-0.15); applyZoom(); };
+  $('zReset').onclick=()=>{ zoom=1; applyZoom(); };
+  window.addEventListener('resize',()=>{ if(items[idx]) layoutOverlay(items[idx]); });
+  load().catch(e=>$('status').textContent='Ошибка: '+e.message);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+[
+  {
+    "slug": "art-10105-bolt-s-flantsem",
+    "family": "flange",
+    "angle": -0.5536701121377519,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Гладкая часть",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "art-10105-bolt-s-flantsem.png",
+    "panel": "art-10105-bolt-s-flantsem_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_art-10105-bolt-s-flancem.jpg_171b8b49ba47a55e.jpg"
+  },
+  {
+    "slug": "art-88928-bolt-s-t-obraznoy-golovkoy-dlya-profilya",
+    "family": "tbolt",
+    "angle": -38.39454817664421,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "art-88928-bolt-s-t-obraznoy-golovkoy-dlya-profilya.png",
+    "panel": "art-88928-bolt-s-t-obraznoy-golovkoy-dlya-profilya_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_art-88928-bolt-s-t-obraznoj-golovkoj.jpg_9f99f838cc69dd07.jpg"
+  },
+  {
+    "slug": "art-88933-bolt-so-stopornym-burtom",
+    "family": "hex",
+    "angle": -83.82406215416438,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Гладкая часть",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "art-88933-bolt-so-stopornym-burtom.png",
+    "panel": "art-88933-bolt-so-stopornym-burtom_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_art-88933-bolt-stopornyj-s-burtom-i-rifleniem.jpg_0de3f201e21ae5ca.jpg"
+  },
+  {
+    "slug": "din-15237-bolt-noriynyy",
+    "family": "elevator",
+    "angle": 46.871465215187726,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Гладкая часть",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "din-15237-bolt-noriynyy.png",
+    "panel": "din-15237-bolt-noriynyy_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_din-15237-bolt-norijnyj-transporternyj.jpg_9c377c509967258c.jpg"
+  },
+  {
+    "slug": "din-444-bolt-otkidnoy",
+    "family": "swing",
+    "angle": 19.854905837825527,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Гладкая часть",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "din-444-bolt-otkidnoy.png",
+    "panel": "din-444-bolt-otkidnoy_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_din-444-bolt-otkidnoj.jpg_b79367fb522f01dc.jpg"
+  },
+  {
+    "slug": "din-529-bolty-ankernye",
+    "family": "anchor",
+    "angle": 48.57995003172799,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "din-529-bolty-ankernye.png",
+    "panel": "din-529-bolty-ankernye_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_anker-fundamentnyj-din-529-bolt-ankernyj-a.jpg_ccaf804ba1dc2913.jpg"
+  },
+  {
+    "slug": "din-580-rym-bolt",
+    "family": "eye",
+    "angle": -89.31274438803634,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Гладкая часть",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "din-580-rym-bolt.png",
+    "panel": "din-580-rym-bolt_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_din-580-rym-bolt-stal.jpg_56e66fc19a71ca5a.jpg"
+  },
+  {
+    "slug": "din-603-bolt-mebelnyy-s-polukrugloy-golovkoy",
+    "family": "carriage",
+    "angle": 0.015512722568871595,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Гладкая часть",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "din-603-bolt-mebelnyy-s-polukrugloy-golovkoy.png",
+    "panel": "din-603-bolt-mebelnyy-s-polukrugloy-golovkoy_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_din-603-bolt-mebelnyj-s-kvadratnym-podgolovkom-cink.jpg_c3974a77eb749dee.jpg"
+  },
+  {
+    "slug": "din-604-bolt-s-potaynoy-golovkoy-i-usom",
+    "family": "countersunk",
+    "angle": 2.285434464132578,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Гладкая часть",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "din-604-bolt-s-potaynoy-golovkoy-i-usom.png",
+    "panel": "din-604-bolt-s-potaynoy-golovkoy-i-usom_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_din-604-bolt-mebelnyj-s-potajnoj-golovkoj-i-usom.jpg_7f2e7caeedee937a.jpg"
+  },
+  {
+    "slug": "din-609-bolt-prizonnyy",
+    "family": "fitting",
+    "angle": -7.429195385643368,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Гладкая часть",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "din-609-bolt-prizonnyy.png",
+    "panel": "din-609-bolt-prizonnyy_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_din-609-bolt-prizonnyj.jpg_ce2d38403851fc80.jpg"
+  },
+  {
+    "slug": "art-88912-bolt-s-flantsem-s-nasechkami",
+    "family": "flange",
+    "angle": 34.58460280776015,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Гладкая часть",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "art-88912-bolt-s-flantsem-s-nasechkami.png",
+    "panel": "art-88912-bolt-s-flantsem-s-nasechkami_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_art-88912-bolt-s-flancem-s-nasechkami.jpg_c87a13f93c8c16aa.jpg"
+  },
+  {
+    "slug": "art-88940-bolt-halfen-dlya-profilya",
+    "family": "tbolt",
+    "angle": 0.0148862638180276,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "art-88940-bolt-halfen-dlya-profilya.png",
+    "panel": "art-88940-bolt-halfen-dlya-profilya_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_art-88940-bolt-halfen-dlya-krepleniya-profilya.jpg_2d647d73a2e665d4.jpg"
+  },
+  {
+    "slug": "din-22424-bolt-s-trehgrannoy-golovkoy-i-burtikom",
+    "family": "hex",
+    "angle": -48.43310985393262,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Гладкая часть",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "din-22424-bolt-s-trehgrannoy-golovkoy-i-burtikom.png",
+    "panel": "din-22424-bolt-s-trehgrannoy-golovkoy-i-burtikom_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_din-22424-bolt-s-trekhgrannoj-golovkoj-i-burtikom.jpg_0afb6c8eb0a60cbb.jpg"
+  },
+  {
+    "slug": "gost-3033-79-bolty-otkidnye",
+    "family": "swing",
+    "angle": -12.3852718149368,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Гладкая часть",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "gost-3033-79-bolty-otkidnye.png",
+    "panel": "gost-3033-79-bolty-otkidnye_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_gost-3033-79-bolty-otkidnye.jpg_728768bc10aeb11c.jpg"
+  },
+  {
+    "slug": "gost-24379-1-2012-bolty-fundamentnye",
+    "family": "anchor",
+    "angle": 87.06779961621278,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "gost-24379-1-2012-bolty-fundamentnye.png",
+    "panel": "gost-24379-1-2012-bolty-fundamentnye_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_gost-24379-1-2012-bolt-fundamentnyj-tip-1.png_864481249dc2c632.png"
+  },
+  {
+    "slug": "din-607-bolt-mebelnyy-s-usom",
+    "family": "carriage",
+    "angle": 47.13312847310026,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Гладкая часть",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "din-607-bolt-mebelnyy-s-usom.png",
+    "panel": "din-607-bolt-mebelnyy-s-usom_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_din-607-bolt-mebelnyj-s-usom.jpg_a43a7f44c26fd605.jpg"
+  },
+  {
+    "slug": "din-605-bolt-s-potaynoy-golovkoy-i-kvadratnym-podgolovkom",
+    "family": "countersunk",
+    "angle": -0.7275292100017339,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Гладкая часть",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "din-605-bolt-s-potaynoy-golovkoy-i-kvadratnym-podgolovkom.png",
+    "panel": "din-605-bolt-s-potaynoy-golovkoy-i-kvadratnym-podgolovkom_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_din-605-bolt-mebelnyj-s-kvadratnym-podgolovkom-i-potajnoj-golovkoj.jpg_c6511fd4dc756cc6.jpg"
+  },
+  {
+    "slug": "din-610-bolt-prizonnyy",
+    "family": "fitting",
+    "angle": -23.36186681032416,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Гладкая часть",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "din-610-bolt-prizonnyy.png",
+    "panel": "din-610-bolt-prizonnyy_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_din-610-bolt-prizonnyj.jpg_99215007cdb30a96.jpg"
+  },
+  {
+    "slug": "art-88913-bolt-shestigrannyy-s-flantsem",
+    "family": "flange",
+    "angle": -41.34337178717311,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Гладкая часть",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "art-88913-bolt-shestigrannyy-s-flantsem.png",
+    "panel": "art-88913-bolt-shestigrannyy-s-flantsem_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_art-88913-bolt-shestigrannyj-s-flancem.jpg_0d1304ec45fd604c.jpg"
+  },
+  {
+    "slug": "art-88950-bolt-halfen-dlya-profilya",
+    "family": "tbolt",
+    "angle": -0.2781371806181312,
+    "segs": [
+      "Головка",
+      "Подголовник",
+      "Резьбовая часть",
+      "Фаска (сбег)"
+    ],
+    "file": "art-88950-bolt-halfen-dlya-profilya.png",
+    "panel": "art-88950-bolt-halfen-dlya-profilya_panel.png",
+    "orig": "/Users/kazadaevinfografygmail.com/Documents/Default Project/damirco/site/knowledge/images/images_art-88950-bolt-halfen-dlya-profilya.jpg_69492b1fb85ecb18.jpg"
+  }
+]

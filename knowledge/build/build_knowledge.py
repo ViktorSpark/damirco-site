@@ -814,17 +814,6 @@ def build():
         figure_html = ''
         fig_img = img
         fig_caption = f"{t['name']}{(' — ' + std_label) if std_label else ''}"
-        if t.get('category_id') == 'bolts':
-            low_name = (t.get('name') or '').lower()
-            if 'рым' in low_name or 'eye' in low_name:
-                fig_img = '../images/drawings/eye-bolt-drawing.svg'
-                fig_caption = f"Схема: {t['name']}"
-            elif any(x in low_name for x in ['t-образ', 'т-образ', 'паз', 'halfen', 'молотков']):
-                fig_img = '../images/drawings/t-bolt-drawing.svg'
-                fig_caption = f"Схема: {t['name']}"
-            else:
-                fig_img = '../images/drawings/hex-bolt-drawing.svg'
-                fig_caption = f"Схема: {t['name']}"
         custom_drawing_png = OUT / 'images' / 'drawings' / 'items' / f"{type_slug[t['id']]}.png"
         custom_drawing_svg = OUT / 'images' / 'drawings' / 'items' / f"{type_slug[t['id']]}.svg"
         if custom_drawing_png.exists():
@@ -833,6 +822,10 @@ def build():
         elif custom_drawing_svg.exists():
             fig_img = f"../images/drawings/items/{type_slug[t['id']]}.svg"
             fig_caption = f"Чертёж: {t['name']}"
+        elif t.get('category_id') == 'bolts':
+            # No approved custom drawing for this bolt: omit figure until replaced
+            fig_img = ''
+            fig_caption = f"{t['name']}"
         if fig_img:
             figure_html = f"""
   <figure class="wk-figure">
